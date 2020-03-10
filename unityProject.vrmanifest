@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.masterthesis_v1.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\baer1\\Documents\\Coding the Master-Thesis\\workspace\\Masterthesis_v1\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "Masterthesis_v1 [Testing]"
+        }
+      }
+    }
+  ]
+}
