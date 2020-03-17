@@ -10,59 +10,8 @@ ModelImporter:
       74: -174682182651802183
     second: 0_T Pose
   - first:
-      74: 3548154380705229187
-    second: Standing_10
-  - first:
-      74: -3645360180792030909
-    second: Standing_09
-  - first:
-      74: -3018179642410475856
-    second: Standing_08
-  - first:
-      74: -6063995307847253249
-    second: Standing_07
-  - first:
-      74: 2669287627098362453
-    second: Standing_06
-  - first:
-      74: 4526096398978436521
-    second: Standing_05
-  - first:
-      74: 1167606774447028138
-    second: Standing_04
-  - first:
-      74: -6004590992662604953
-    second: Standing_03
-  - first:
-      74: 6744350756050179739
-    second: Standing_02
-  - first:
-      74: 5801373104503122205
-    second: Standing_01
-  - first:
-      74: 1149824441825625052
-    second: Sitting_Floor
-  - first:
-      74: 1126143919908054561
-    second: Sitting_Bench_02
-  - first:
-      74: 5477579324401164447
-    second: Sitting_Bench_01
-  - first:
-      74: 6846022562888733780
-    second: Sitting_Barstool
-  - first:
-      74: -7101062917711288323
-    second: Reclining_Floor_02
-  - first:
-      74: -6934595010755259371
-    second: Reclining_Floor_01
-  - first:
-      74: 1132338304217640208
-    second: Moving_Walk
-  - first:
-      74: 7805561521385957661
-    second: Against Wall
+      74: 4343042457862162447
+    second: Office
   - first:
       74: -8765926809051069468
     second: 0_T-Pose
@@ -70,59 +19,8 @@ ModelImporter:
       74: 5876027164343189283
     second: 0_T Pose
   - first:
-      74: -6322728603355656109
-    second: Standing_10
-  - first:
-      74: -5171403267798723347
-    second: Standing_09
-  - first:
-      74: -6493636911345206151
-    second: Standing_08
-  - first:
-      74: -4369825793414812818
-    second: Standing_07
-  - first:
-      74: -7519351831765334449
-    second: Standing_06
-  - first:
-      74: -478791804025955912
-    second: Standing_05
-  - first:
-      74: -6375959568192457038
-    second: Standing_04
-  - first:
-      74: -5312581820427924137
-    second: Standing_03
-  - first:
-      74: 1591038228419262246
-    second: Standing_02
-  - first:
-      74: 3096969432264114431
-    second: Standing_01
-  - first:
-      74: -9010666058550927481
-    second: Sitting_Floor
-  - first:
-      74: -2826701067276181107
-    second: Sitting_Bench_02
-  - first:
-      74: 157932362076223686
-    second: Sitting_Bench_01
-  - first:
-      74: -2484764513494520469
-    second: Sitting_Barstool
-  - first:
-      74: 2842947644873882028
-    second: Reclining_Floor_02
-  - first:
-      74: 5181913145462176368
-    second: Reclining_Floor_01
-  - first:
-      74: -5568427498402078756
-    second: Moving_Walk
-  - first:
-      74: 4844761632302061885
-    second: Against Wall
+      74: -4908757183028424067
+    second: Office
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -139,11 +37,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Eye_Tra
     second: {fileID: 2100000, guid: 8278397a684664e4f886299fd20dca6c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ga_Skin_Body_Pbr
-    second: {fileID: 2100000, guid: cbdc3639deb089c46b5ca5c8c1a7f4c1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -239,7 +132,7 @@ ModelImporter:
     - serializedVersion: 16
       name: 0_T-Pose
       takeName: 0_T-Pose
-      internalID: -7881739814215078984
+      internalID: -8765926809051069468
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -268,7 +161,7 @@ ModelImporter:
     - serializedVersion: 16
       name: 0_T Pose
       takeName: 0_T Pose
-      internalID: -174682182651802183
+      internalID: 5876027164343189283
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -295,9 +188,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Sitting_Barstool
-      takeName: Sitting_Barstool
-      internalID: 6846022562888733780
+      name: Office
+      takeName: Office
+      internalID: -4908757183028424067
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0

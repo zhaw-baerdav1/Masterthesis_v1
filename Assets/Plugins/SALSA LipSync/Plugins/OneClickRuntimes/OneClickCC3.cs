@@ -244,7 +244,44 @@ namespace CrazyMinnow.SALSA.OneClicks
 
 				NewExpression("scrunch");
 				AddEmoteFlags(false, true, false, 1f);
-				AddShapeComponent(new []{"^Nose_Scrunch.*$"}, 0.2f, 0.1f, 0.15f, "Nose_Scrunch", 0.65f, true);
+				AddShapeComponent(new[] { "^Nose_Scrunch.*$" }, 0.2f, 0.1f, 0.15f, "Nose_Scrunch", 0.65f, true);
+
+				//custom expressions
+
+				NewExpression("anger");
+				AddEmoteFlags(false, false, false, 1f);
+				AddShapeComponent(new[] { "^Mouth_Up.*$" }, 0.2f, 0.1f, 0.15f, "Mouth_Up", 1f, true);
+				AddShapeComponent(new[] { "^Eye_Squint_L.*$" }, 0.2f, 0.1f, 0.15f, "Eye_Squint_L", 1f, true);
+				AddShapeComponent(new[] { "^Eye_Squint_R.*$" }, 0.2f, 0.1f, 0.15f, "Eye_Squint_R", 1f, true);
+
+				NewExpression("disgust");
+				AddEmoteFlags(false, false, false, 1f);
+				AddShapeComponent(new[] { "^Mouth_Top_Lip_Up.*$" }, 0.2f, 0.1f, 0.15f, "Mouth_Top_Lip_Up", 1f, true);
+				AddShapeComponent(new[] { "^Nose_Scrunch.*$" }, 0.2f, 0.1f, 0.15f, "Nose_Scrunch", 1f, true);
+				AddShapeComponent(new[] { "^Eye_Wide_L.*$" }, 0.2f, 0.1f, 0.15f, "Eye_Wide_L", 1f, true);
+				AddShapeComponent(new[] { "^Eye_Wide_R.*$" }, 0.2f, 0.1f, 0.15f, "Eye_Wide_R", 1f, true);
+
+				NewExpression("fear");
+				AddEmoteFlags(false, false, false, 1f);
+				AddShapeComponent(new[] { "^Mouth_Lips_Tuck.*$" }, 0.2f, 0.1f, 0.15f, "Mouth_Lips_Tuck", 1f, true);
+				AddShapeComponent(new[] { "^Eye_Wide_L.*$" }, 0.2f, 0.1f, 0.15f, "Eye_Wide_L", 1f, true);
+				AddShapeComponent(new[] { "^Eye_Wide_R.*$" }, 0.2f, 0.1f, 0.15f, "Eye_Wide_R", 1f, true);
+				AddShapeComponent(new[] { "^Brow_Raise_Inner_L.*$" }, 0.2f, 0.1f, 0.15f, "Brow_Raise_Inner_L", 1f, true);
+				AddShapeComponent(new[] { "^Brow_Raise_Inner_R.*$" }, 0.2f, 0.1f, 0.15f, "Brow_Raise_Inner_R", 1f, true);
+
+				NewExpression("joy");
+				AddEmoteFlags(false, false, false, 1f);
+				AddShapeComponent(new[] { "^Mouth_Smile.*$" }, 0.2f, 0.1f, 0.15f, "Mouth_Smile", 1f, true);
+				AddShapeComponent(new[] { "^Brow_Raise_L.*$" }, 0.2f, 0.1f, 0.15f, "Brow_Raise_L", 1f, true);
+				AddShapeComponent(new[] { "^Brow_Raise_R.*$" }, 0.2f, 0.1f, 0.15f, "Brow_Raise_R", 1f, true);
+				AddShapeComponent(new[] { "^Cheek_Raise_L.*$" }, 0.2f, 0.1f, 0.15f, "Cheek_Raise_L", 1f, true);
+				AddShapeComponent(new[] { "^Cheek_Raise_R.*$" }, 0.2f, 0.1f, 0.15f, "Cheek_Raise_R", 1f, true);
+
+				NewExpression("sadness");
+				AddEmoteFlags(false, false, false, 1f);
+				AddShapeComponent(new[] { "^Mouth_Frown.*$" }, 0.2f, 0.1f, 0.15f, "Mouth_Frown", 1f, true);
+				AddShapeComponent(new[] { "^Eye_Wide_L.*$" }, 0.2f, 0.1f, 0.15f, "Eye_Wide_L", 1f, true);
+				AddShapeComponent(new[] { "^Eye_Wide_R.*$" }, 0.2f, 0.1f, 0.15f, "Eye_Wide_R", 1f, true);
 			}
 			#endregion // EmoteR-configuration
 

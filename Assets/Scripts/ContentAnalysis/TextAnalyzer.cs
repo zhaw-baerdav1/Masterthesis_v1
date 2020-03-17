@@ -124,5 +124,10 @@ public class TextAnalyzer : MonoBehaviour
 
         DocumentSentimentResults documentSentimentResults = sentimentResult.Document;
         ResultsField.text += " - Sentiment: " + documentSentimentResults.Label + " - " + documentSentimentResults.Score;
+
+        Emotion emotion = new Emotion();
+        emotion.setEmotionScores(emotionResult.Document.Emotion);
+
+        EmotionList.HandleNewEmotion(emotion);
     }
 }
