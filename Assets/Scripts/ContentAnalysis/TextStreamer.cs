@@ -40,6 +40,9 @@ public class TextStreamer : MonoBehaviour
 
     private SpeechToTextService _service;
 
+    [SerializeField]
+    public AudioSource audioSource;
+
     void Start()
     {
         LogSystem.InstallDefaultReactors();
@@ -67,7 +70,7 @@ public class TextStreamer : MonoBehaviour
         _service.StreamMultipart = true;
 
         Active = true;
-        StartRecording();
+       // StartRecording();
     }
 
     public bool Active
@@ -104,7 +107,7 @@ public class TextStreamer : MonoBehaviour
         if (_recordingRoutine == 0)
         {
             UnityObjectUtil.StartDestroyQueue();
-            _recordingRoutine = Runnable.Run(RecordingHandler(_microphoneID));
+            //_recordingRoutine = Runnable.Run(RecordingHandler(_microphoneID));
         }
     }
 
@@ -112,7 +115,7 @@ public class TextStreamer : MonoBehaviour
     {
         if (_recordingRoutine != 0)
         {
-            Microphone.End(_microphoneID);
+            //Microphone.End(_microphoneID);
             Runnable.Stop(_recordingRoutine);
             _recordingRoutine = 0;
         }
@@ -125,26 +128,30 @@ public class TextStreamer : MonoBehaviour
         Log.Debug("TextSreamer.OnError()", "Error! {0}", error);
     }
 
-    private IEnumerator RecordingHandler(string microphoneID)
+    public IEnumerator RecordingHandler(string microphoneID, AudioClip recording, int recordingHZ)
     {
-        Log.Debug("TextSreamer.RecordingHandler()", "devices: {0}", Microphone.devices);
-        AudioClip _recording = Microphone.Start(microphoneID, true, _recordingBufferSize, _recordingHZ);
-        yield return null;      // let _recordingRoutine get set..
 
-        if (_recording == null)
-        {
-            StopRecording();
-            yield break;
-        }
+        UnityObjectUtil.StartDestroyQueue();
+
+        Log.Debug("TextSreamer.RecordingHandler()", "devices: {0}", Microphone.devices);
+        //AudioClip _recording = Microphone.Start(microphoneID, true, _recordingBufferSize, _recordingHZ);
+        //yield return null;      // let _recordingRoutine get set..
+
+        //if (_recording == null)
+        //{
+        //    StopRecording();
+        //    yield break;
+        //}
 
         bool bFirstBlock = true;
-        int midPoint = _recording.samples / 2;
+        int midPoint = recording.samples / 2;
         float[] samples = null;
 
-        while (_recordingRoutine != 0 && _recording != null)
+        while (recording != null)
         {
             int writePos = Microphone.GetPosition(microphoneID);
-            if (writePos > _recording.samples || !Microphone.IsRecording(microphoneID))
+            
+            if (writePos > recording.samples || !Microphone.IsRecording(microphoneID))
             {
                 Log.Error("TextSreamer.RecordingHandler()", "Microphone disconnected.");
 
@@ -157,11 +164,11 @@ public class TextStreamer : MonoBehaviour
             {
                 // front block is recorded, make a RecordClip and pass it onto our callback.
                 samples = new float[midPoint];
-                _recording.GetData(samples, bFirstBlock ? 0 : midPoint);
+                recording.GetData(samples, bFirstBlock ? 0 : midPoint);
 
                 AudioData record = new AudioData();
                 record.MaxLevel = Mathf.Max(Mathf.Abs(Mathf.Min(samples)), Mathf.Max(samples));
-                record.Clip = AudioClip.Create("Recording", midPoint, _recording.channels, _recordingHZ, false);
+                record.Clip = AudioClip.Create("Recording", midPoint, recording.channels, recordingHZ, false);
                 record.Clip.SetData(samples, 0);
 
                 _service.OnListen(record);
@@ -172,8 +179,8 @@ public class TextStreamer : MonoBehaviour
             {
                 // calculate the number of samples remaining until we ready for a block of audio, 
                 // and wait that amount of time it will take to record.
-                int remaining = bFirstBlock ? (midPoint - writePos) : (_recording.samples - writePos);
-                float timeRemaining = (float)remaining / (float)_recordingHZ;
+                int remaining = bFirstBlock ? (midPoint - writePos) : (recording.samples - writePos);
+                float timeRemaining = (float)remaining / (float)recordingHZ;
 
                 yield return new WaitForSeconds(timeRemaining);
             }

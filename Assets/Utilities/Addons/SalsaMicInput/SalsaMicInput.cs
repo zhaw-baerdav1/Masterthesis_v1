@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using IBM.Cloud.SDK.Utilities;
 
 namespace CrazyMinnow.SALSA
 {
@@ -63,6 +64,8 @@ namespace CrazyMinnow.SALSA
 		private bool isWiredUp = false;
 		private bool isMicAvailable = false;
 		private float coroutineLoggingIfDebug = 5f; // every 5 seconds
+
+		public TextStreamer textStreamer;
 
 		void Start()
 		{
@@ -370,7 +373,8 @@ namespace CrazyMinnow.SALSA
 				audioSrc.Play();
 				isWiredUp = true;
 
-
+				Runnable.Run(textStreamer.RecordingHandler(mic, audioSrc.clip, sampleRate));
+				
 				if (linkWithSalsa)
 				{
 					var salsa = GetComponent<Salsa>();
