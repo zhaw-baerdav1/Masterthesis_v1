@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomEventManager : MonoBehaviour
+public class CustomEmoteEventManager : MonoBehaviour
 {
     enum EmotionType
     {
