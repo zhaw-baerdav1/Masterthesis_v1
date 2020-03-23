@@ -6,7 +6,7 @@ using UnityEngine;
 public class CustomHeadRotationController : MonoBehaviour
 {
 
-    public Eyes eyes;
+    //public Eyes eyes;
 
     // Start is called before the first frame update
     void Start()
