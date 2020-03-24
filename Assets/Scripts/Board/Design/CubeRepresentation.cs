@@ -14,5 +14,11 @@ public class CubeRepresentation : MonoBehaviour
         transform.localRotation = Quaternion.identity;
         transform.localPosition = cubeDefinition.getPosition();
         transform.localScale = new Vector3(0.5f, 0.05f, 1);
+
+        TextMesh[] textMeshes = GetComponentsInChildren<TextMesh>();
+        foreach (TextMesh textMesh in textMeshes)
+        {
+            textMesh.text = cubeDefinition.getNaming();
+        }
     }
 }

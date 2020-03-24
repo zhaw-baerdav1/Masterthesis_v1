@@ -7,6 +7,7 @@ public class DrawingBoard : MonoBehaviour
     [SerializeField]
     public CubeRepresentation cubePrefab;
 
+    private bool spawnLocationFree = true;
     private List<CubeDefinition> cubeList;
 
     public void removeCubes()
@@ -18,7 +19,7 @@ public class DrawingBoard : MonoBehaviour
         }
     }
 
-    public void drawCubeList(List<CubeDefinition> cubeList)
+    public void drawNewCubeList(List<CubeDefinition> cubeList)
     {
         this.cubeList = cubeList;
 
@@ -27,10 +28,16 @@ public class DrawingBoard : MonoBehaviour
             cube.Initialize(cubeDefinition, this.transform);
         }
 
+        this.spawnLocationFree = false;
     }
 
     private void Update()
     {
         
+    }
+
+    public bool isSpawnLocationFree()
+    {
+        return spawnLocationFree;
     }
 }

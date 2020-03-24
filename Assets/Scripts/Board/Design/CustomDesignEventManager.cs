@@ -10,12 +10,17 @@ public class CustomDesignEventManager : MonoBehaviour
 
     private void Awake()
     {
-        CubeList.OnUpdateCubeDefinitionList += CubeList_OnUpdateCubeDefinitionList;
+        CubeList.OnNewCubeDefinitionList += CubeList_OnNewCubeDefinitionList;
     }
 
-    private void CubeList_OnUpdateCubeDefinitionList(List<CubeDefinition> cubeList)
+    private void CubeList_OnNewCubeDefinitionList(List<CubeDefinition> cubeList)
     {
+        if (!drawingBoard.isSpawnLocationFree())
+        {
+            return;
+        }
+
         drawingBoard.removeCubes();
-        drawingBoard.drawCubeList(cubeList);
+        drawingBoard.drawNewCubeList(cubeList);
     }
 }
