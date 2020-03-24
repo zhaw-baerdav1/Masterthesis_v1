@@ -5,18 +5,12 @@ using UnityEngine;
 
 public class CustomHeadRotationController : MonoBehaviour
 {
+    
+    //public Transform headTransform;
 
-    //public Eyes eyes;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        //eyes.heads
+       //headTransform.localEulerAngles = transform.localEulerAngles;
     }
+
 }

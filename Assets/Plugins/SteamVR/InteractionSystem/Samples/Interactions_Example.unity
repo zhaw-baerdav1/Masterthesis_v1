@@ -3916,8 +3916,10 @@ MonoBehaviour:
   poseNames:
   - HappyBallPose (MAIN)
   - HappyBallPoseSqueezed
-  overridePreviewLeftHandPrefab: {fileID: 0}
-  overridePreviewRightHandPrefab: {fileID: 0}
+  overridePreviewLeftHandPrefab: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
+    type: 3}
+  overridePreviewRightHandPrefab: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
+    type: 3}
   skeletonMainPose: {fileID: 11400000, guid: 5faebc5465b41b641bf7285f25ce9ab9, type: 2}
   skeletonAdditionalPoses:
   - {fileID: 11400000, guid: 6dc41a1d6d2a48e41a7adc3e27f1a9ff, type: 2}
@@ -11650,6 +11652,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0000005
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011668634522, guid: a7c2b37096983fb40addeabf8a2aefbe,
+        type: 3}
+      propertyPath: overridePreviewLeftHandPrefab
+      value: 
+      objectReference: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
+        type: 3}
+    - target: {fileID: 114000011668634522, guid: a7c2b37096983fb40addeabf8a2aefbe,
+        type: 3}
+      propertyPath: overridePreviewRightHandPrefab
+      value: 
+      objectReference: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7c2b37096983fb40addeabf8a2aefbe, type: 3}
 --- !u!4 &777894233 stripped
@@ -20378,6 +20392,18 @@ PrefabInstance:
       propertyPath: previewPoseSelection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011668634522, guid: a7c2b37096983fb40addeabf8a2aefbe,
+        type: 3}
+      propertyPath: overridePreviewLeftHandPrefab
+      value: 
+      objectReference: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
+        type: 3}
+    - target: {fileID: 114000011668634522, guid: a7c2b37096983fb40addeabf8a2aefbe,
+        type: 3}
+      propertyPath: overridePreviewRightHandPrefab
+      value: 
+      objectReference: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7c2b37096983fb40addeabf8a2aefbe, type: 3}
 --- !u!1 &1402233568
@@ -22922,6 +22948,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0000005
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011668634522, guid: a7c2b37096983fb40addeabf8a2aefbe,
+        type: 3}
+      propertyPath: overridePreviewLeftHandPrefab
+      value: 
+      objectReference: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
+        type: 3}
+    - target: {fileID: 114000011668634522, guid: a7c2b37096983fb40addeabf8a2aefbe,
+        type: 3}
+      propertyPath: overridePreviewRightHandPrefab
+      value: 
+      objectReference: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7c2b37096983fb40addeabf8a2aefbe, type: 3}
 --- !u!4 &1548887376 stripped
@@ -30005,6 +30043,18 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.data[0]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010208793216, guid: 4d7627d70abb4e247b7d958e6634b2f1,
+        type: 3}
+      propertyPath: overridePreviewLeftHandPrefab
+      value: 
+      objectReference: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
+        type: 3}
+    - target: {fileID: 114000010208793216, guid: 4d7627d70abb4e247b7d958e6634b2f1,
+        type: 3}
+      propertyPath: overridePreviewRightHandPrefab
+      value: 
+      objectReference: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d7627d70abb4e247b7d958e6634b2f1, type: 3}
 --- !u!1 &2063894651
@@ -30396,9 +30446,11 @@ MonoBehaviour:
   poseNames:
   - spherePose (MAIN)
   - longbowPose
-  - longboy
-  overridePreviewLeftHandPrefab: {fileID: 0}
-  overridePreviewRightHandPrefab: {fileID: 0}
+  - '[not set]'
+  overridePreviewLeftHandPrefab: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
+    type: 3}
+  overridePreviewRightHandPrefab: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
+    type: 3}
   skeletonMainPose: {fileID: 11400000, guid: 4c3a83da33c30f44b82278a7f4ae8bd2, type: 2}
   skeletonAdditionalPoses:
   - {fileID: 11400000, guid: b11bd330216ce2944a1928a54925d7de, type: 2}

@@ -137,11 +137,10 @@ public class TextStreamer : MonoBehaviour
         //AudioClip _recording = Microphone.Start(microphoneID, true, _recordingBufferSize, _recordingHZ);
         //yield return null;      // let _recordingRoutine get set..
 
-        //if (_recording == null)
-        //{
-        //    StopRecording();
-        //    yield break;
-        //}
+        if (_service == null)
+        {
+           yield break;
+        }
 
         bool bFirstBlock = true;
         int midPoint = recording.samples / 2;
