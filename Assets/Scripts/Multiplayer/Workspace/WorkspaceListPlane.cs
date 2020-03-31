@@ -6,10 +6,6 @@ using static System.Net.Mime.MediaTypeNames;
 
 public class WorkspaceListPlane : MonoBehaviour
 {
-    [SerializeField]
-    private WorkplaceListItem readyPlanePrefab;
-    [SerializeField]
-    private WorkplaceListItem waitingPlanePrefab;
 
     private void Awake()
     {
@@ -22,26 +18,28 @@ public class WorkspaceListPlane : MonoBehaviour
         UpdateWorkspacePlane(workspaceList);
     }
 
-    private void RemovePlanes()
-    {
-        var workspaceListItems = GetComponentsInChildren<WorkplaceListItem>();
-        foreach (var workspaceListItem in workspaceListItems)
-        {
-            Destroy(workspaceListItem.gameObject);
-        }
-    }
-
     private void UpdateWorkspacePlane(List<MatchInfoSnapshot> workspaceList)
     {
-        RemovePlanes();
-        if ( workspaceList.Count > 0)
+
+        var workspaceListItems = GetComponentsInChildren<WorkplaceListItem>(true);
+        foreach (var workspaceListItem in workspaceListItems)
         {
-            var statusPlane = Instantiate(readyPlanePrefab);
-            statusPlane.InitiatePlane(this.transform);
-        } else
-        {
-            var statusPlane = Instantiate(waitingPlanePrefab);
-            statusPlane.InitiatePlane(this.transform);
+            if (workspaceListItem.name.Equals("ReadyPlane") && workspaceList.Count > 0)
+            {
+                workspaceListItem.gameObject.SetActive(true);
+            }
+            if (workspaceListItem.name.Equals("WaitingPlane") && workspaceList.Count > 0)
+            {
+                workspaceListItem.gameObject.SetActive(false);
+            }
+            if (workspaceListItem.name.Equals("ReadyPlane") && workspaceList.Count < 1)
+            {
+                workspaceListItem.gameObject.SetActive(false);
+            }
+            if (workspaceListItem.name.Equals("WaitingPlane") && workspaceList.Count < 1)
+            {
+                workspaceListItem.gameObject.SetActive(true);
+            }
         }
 
     }
