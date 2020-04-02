@@ -118,10 +118,6 @@ namespace CrazyMinnow.SALSA
 			}
 			GUILayout.EndHorizontal();
 			GUILayout.EndVertical();
-
-			GUILayout.BeginVertical(EditorStyles.helpBox);
-			salsaMicInput.textStreamer = (TextStreamer)EditorGUILayout.ObjectField(new GUIContent("TextStreamer", "Manually link this field or micInput will wait for an AudioSource on this GameObject."), salsaMicInput.textStreamer, typeof(TextStreamer), true);
-			GUILayout.EndVertical();
 		}
 
 		void GetMicList()

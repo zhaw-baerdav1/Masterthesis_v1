@@ -811,7 +811,7 @@ MonoBehaviour:
   hiCutoff: 0.8
   playheadBias: 2800
   autoAdjustAnalysis: 1
-  autoAdjustMicrophone: 1
+  autoAdjustMicrophone: 0
   microphone: 
   microphoneRecordHeadPointer: 0
   silencePulseThreshold: 3
@@ -884,7 +884,7 @@ MonoBehaviour:
       inspFoldout: 1
       previewDisplayMode: 0
       collectionExpand: 0
-    trigger: 0.0003
+    trigger: 0
   - expData:
       name: sayMedium
       components:
@@ -952,7 +952,7 @@ MonoBehaviour:
       inspFoldout: 1
       previewDisplayMode: 0
       collectionExpand: 0
-    trigger: 0.0013000001
+    trigger: 0.11111112
   - expData:
       name: sayLarge
       components:
@@ -1018,9 +1018,9 @@ MonoBehaviour:
         materialRenderer: {fileID: 0}
         materials: []
       inspFoldout: 1
-      previewDisplayMode: 1
+      previewDisplayMode: 0
       collectionExpand: 0
-    trigger: 0.0023000003
+    trigger: 0.44444448
   sampleSize: 512
   emoter: {fileID: 0}
   emphasizerTrigger: 0.7
@@ -1057,39 +1057,6 @@ MonoBehaviour:
   inspAnalysisDisplay: 0
   inspOverrideSecondaryMix: 0
   inspDetailedTimingAdjustments: 0
---- !u!114 &580689207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580689202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63f2328949d5429a96accf03e4f00310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &580689208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580689202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ee237a7d3f8ff42b3e51066248bf96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DEFAULT_RATE: 11025
-  sampleRate: 11025
-  overrideSampleRate: 1
-  isAutoStart: 1
-  isDebug: 0
-  isMuted: 1
-  selectedMic: 
-  linkWithSalsa: 1
-  audioSrc: {fileID: 0}
 --- !u!137 &580689209 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 13700000, guid: 2ca10c22b135faf419bbb2d6cba14789,
@@ -1111,7 +1078,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128

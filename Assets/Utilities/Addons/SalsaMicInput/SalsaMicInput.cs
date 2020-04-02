@@ -65,8 +65,6 @@ namespace CrazyMinnow.SALSA
 		private bool isMicAvailable = false;
 		private float coroutineLoggingIfDebug = 5f; // every 5 seconds
 
-		public TextStreamer textStreamer;
-
 		void Start()
 		{
 			// Wiring up is now done in a coroutine to wait for the availability of an AudioSource. This
@@ -373,8 +371,11 @@ namespace CrazyMinnow.SALSA
 				audioSrc.Play();
 				isWiredUp = true;
 
-				Runnable.Run(textStreamer.RecordingHandler(mic, audioSrc.clip, sampleRate));
-				
+				TextStreamer textStreamer = FindObjectOfType<TextStreamer>();
+				if ( textStreamer != null) { 
+					Runnable.Run(textStreamer.RecordingHandler(mic, audioSrc.clip, sampleRate));
+				}
+
 				if (linkWithSalsa)
 				{
 					var salsa = GetComponent<Salsa>();
