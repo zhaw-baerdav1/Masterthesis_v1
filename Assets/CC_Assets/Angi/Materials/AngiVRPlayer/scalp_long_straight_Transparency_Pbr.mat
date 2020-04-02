@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: scalp_long_straight_Transparency_Pbr
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHABLEND_ON _METALLICGLOSSMAP _NORMALMAP
+  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION _METALLICGLOSSMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: eae69d99c9ee73449a6607503c4cb0df, type: 3}
+        m_Texture: {fileID: 2800000, guid: a79c1c5232a6fdd4494d1f232ac37d17, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -45,7 +45,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: e6d8fccc9cfc1b840be8b34898ce2057, type: 3}
+        m_Texture: {fileID: 2800000, guid: 470c3b1a465f2a94b8196220500f28f1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
