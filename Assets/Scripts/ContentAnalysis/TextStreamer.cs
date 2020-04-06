@@ -40,13 +40,10 @@ public class TextStreamer : MonoBehaviour
 
     private SpeechToTextService _service;
 
-    [SerializeField]
-    public AudioSource audioSource;
-
     void Start()
     {
         LogSystem.InstallDefaultReactors();
-        Runnable.Run(CreateService());
+        //Runnable.Run(CreateService());
     }
 
     private IEnumerator CreateService()
@@ -130,6 +127,28 @@ public class TextStreamer : MonoBehaviour
 
     public IEnumerator RecordingHandler(string microphoneID, AudioClip recording, int recordingHZ)
     {
+
+
+        if (string.IsNullOrEmpty(_iamApikey))
+        {
+            throw new IBMException("Plesae provide IAM ApiKey for the service.");
+        }
+
+        IamAuthenticator authenticator = new IamAuthenticator(apikey: _iamApikey);
+
+        //  Wait for tokendata
+        while (!authenticator.CanAuthenticate())
+            yield return null;
+
+        _service = new SpeechToTextService(authenticator);
+        if (!string.IsNullOrEmpty(_serviceUrl))
+        {
+            _service.SetServiceUrl(_serviceUrl);
+        }
+        _service.StreamMultipart = true;
+
+        Active = true;
+
 
         UnityObjectUtil.StartDestroyQueue();
 

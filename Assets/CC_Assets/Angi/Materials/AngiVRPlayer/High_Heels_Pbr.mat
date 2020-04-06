@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: d67c49f412deddc49ae72f13574eb85e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1779d29d563bbcc44bc712ed30bcb181, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -45,11 +45,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 48c87d96e3b5fef42a8fe7084117d151, type: 3}
+        m_Texture: {fileID: 2800000, guid: bb45a494f37dcc748bfae219d813d606, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 1fe2fa84c8f70d0459779fd66b60c53d, type: 3}
+        m_Texture: {fileID: 2800000, guid: d6f36f52f866e7848a54759b00ee858e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:

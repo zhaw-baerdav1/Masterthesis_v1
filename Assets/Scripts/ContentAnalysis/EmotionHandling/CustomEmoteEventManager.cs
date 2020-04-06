@@ -44,7 +44,10 @@ public class CustomEmoteEventManager : MonoBehaviour
             double score = emotionTypeEntry.Value;
 
             float frac = (float) (1 - (1 - score));
-            emoter.ManualEmote(expressionComponentName, ExpressionComponent.ExpressionHandler.OneWay, 1, true, frac);
+            Emoter[] emoterList = FindObjectsOfType<Emoter>();
+            foreach (Emoter emoter in emoterList) { 
+                emoter.ManualEmote(expressionComponentName, ExpressionComponent.ExpressionHandler.OneWay, 1, true, frac);
+            }
         }
 
     }

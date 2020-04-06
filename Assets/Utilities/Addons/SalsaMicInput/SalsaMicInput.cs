@@ -372,8 +372,8 @@ namespace CrazyMinnow.SALSA
 				isWiredUp = true;
 
 				TextStreamer textStreamer = FindObjectOfType<TextStreamer>();
-				if ( textStreamer != null) { 
-					Runnable.Run(textStreamer.RecordingHandler(mic, audioSrc.clip, sampleRate));
+				if ( textStreamer != null) {
+					StartCoroutine(textStreamer.RecordingHandler(mic, audioSrc.clip, sampleRate));
 				}
 
 				if (linkWithSalsa)
