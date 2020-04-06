@@ -27,9 +27,6 @@ public class CustomEmoteEventManager : MonoBehaviour
             { EmotionType.Sadness, "sadness" }
         };
 
-    [SerializeField]
-    public Emoter emoter;
-
     private void Awake()
     {
         EmotionList.OnNewEmotion += EmotionList_OnNewEmotion;
