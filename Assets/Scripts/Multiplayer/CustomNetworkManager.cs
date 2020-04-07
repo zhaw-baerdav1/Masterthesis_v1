@@ -9,16 +9,19 @@ public class CustomNetworkManager : NetworkManager
 {
     private float nextRefreshTime;
     private int playerCount = 0;
+
+    public List<GameObject> vRPlayerList;
     
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
     {
-        foreach(CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
+        SpawnProfile spawnProfile = new SpawnProfile();
+        spawnProfile.Deserialize(extraMessageReader);
+
+        GameObject playerToJoin = this.playerPrefab;
+        if (spawnProfile.characterId > 0)
         {
-            if (customPlayer.name.Equals("OfflinePlayer"))
-            {
-                customPlayer.gameObject.SetActive(false);
-            }
-        }
+            playerToJoin = getVRPlayer(spawnProfile.characterId);
+        } 
 
         Transform spawnPoint = this.startPositions[playerCount];
 
@@ -27,6 +30,19 @@ public class CustomNetworkManager : NetworkManager
         
         NetworkServer.AddPlayerForConnection(conn, newPlayer, playerControllerId);
         playerCount++;
+    }
+
+    private GameObject getVRPlayer(int characterId)
+    {
+        foreach (CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
+        {
+            if (customPlayer.name.Equals("OfflinePlayer"))
+            {
+                customPlayer.gameObject.SetActive(false);
+            }
+        }
+
+        return vRPlayerList[0];
     }
     
     public override void OnServerRemovePlayer(NetworkConnection conn, UnityEngine.Networking.PlayerController player)
@@ -84,5 +100,17 @@ public class CustomNetworkManager : NetworkManager
     private void HandleJoinWorkspace(bool success, string extendedInfo, MatchInfo responseData)
     {
         StartClient(responseData);
+    }
+
+    public override void OnClientConnect(NetworkConnection conn)
+    {
+        SpawnProfile spawnProfile = new SpawnProfile();
+        if ( playerCount == 0) { 
+            spawnProfile.characterId = 0;
+        } else
+        {
+            spawnProfile.characterId = 1;
+        }
+        ClientScene.AddPlayer(client.connection, 0, spawnProfile);
     }
 }

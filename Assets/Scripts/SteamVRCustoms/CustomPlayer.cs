@@ -248,6 +248,8 @@ public class CustomPlayer : MonoBehaviour
 		{
 			_instance = this;
 
+			UnityEngine.XR.InputTracking.disablePositionalTracking = false;
+
 			while (SteamVR.initializedState == SteamVR.InitializedStates.None || SteamVR.initializedState == SteamVR.InitializedStates.Initializing)
 				yield return null;
 		}
