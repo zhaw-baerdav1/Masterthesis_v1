@@ -10,22 +10,12 @@ public class CustomJoinSelector : MonoBehaviour
 
     private void Awake()
     {
-        WorkspaceList.OnWorkspaceListChanged += WorkplaceList_OnWorkspaceListChanged;
+        WorkspaceList.OnWorkspaceSelected += WorkplaceList_OnWorkspaceSelected;
     }
 
-    private void WorkplaceList_OnWorkspaceListChanged(List<MatchInfoSnapshot> workspaceList)
+    private void WorkplaceList_OnWorkspaceSelected(MatchInfoSnapshot selectedWorkspace)
     {
-        if (workspaceList.Count < 1)
-        {
-            return;
-        }
-
-        if (workspaceList.Count > 1)
-        {
-            throw new NotImplementedException("More workspace created than planned.");
-        }
-
-        workspaceToJoin = workspaceList[0];
+        workspaceToJoin = selectedWorkspace;
     }
 
     private void OnTriggerEnter(Collider other)
