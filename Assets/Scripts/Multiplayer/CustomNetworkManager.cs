@@ -14,26 +14,6 @@ public class CustomNetworkManager : NetworkManager
     
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
     {
-        SpawnProfile spawnProfile = new SpawnProfile();
-        spawnProfile.Deserialize(extraMessageReader);
-
-        GameObject playerToJoin = this.playerPrefab;
-        if (spawnProfile.characterId > 0)
-        {
-            playerToJoin = getVRPlayer(spawnProfile.characterId);
-        } 
-
-        Transform spawnPoint = this.startPositions[playerCount];
-
-        GameObject newPlayer = (GameObject)Instantiate(this.playerPrefab, spawnPoint.position, spawnPoint.rotation);
-        newPlayer.SetActive(true);
-        
-        NetworkServer.AddPlayerForConnection(conn, newPlayer, playerControllerId);
-        playerCount++;
-    }
-
-    private GameObject getVRPlayer(int characterId)
-    {
         foreach (CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
         {
             if (customPlayer.name.Equals("OfflinePlayer"))
@@ -42,7 +22,22 @@ public class CustomNetworkManager : NetworkManager
             }
         }
 
-        return vRPlayerList[0];
+        SpawnProfile spawnProfile = new SpawnProfile();
+        spawnProfile.Deserialize(extraMessageReader);
+
+        GameObject playerToJoin = this.playerPrefab;
+        if (spawnProfile.characterId > 0)
+        {
+            playerToJoin = vRPlayerList[0];
+        } 
+
+        Transform spawnPoint = this.startPositions[playerCount];
+
+        GameObject newPlayer = (GameObject)Instantiate(playerToJoin, spawnPoint.position, spawnPoint.rotation);
+        newPlayer.SetActive(true);
+        
+        NetworkServer.AddPlayerForConnection(conn, newPlayer, playerControllerId);
+        playerCount++;
     }
     
     public override void OnServerRemovePlayer(NetworkConnection conn, UnityEngine.Networking.PlayerController player)

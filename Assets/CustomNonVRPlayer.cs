@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.XR;
 
 public class CustomNonVRPlayer : NetworkBehaviour
 {
+	private Camera staticCamera;
 	private MouseLook mouseLook;
-	
+
 	public override void OnStartLocalPlayer()
 	{
-		GetComponent<Renderer>().material.color = Color.blue;
+		staticCamera = GetComponentInChildren<Camera>();
 
 		// attach camera to player.. 3rd person view..
-		Camera.main.transform.parent = transform;
-		Camera.main.transform.localPosition = new Vector3(0, 1.33f, -0.69f);
-		Camera.main.transform.localRotation = Quaternion.Euler(6.31f, 0, 0);
+		staticCamera.transform.parent = transform;
+		staticCamera.transform.localPosition = new Vector3(0, 1.33f, -0.69f);
+		staticCamera.transform.localRotation = Quaternion.Euler(6.31f, 0, 0);
+
+		XRSettings.enabled = false;
+		XRSettings.LoadDeviceByName("");
 
 		mouseLook = new MouseLook();
-		mouseLook.Init(transform, Camera.main.transform);
+		mouseLook.Init(transform, staticCamera.transform);
 	}
 
 	void Update()
@@ -35,9 +40,11 @@ public class CustomNonVRPlayer : NetworkBehaviour
 
 		transform.Translate(x, 0, z);
 
-		mouseLook.LookRotation(transform, Camera.main.transform);
+		if ( mouseLook != null) { 
+			mouseLook.LookRotation(transform, staticCamera.transform);
+		}
 
-		transform.rotation = Camera.main.transform.rotation;
+		transform.rotation = staticCamera.transform.rotation;
 
 	}
 }
