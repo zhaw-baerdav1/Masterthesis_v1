@@ -716,8 +716,9 @@ MonoBehaviour:
   matchSize: 6
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  vRPlayerList:
+  playerList:
   - {fileID: 3184351601374702731, guid: a0204d4a221a29c40ade7130b70bdf00, type: 3}
+  - {fileID: 3777432285777188149, guid: 4bf88721e23f06d4491938b1773dd1f0, type: 3}
 --- !u!1001 &142306819
 PrefabInstance:
   m_ObjectHideFlags: 0

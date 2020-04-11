@@ -4,14 +4,26 @@ using UnityEngine.Networking;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine.Networking.Match;
+using System;
 
 public class CustomNetworkManager : NetworkManager
 {
     private float nextRefreshTime;
     private int playerCount = 0;
 
-    public List<GameObject> vRPlayerList;
-    
+    public List<GameObject> playerList;
+    private int selectedCharacterNumber;
+
+    private void Awake()
+    {
+        CharacterList.OnCharacterSelected += CharacterList_OnCharacterSelected;
+    }
+
+    private void CharacterList_OnCharacterSelected(int selectedNumber)
+    {
+        selectedCharacterNumber = selectedNumber;
+    }
+
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
     {
         foreach (CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
@@ -25,12 +37,8 @@ public class CustomNetworkManager : NetworkManager
         SpawnProfile spawnProfile = new SpawnProfile();
         spawnProfile.Deserialize(extraMessageReader);
 
-        GameObject playerToJoin = this.playerPrefab;
-        if (spawnProfile.characterId > 0)
-        {
-            playerToJoin = vRPlayerList[0];
-        } 
-
+        GameObject playerToJoin = playerList[spawnProfile.characterId];
+        
         Transform spawnPoint = this.startPositions[playerCount];
 
         GameObject newPlayer = (GameObject)Instantiate(playerToJoin, spawnPoint.position, spawnPoint.rotation);
@@ -80,10 +88,7 @@ public class CustomNetworkManager : NetworkManager
 
     private void RefreshCharacterList()
     {
-        List<GameObject> characterList = new List<GameObject>(vRPlayerList);
-        characterList.Add(this.playerPrefab);
-
-        CharacterList.HandleCharacterList(characterList);
+        CharacterList.HandleCharacterList(playerList);
     }
 
     private void HandleListWorkspacesComplete(bool success, string extendedinfo, List<MatchInfoSnapshot> responseData)
@@ -109,12 +114,8 @@ public class CustomNetworkManager : NetworkManager
     public override void OnClientConnect(NetworkConnection conn)
     {
         SpawnProfile spawnProfile = new SpawnProfile();
-        if ( playerCount == 0) { 
-            spawnProfile.characterId = 0;
-        } else
-        {
-            spawnProfile.characterId = 1;
-        }
+        spawnProfile.characterId = selectedCharacterNumber;
+
         ClientScene.AddPlayer(client.connection, 0, spawnProfile);
     }
 }

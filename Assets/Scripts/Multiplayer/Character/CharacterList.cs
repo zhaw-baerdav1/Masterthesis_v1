@@ -7,8 +7,8 @@ public class CharacterList : MonoBehaviour
     public static event Action<List<GameObject>> OnCharacterListChanged = delegate { };
     private static List<GameObject> characterList = new List<GameObject>();
 
-    public static event Action<GameObject> OnCharacterSelected = delegate { };
-    private static GameObject selectedCharacter = null;
+    public static event Action<int> OnCharacterSelected = delegate { };
+    private static int selectedCharacterNumber = 0;
 
     public static event Action<bool> OnCharacterActivated = delegate { };
     private static bool activated;
@@ -20,11 +20,11 @@ public class CharacterList : MonoBehaviour
         OnCharacterListChanged(characterList);
     }
 
-    public static void HandleCharacterSelected(GameObject _selectedCharacter)
+    public static void HandleCharacterSelected(int _selectedCharacterNumber)
     {
-        selectedCharacter = _selectedCharacter;
+        selectedCharacterNumber = _selectedCharacterNumber;
 
-        OnCharacterSelected(selectedCharacter);
+        OnCharacterSelected(selectedCharacterNumber);
     }
 
     public static void HandleCharacterActivate(bool _activated)

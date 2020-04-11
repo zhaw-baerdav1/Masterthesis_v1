@@ -21,9 +21,21 @@ public class CustomJoinSelector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (workspaceToJoin != null && !isJoining) { 
-            FindObjectOfType<CustomNetworkManager>().JoinWorkspace(workspaceToJoin);
-            isJoining = true;
+        if (isJoining)
+        {
+            return;
         }
+
+        if (workspaceToJoin == null)
+        {
+            return;
+        }
+
+        WorkspaceList.HandleWorkspaceActivate(false);
+        CharacterList.HandleCharacterActivate(false);
+
+        FindObjectOfType<CustomNetworkManager>().JoinWorkspace(workspaceToJoin);
+        isJoining = true;
+        
     }
 }

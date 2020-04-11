@@ -130,7 +130,7 @@ public class CharacterListPlane : MonoBehaviour
             if ( i == selectedNumber)
             {
                 characterListItem.MarkAsSelected();
-                CharacterList.HandleCharacterSelected(characterListItem.GetCharacter());
+                CharacterList.HandleCharacterSelected(selectedNumber);
             }
             else
             {

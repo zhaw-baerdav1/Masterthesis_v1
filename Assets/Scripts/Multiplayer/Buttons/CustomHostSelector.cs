@@ -13,6 +13,9 @@ public class CustomHostSelector : MonoBehaviour
             return;
         }
 
+        WorkspaceList.HandleWorkspaceActivate(false);
+        CharacterList.HandleCharacterActivate(false);
+
         FindObjectOfType<CustomNetworkManager>().StartHosting();
         isHosting = true;
     }
