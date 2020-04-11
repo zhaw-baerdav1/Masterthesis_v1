@@ -54,7 +54,7 @@ public class CustomHand : MonoBehaviour
 
         public SteamVR_Action_Boolean uiInteractAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("InteractUI");
 
-        [Tooltip("A transform on the hand to center attached objects on")]
+    [Tooltip("A transform on the hand to center attached objects on")]
         public Transform objectAttachmentPoint;
 
         public GameObject renderModelPrefab;

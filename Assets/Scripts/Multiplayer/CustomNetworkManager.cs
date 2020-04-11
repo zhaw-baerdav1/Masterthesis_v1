@@ -61,20 +61,29 @@ public class CustomNetworkManager : NetworkManager
     {
         if (Time.time >= nextRefreshTime)
         {
+            nextRefreshTime = Time.time + 5f;
+
             RefreshWorkspaceList();
+            RefreshCharacterList();
         }
     }
 
     private void RefreshWorkspaceList()
     {
-        nextRefreshTime = Time.time + 5f;
-
         if (matchMaker == null)
         {
             StartMatchMaker();
         }
 
         matchMaker.ListMatches(0, 10, "", true, 0, 0, HandleListWorkspacesComplete);
+    }
+
+    private void RefreshCharacterList()
+    {
+        List<GameObject> characterList = new List<GameObject>(vRPlayerList);
+        characterList.Add(this.playerPrefab);
+
+        CharacterList.HandleCharacterList(characterList);
     }
 
     private void HandleListWorkspacesComplete(bool success, string extendedinfo, List<MatchInfoSnapshot> responseData)

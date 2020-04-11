@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking.Match;
 
-public class WorkplaceListItem : MonoBehaviour
+public class CharacterListItem : MonoBehaviour
 {
-    private MatchInfoSnapshot matchInfoSnapshot;
+    private GameObject character;
 
-    public void Initialize(MatchInfoSnapshot workspace, Transform parentPlane, int workspaceListCount)
+    public void Initialize(GameObject character, Transform parentPlane, int workspaceListCount)
     {
-        this.matchInfoSnapshot = workspace;
+        this.character = character;
 
         transform.SetParent(parentPlane.transform);
         transform.localScale = new Vector3(1, 1, 0.2f);
@@ -19,7 +19,7 @@ public class WorkplaceListItem : MonoBehaviour
         transform.localPosition = new Vector3(0, 0, orderPosition);
 
         TextMesh textMesh = GetComponentInChildren<TextMesh>();
-        textMesh.text = (workspaceListCount + 1) + ". " + matchInfoSnapshot.name;
+        textMesh.text = (workspaceListCount + 1) + ". " + character.name;
         
         textMesh.gameObject.transform.localScale = new Vector3(0.2f, 1, 1);
         textMesh.gameObject.transform.localRotation = Quaternion.Euler(90, 180, 0);
@@ -40,8 +40,8 @@ public class WorkplaceListItem : MonoBehaviour
         textMesh.color = Color.white;
     }
 
-    public MatchInfoSnapshot GetMatchInfoSnapshot()
+    public GameObject GetCharacter()
     {
-        return matchInfoSnapshot;
+        return character;
     }
 }

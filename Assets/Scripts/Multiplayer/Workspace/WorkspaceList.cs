@@ -12,6 +12,9 @@ public class WorkspaceList : MonoBehaviour
     public static event Action<MatchInfoSnapshot> OnWorkspaceSelected = delegate { };
     private static MatchInfoSnapshot selectedWorkspace = null;
 
+    public static event Action<bool> OnWorkspaceActivated = delegate { };
+    private static bool activated;
+    
     public static void HandleWorspaceList(List<MatchInfoSnapshot> _workspaceList)
     {
         workspaceList = _workspaceList;
@@ -24,5 +27,12 @@ public class WorkspaceList : MonoBehaviour
         selectedWorkspace = _selectedWorkspace;
 
         OnWorkspaceSelected(selectedWorkspace);
+    }
+
+    public static void HandleWorkspaceActivate(bool _activated)
+    {
+        activated = _activated;
+
+        OnWorkspaceActivated(activated);
     }
 }
