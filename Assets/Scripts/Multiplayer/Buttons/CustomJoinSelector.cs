@@ -7,6 +7,7 @@ using UnityEngine.Networking.Match;
 public class CustomJoinSelector : MonoBehaviour
 {
     private MatchInfoSnapshot workspaceToJoin;
+    private bool isJoining = false;
 
     private void Awake()
     {
@@ -20,8 +21,9 @@ public class CustomJoinSelector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (workspaceToJoin != null) { 
+        if (workspaceToJoin != null && !isJoining) { 
             FindObjectOfType<CustomNetworkManager>().JoinWorkspace(workspaceToJoin);
+            isJoining = true;
         }
     }
 }

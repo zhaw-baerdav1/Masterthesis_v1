@@ -102,15 +102,8 @@ public class WorkspaceListPlane : MonoBehaviour
 
     private void UpdateWorkspacePlane(List<MatchInfoSnapshot> workspaceList)
     {
-        List<MatchInfoSnapshot> tempWorkspaceList = new List<MatchInfoSnapshot>();
-        MatchInfoSnapshot matchInfoSnapshot = new MatchInfoSnapshot();
-        tempWorkspaceList.Add(matchInfoSnapshot);
-        tempWorkspaceList.Add(matchInfoSnapshot);
-        tempWorkspaceList.Add(matchInfoSnapshot);
-        tempWorkspaceList.Add(matchInfoSnapshot);
-
         count = 0;
-        foreach (MatchInfoSnapshot workspace in tempWorkspaceList)
+        foreach (MatchInfoSnapshot workspace in workspaceList)
         {
             WorkplaceListItem workplaceListItem = Instantiate(workplaceListItemPrefab);
             workplaceListItem.Initialize(workspace, transform, count);
