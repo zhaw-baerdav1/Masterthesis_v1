@@ -26,14 +26,6 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
     {
-        foreach (CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
-        {
-            if (customPlayer.name.Equals("OfflinePlayer"))
-            {
-                customPlayer.gameObject.SetActive(false);
-            }
-        }
-
         SpawnProfile spawnProfile = new SpawnProfile();
         spawnProfile.Deserialize(extraMessageReader);
 
