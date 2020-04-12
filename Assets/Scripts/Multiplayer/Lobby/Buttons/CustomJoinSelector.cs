@@ -31,17 +31,7 @@ public class CustomJoinSelector : MonoBehaviour
             return;
         }
 
-        WorkspaceList.HandleWorkspaceActivate(false);
-        CharacterList.HandleCharacterActivate(false);
-
-        foreach (CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
-        {
-            if (customPlayer.name.Equals("OfflinePlayer"))
-            {
-                customPlayer.gameObject.SetActive(false);
-            }
-        }
-
+        FindObjectOfType<JoinAreaSetup>().DeactivateSetup();
         FindObjectOfType<CustomNetworkManager>().JoinWorkspace(workspaceToJoin);
         isJoining = true;
         

@@ -21,6 +21,10 @@ namespace Valve.VR
         
         private static SteamVR_Input_ActionSet_Lobby p_Lobby;
         
+        private static SteamVR_Input_ActionSet_DrawingBoard p_DrawingBoard;
+        
+        private static SteamVR_Input_ActionSet_WhiteBoard p_WhiteBoard;
+        
         public static SteamVR_Input_ActionSet_default _default
         {
             get
@@ -37,13 +41,33 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Input_ActionSet_DrawingBoard DrawingBoard
+        {
+            get
+            {
+                return SteamVR_Actions.p_DrawingBoard.GetCopy<SteamVR_Input_ActionSet_DrawingBoard>();
+            }
+        }
+        
+        public static SteamVR_Input_ActionSet_WhiteBoard WhiteBoard
+        {
+            get
+            {
+                return SteamVR_Actions.p_WhiteBoard.GetCopy<SteamVR_Input_ActionSet_WhiteBoard>();
+            }
+        }
+        
         private static void StartPreInitActionSets()
         {
             SteamVR_Actions.p__default = ((SteamVR_Input_ActionSet_default)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_default>("/actions/default")));
             SteamVR_Actions.p_Lobby = ((SteamVR_Input_ActionSet_Lobby)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_Lobby>("/actions/Lobby")));
+            SteamVR_Actions.p_DrawingBoard = ((SteamVR_Input_ActionSet_DrawingBoard)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_DrawingBoard>("/actions/DrawingBoard")));
+            SteamVR_Actions.p_WhiteBoard = ((SteamVR_Input_ActionSet_WhiteBoard)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_WhiteBoard>("/actions/WhiteBoard")));
             Valve.VR.SteamVR_Input.actionSets = new Valve.VR.SteamVR_ActionSet[] {
                     SteamVR_Actions._default,
-                    SteamVR_Actions.Lobby};
+                    SteamVR_Actions.Lobby,
+                    SteamVR_Actions.DrawingBoard,
+                    SteamVR_Actions.WhiteBoard};
         }
     }
 }

@@ -76,6 +76,34 @@
     {
       "name": "/actions/Lobby/in/SnapTurnDown",
       "type": "boolean"
+    },
+    {
+      "name": "/actions/DrawingBoard/in/GrabPinch",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/DrawingBoard/in/Touchpad",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/DrawingBoard/in/SnapTurnLeft",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/DrawingBoard/in/SnapTurnRight",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/DrawingBoard/in/SnapTurnUp",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/DrawingBoard/in/SnapTurnDown",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/WhiteBoard/in/Pose",
+      "type": "pose"
     }
   ],
   "action_sets": [
@@ -85,6 +113,14 @@
     },
     {
       "name": "/actions/Lobby",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/DrawingBoard",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/WhiteBoard",
       "usage": "single"
     }
   ],
@@ -157,7 +193,14 @@
       "/actions/Lobby/in/SnapTurnLeft": "SnapTurnLeft",
       "/actions/Lobby/in/SnapTurnRight": "SnapTurnRight",
       "/actions/Lobby/in/SnapTurnDown": "SnapTurnDown",
-      "/actions/Lobby/in/SnapTurnUp": "SnapTurnUp"
+      "/actions/Lobby/in/SnapTurnUp": "SnapTurnUp",
+      "/actions/DrawingBoard/in/GrabPinch": "GrabPinch",
+      "/actions/DrawingBoard/in/Touchpad": "Touchpad",
+      "/actions/DrawingBoard/in/SnapTurnLeft": "SnapTurnLeft",
+      "/actions/DrawingBoard/in/SnapTurnRight": "SnapTurnRight",
+      "/actions/DrawingBoard/in/SnapTurnUp": "SnapTurnUp",
+      "/actions/DrawingBoard/in/SnapTurnDown": "SnapTurnDown",
+      "/actions/WhiteBoard/in/Pose": "Pose"
     }
   ]
 }

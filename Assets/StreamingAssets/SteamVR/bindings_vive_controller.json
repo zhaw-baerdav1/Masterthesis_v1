@@ -188,6 +188,88 @@
             }
          ]
       },
+      "/actions/drawingboard" : {
+         "sources" : [
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/drawingboard/in/grabpinch"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/left/input/trigger"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/drawingboard/in/grabpinch"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/trigger"
+            },
+            {
+               "inputs" : {
+                  "east" : {
+                     "output" : "/actions/drawingboard/in/snapturnright"
+                  },
+                  "north" : {
+                     "output" : "/actions/drawingboard/in/snapturnup"
+                  },
+                  "south" : {
+                     "output" : "/actions/drawingboard/in/snapturndown"
+                  },
+                  "west" : {
+                     "output" : "/actions/drawingboard/in/snapturnleft"
+                  }
+               },
+               "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "click"
+               },
+               "path" : "/user/hand/left/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "east" : {
+                     "output" : "/actions/drawingboard/in/snapturnright"
+                  },
+                  "north" : {
+                     "output" : "/actions/drawingboard/in/snapturnup"
+                  },
+                  "south" : {
+                     "output" : "/actions/drawingboard/in/snapturndown"
+                  },
+                  "west" : {
+                     "output" : "/actions/drawingboard/in/snapturnleft"
+                  }
+               },
+               "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "click"
+               },
+               "path" : "/user/hand/right/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "position" : {
+                     "output" : "/actions/drawingboard/in/touchpad"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/left/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "position" : {
+                     "output" : "/actions/drawingboard/in/touchpad"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/right/input/trackpad"
+            }
+         ]
+      },
       "/actions/lobby" : {
          "chords" : [],
          "haptics" : [],
@@ -243,6 +325,19 @@
          "haptics" : [],
          "poses" : [],
          "skeleton" : [],
+         "sources" : []
+      },
+      "/actions/whiteboard" : {
+         "poses" : [
+            {
+               "output" : "/actions/whiteboard/in/pose",
+               "path" : "/user/hand/left/pose/raw"
+            },
+            {
+               "output" : "/actions/whiteboard/in/pose",
+               "path" : "/user/hand/right/pose/raw"
+            }
+         ],
          "sources" : []
       }
    },
