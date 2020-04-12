@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class DrawingBoard : MonoBehaviour
 {
@@ -24,11 +25,13 @@ public class DrawingBoard : MonoBehaviour
         this.cubeList = cubeList;
 
         foreach(CubeDefinition cubeDefinition in cubeList) { 
-            var cube = Instantiate(cubePrefab);
-            cube.Initialize(cubeDefinition, this.transform);
+            CubeRepresentation cube = Instantiate(cubePrefab);
+            cube.Initialize(cubeDefinition, transform);
+
+            NetworkServer.Spawn(cube.gameObject);
         }
 
-        this.spawnLocationFree = false;
+        spawnLocationFree = false;
     }
 
     private void Update()

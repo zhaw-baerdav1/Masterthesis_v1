@@ -13,7 +13,7 @@ public class CubeRepresentation : MonoBehaviour
         transform.SetParent(panelTransform);
         transform.localRotation = Quaternion.identity;
         transform.localPosition = cubeDefinition.getPosition();
-        transform.localScale = new Vector3(0.5f, 0.05f, 1);
+        transform.localScale = new Vector3(0.5f, 0.07f, 1.5f);
 
         TextMesh[] textMeshes = GetComponentsInChildren<TextMesh>();
         foreach (TextMesh textMesh in textMeshes)
