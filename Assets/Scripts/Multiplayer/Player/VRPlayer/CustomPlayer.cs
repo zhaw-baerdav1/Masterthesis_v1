@@ -10,13 +10,14 @@ using System.Collections.Generic;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 using CrazyMinnow.SALSA;
+using UnityEngine.Networking;
 
 
 //-------------------------------------------------------------------------
 // Singleton representing the local VR player/user, with methods for getting
 // the player's hands, head, tracking origin, and guesses for various properties.
 //-------------------------------------------------------------------------
-public class CustomPlayer : MonoBehaviour
+public class CustomPlayer : NetworkBehaviour
 	{
 		[Tooltip("Virtual transform corresponding to the meatspace tracking origin. Devices are tracked relative to this.")]
 		public Transform trackingOriginTransform;
@@ -276,19 +277,33 @@ public class CustomPlayer : MonoBehaviour
 			}
 
 
-		if ( eyes != null && vRCamera != null )
-		{
-			RaycastHit hit;
-			var cameraCenter = vRCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, vRCamera.nearClipPlane));
-			if (Physics.Raycast(cameraCenter, hmdTransform.forward, out hit, Mathf.Infinity))
+			if ( eyes != null && vRCamera != null )
 			{
-				eyes.lookTarget = hit.transform;
-				
+				RaycastHit hit;
+				var cameraCenter = vRCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, vRCamera.nearClipPlane));
+				if (Physics.Raycast(cameraCenter, hmdTransform.forward, out hit, Mathf.Infinity))
+				{
+					eyes.lookTarget = hit.transform;
+					CmdNewLookTarget(hit.transform.gameObject);
+				}
 			}
-			
-		}
 		}
 
-		
+	[Command]
+	void CmdNewLookTarget(GameObject lookTargetGameObject)
+	{
+		RpcNewLookTarget(lookTargetGameObject);
 	}
+
+	[ClientRpc]
+	void RpcNewLookTarget(GameObject lookTargetGameObject)
+	{
+		if (isLocalPlayer)
+			return;
+
+		eyes.lookTarget = lookTargetGameObject.transform;
+	}
+
+
+}
 
