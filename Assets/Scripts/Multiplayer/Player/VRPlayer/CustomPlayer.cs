@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
+using CrazyMinnow.SALSA;
 
 
 //-------------------------------------------------------------------------
@@ -20,7 +21,7 @@ public class CustomPlayer : MonoBehaviour
 		[Tooltip("Virtual transform corresponding to the meatspace tracking origin. Devices are tracked relative to this.")]
 		public Transform trackingOriginTransform;
 
-		public Transform eyesOriginTransform;
+		public Transform headOriginTransform;
 
 		[Tooltip("List of possible transforms for the head/HMD, including the no-SteamVR fallback camera.")]
 		public Transform vRCameraTransform;
@@ -183,8 +184,8 @@ public class CustomPlayer : MonoBehaviour
 				Transform hmd = hmdTransform;
 				if (hmd)
 				{
-					Vector3 eyeOffset = Vector3.Project(hmd.position - eyesOriginTransform.position, eyesOriginTransform.up);
-					return eyeOffset.magnitude / eyesOriginTransform.lossyScale.x;
+					Vector3 eyeOffset = Vector3.Project(hmd.position - headOriginTransform.position, headOriginTransform.up);
+					return eyeOffset.magnitude / headOriginTransform.lossyScale.x;
 				}
 				return 0.0f;
 			}
@@ -242,13 +243,16 @@ public class CustomPlayer : MonoBehaviour
 			}
 		}
 
+		private Eyes eyes;
+		private Camera vRCamera;
 
 		//-------------------------------------------------
 		private IEnumerator Start()
 		{
 			_instance = this;
 
-			UnityEngine.XR.InputTracking.disablePositionalTracking = false;
+			eyes = GetComponent<Eyes>();
+			vRCamera = hmdTransform.gameObject.GetComponent<Camera>();
 
 			while (SteamVR.initializedState == SteamVR.InitializedStates.None || SteamVR.initializedState == SteamVR.InitializedStates.Initializing)
 				yield return null;
@@ -270,6 +274,19 @@ public class CustomPlayer : MonoBehaviour
 					Debug.Log("<b>SteamVR Interaction System</b> Headset removed");
 				}
 			}
+
+
+		if ( eyes != null && vRCamera != null )
+		{
+			RaycastHit hit;
+			var cameraCenter = vRCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, vRCamera.nearClipPlane));
+			if (Physics.Raycast(cameraCenter, hmdTransform.forward, out hit, Mathf.Infinity))
+			{
+				eyes.lookTarget = hit.transform;
+				
+			}
+			
+		}
 		}
 
 		

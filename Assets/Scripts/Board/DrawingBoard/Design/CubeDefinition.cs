@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class CubeDefinition : MonoBehaviour
 {
     private long id;
     private string naming;
     private Vector3 position;
+
 
     public long getId()
     {

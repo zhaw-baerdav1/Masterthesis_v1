@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class DrawingBoard : MonoBehaviour
+public class DrawingBoard : NetworkBehaviour
 {
     [SerializeField]
     public CubeRepresentation cubePrefab;
 
     private bool spawnLocationFree = true;
+
     private List<CubeDefinition> cubeList;
 
     public void removeCubes()
@@ -24,14 +25,24 @@ public class DrawingBoard : MonoBehaviour
     {
         this.cubeList = cubeList;
 
-        foreach(CubeDefinition cubeDefinition in cubeList) { 
-            CubeRepresentation cube = Instantiate(cubePrefab);
-            cube.Initialize(cubeDefinition, transform);
+        foreach(CubeDefinition cubeDefinition in cubeList) {
 
-            NetworkServer.Spawn(cube.gameObject);
+            CubeRepresentation cube = Instantiate(cubePrefab);
+            cube.AttachToDrawingBoard(transform);
+            cube.Initialize(cubeDefinition);
+
+            CmdSpawnCube(cube.gameObject);
         }
 
         spawnLocationFree = false;
+    }
+
+    [Command]
+    public void CmdSpawnCube(GameObject cubeGameObject)
+    {
+        CubeRepresentation cubeRepresentation = cubeGameObject.GetComponent<CubeRepresentation>();
+
+        NetworkServer.Spawn(cubeGameObject);
     }
 
     private void Update()

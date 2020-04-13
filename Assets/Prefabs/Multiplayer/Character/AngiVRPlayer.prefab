@@ -6599,7 +6599,7 @@ MonoBehaviour:
   randomHoldDurationMin: 0.1
   randomHoldDurationMax: 0.5
   configReady: 1
-  inspSalsaLinked: 0
+  inspSalsaLinked: 1
   inspStateFoldoutProcessing: 0
   inspStateFoldoutSettings: 0
   inspStateFoldoutEmotes: 1
@@ -6617,7 +6617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inspStateFoldoutReferences: 0
-  inspStateFoldoutHeads: 0
+  inspStateFoldoutHeads: 1
   inspStateFoldoutHeadProps: 1
   inspStateFoldoutAnimBones: 0
   inspStateFoldoutEyes: 0
@@ -6651,7 +6651,7 @@ MonoBehaviour:
   headTargetOffset: {x: 0, y: 0.052, z: 0}
   headClamp: {x: 45, y: 160, z: 45}
   headFacingCamera: 0
-  headRandom: 1
+  headRandom: 0
   headRandomFov: {x: 5, y: 45, z: 22.5}
   headRandFovHalf: {x: 0, y: 0, z: 0}
   headRandTimerRange: {x: 5, y: 10}
@@ -7265,7 +7265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingOriginTransform: {fileID: 1903420860504759960}
-  eyesOriginTransform: {fileID: 7844016214675619854}
+  headOriginTransform: {fileID: 4143277245415012132}
   vRCameraTransform: {fileID: 5718168953563185101}
   hands:
   - {fileID: 5718168952899236137}
