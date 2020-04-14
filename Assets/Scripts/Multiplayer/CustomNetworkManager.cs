@@ -11,6 +11,8 @@ public class CustomNetworkManager : NetworkManager
     private float nextRefreshTime;
     private int playerCount = 0;
 
+    public List<string> roomNameList;
+
     public List<GameObject> playerList;
     private int selectedCharacterNumber;
 
@@ -47,7 +49,7 @@ public class CustomNetworkManager : NetworkManager
     }
 
     public void StartHosting()
-    {
+    { 
         StartMatchMaker();
         matchMaker.CreateMatch("Test-Workspace", 6, true, "", "", "", 0, 0, OnWorkspaceCreate);
     }
@@ -65,6 +67,7 @@ public class CustomNetworkManager : NetworkManager
 
             RefreshWorkspaceList();
             RefreshCharacterList();
+            RefreshRoomList();
         }
     }
 
@@ -81,6 +84,11 @@ public class CustomNetworkManager : NetworkManager
     private void RefreshCharacterList()
     {
         CharacterList.HandleCharacterList(playerList);
+    }
+
+    private void RefreshRoomList()
+    {
+        RoomList.HandleRoomNameList(roomNameList);
     }
 
     private void HandleListWorkspacesComplete(bool success, string extendedinfo, List<MatchInfoSnapshot> responseData)

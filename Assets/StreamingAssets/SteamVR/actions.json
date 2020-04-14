@@ -102,6 +102,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/DrawingBoard/in/Menu",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/WhiteBoard/in/Pose",
       "type": "pose"
     }
@@ -200,7 +204,8 @@
       "/actions/DrawingBoard/in/SnapTurnRight": "SnapTurnRight",
       "/actions/DrawingBoard/in/SnapTurnUp": "SnapTurnUp",
       "/actions/DrawingBoard/in/SnapTurnDown": "SnapTurnDown",
-      "/actions/WhiteBoard/in/Pose": "Pose"
+      "/actions/WhiteBoard/in/Pose": "Pose",
+      "/actions/DrawingBoard/in/Menu": "Menu"
     }
   ]
 }

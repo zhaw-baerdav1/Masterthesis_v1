@@ -65,6 +65,8 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_drawingBoard_SnapTurnDown;
         
+        private static SteamVR_Action_Boolean p_drawingBoard_Menu;
+        
         private static SteamVR_Action_Pose p_whiteBoard_Pose;
         
         public static SteamVR_Action_Boolean default_InteractUI
@@ -259,6 +261,14 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean drawingBoard_Menu
+        {
+            get
+            {
+                return SteamVR_Actions.p_drawingBoard_Menu.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
         public static SteamVR_Action_Pose whiteBoard_Pose
         {
             get
@@ -294,6 +304,7 @@ namespace Valve.VR
                     SteamVR_Actions.drawingBoard_SnapTurnRight,
                     SteamVR_Actions.drawingBoard_SnapTurnUp,
                     SteamVR_Actions.drawingBoard_SnapTurnDown,
+                    SteamVR_Actions.drawingBoard_Menu,
                     SteamVR_Actions.whiteBoard_Pose};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
@@ -319,6 +330,7 @@ namespace Valve.VR
                     SteamVR_Actions.drawingBoard_SnapTurnRight,
                     SteamVR_Actions.drawingBoard_SnapTurnUp,
                     SteamVR_Actions.drawingBoard_SnapTurnDown,
+                    SteamVR_Actions.drawingBoard_Menu,
                     SteamVR_Actions.whiteBoard_Pose};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
@@ -345,7 +357,8 @@ namespace Valve.VR
                     SteamVR_Actions.drawingBoard_SnapTurnLeft,
                     SteamVR_Actions.drawingBoard_SnapTurnRight,
                     SteamVR_Actions.drawingBoard_SnapTurnUp,
-                    SteamVR_Actions.drawingBoard_SnapTurnDown};
+                    SteamVR_Actions.drawingBoard_SnapTurnDown,
+                    SteamVR_Actions.drawingBoard_Menu};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
@@ -374,7 +387,8 @@ namespace Valve.VR
                     SteamVR_Actions.drawingBoard_SnapTurnLeft,
                     SteamVR_Actions.drawingBoard_SnapTurnRight,
                     SteamVR_Actions.drawingBoard_SnapTurnUp,
-                    SteamVR_Actions.drawingBoard_SnapTurnDown};
+                    SteamVR_Actions.drawingBoard_SnapTurnDown,
+                    SteamVR_Actions.drawingBoard_Menu};
         }
         
         private static void PreInitActions()
@@ -403,6 +417,7 @@ namespace Valve.VR
             SteamVR_Actions.p_drawingBoard_SnapTurnRight = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/DrawingBoard/in/SnapTurnRight")));
             SteamVR_Actions.p_drawingBoard_SnapTurnUp = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/DrawingBoard/in/SnapTurnUp")));
             SteamVR_Actions.p_drawingBoard_SnapTurnDown = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/DrawingBoard/in/SnapTurnDown")));
+            SteamVR_Actions.p_drawingBoard_Menu = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/DrawingBoard/in/Menu")));
             SteamVR_Actions.p_whiteBoard_Pose = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/WhiteBoard/in/Pose")));
         }
     }

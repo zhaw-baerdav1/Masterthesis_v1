@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Plugins/SteamVR/InteractionSystem/Samples/Interactions_Example.unity
     guid: e3b77830391f10343929883b18f4d5ae
   - enabled: 1
-    path: Assets/Scenes/Room.unity
+    path: Assets/Scenes/OfficeRoom.unity
     guid: f69c49d7b73ddb440b0333721d598a0b
+  - enabled: 1
+    path: Assets/Scenes/MedievalRoom.unity
+    guid: e1d030cd739970e4b952cf7b98ab960e
+  - enabled: 1
+    path: Assets/Scenes/ForestRoom.unity
+    guid: 6410874f60b5cf8489dab355d23ac0e8
   m_configObjects: {}

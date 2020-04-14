@@ -692,6 +692,10 @@ MonoBehaviour:
   matchSize: 6
   isNetworkActive: 0
   matchMaker: {fileID: 0}
+  roomNameList:
+  - OfficeRoom
+  - MedievalRoom
+  - ForestRoom
   playerList:
   - {fileID: 3184351601374702731, guid: a0204d4a221a29c40ade7130b70bdf00, type: 3}
   - {fileID: 3777432285777188149, guid: 4bf88721e23f06d4491938b1773dd1f0, type: 3}
@@ -1321,8 +1325,12 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1510407951}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: headOriginTransform
+      value: 
+      objectReference: {fileID: 351384993}
     - target: {fileID: 1163591501518025329, guid: d76bdaa89f1d63740ba84a6a482fb679,
         type: 3}
       propertyPath: m_Name
@@ -1361,7 +1369,7 @@ PrefabInstance:
     - target: {fileID: 1163591501518025343, guid: d76bdaa89f1d63740ba84a6a482fb679,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1163591501518025343, guid: d76bdaa89f1d63740ba84a6a482fb679,
         type: 3}
@@ -1371,7 +1379,7 @@ PrefabInstance:
     - target: {fileID: 1163591501518025343, guid: d76bdaa89f1d63740ba84a6a482fb679,
         type: 3}
       propertyPath: m_RootOrder
-      value: 38
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1163591501518025343, guid: d76bdaa89f1d63740ba84a6a482fb679,
         type: 3}
@@ -1468,11 +1476,6 @@ PrefabInstance:
       propertyPath: grabPinchAction.actionPath
       value: /actions/default/in/GrabPinch
       objectReference: {fileID: 0}
-    - target: {fileID: 1163591501518025328, guid: d76bdaa89f1d63740ba84a6a482fb679,
-        type: 3}
-      propertyPath: headOriginTransform
-      value: 
-      objectReference: {fileID: 351384993}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d76bdaa89f1d63740ba84a6a482fb679, type: 3}
 --- !u!4 &277792168 stripped
@@ -5288,6 +5291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1510407951}
+  - component: {fileID: 1510407952}
   m_Layer: 0
   m_Name: Players
   m_TagString: Untagged
@@ -5305,10 +5309,23 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 351384993}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1510407952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510407950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad56fe84a86a5841a937ddd8a1a2619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1515708261
 GameObject:
   m_ObjectHideFlags: 0

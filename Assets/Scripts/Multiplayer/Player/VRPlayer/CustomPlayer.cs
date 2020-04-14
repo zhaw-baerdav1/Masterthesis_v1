@@ -19,24 +19,63 @@ using UnityEngine.Networking;
 //-------------------------------------------------------------------------
 public class CustomPlayer : NetworkBehaviour
 	{
-		[Tooltip("Virtual transform corresponding to the meatspace tracking origin. Devices are tracked relative to this.")]
-		public Transform trackingOriginTransform;
 
-		public Transform headOriginTransform;
+	public GameObject vRCameraPrefab;
+	public GameObject steamVRPrefab;
 
-		[Tooltip("List of possible transforms for the head/HMD, including the no-SteamVR fallback camera.")]
-		public Transform vRCameraTransform;
+	public GameObject leftHandPrefab;
+	public GameObject rightHandPrefab;
 
-		[Tooltip("List of possible Hands, including no-SteamVR fallback Hands.")]
-		public CustomHand[] hands;
+	public Transform headOriginTransform;
 
-		[Tooltip("This action lets you know when the player has placed the headset on their head")]
-		public SteamVR_Action_Boolean headsetOnHead = SteamVR_Input.GetBooleanAction("HeadsetOnHead");
-	   
-		//-------------------------------------------------
-		// Singleton instance of the Player. Only one can exist at a time.
-		//-------------------------------------------------
-		private static CustomPlayer _instance;
+	[Tooltip("This action lets you know when the player has placed the headset on their head")]
+	public SteamVR_Action_Boolean headsetOnHead = SteamVR_Input.GetBooleanAction("HeadsetOnHead");
+
+	[Tooltip("Virtual transform corresponding to the meatspace tracking origin. Devices are tracked relative to this.")]
+	public Transform trackingOriginTransform;
+
+	[Tooltip("List of possible transforms for the head/HMD, including the no-SteamVR fallback camera.")]
+	private GameObject vRCameraInstance;
+
+	[Tooltip("List of possible Hands, including no-SteamVR fallback Hands.")]
+	private CustomHand[] hands;
+
+
+	public override void OnStartLocalPlayer()
+	{
+		if (!isClient) { 
+			return;
+		}
+
+		InstantiatePlayer();
+	}
+
+	protected void InstantiatePlayer()
+	{
+		GameObject _vRCameraInstance = (GameObject)Instantiate(vRCameraPrefab);
+		_vRCameraInstance.transform.parent = transform;
+		vRCameraInstance = _vRCameraInstance;
+
+		GameObject steamVRInstance = (GameObject)Instantiate(steamVRPrefab);
+		steamVRInstance.transform.parent = transform;
+
+		hands = new CustomHand[2];
+
+		GameObject leftHandInstance = (GameObject)Instantiate(leftHandPrefab);
+		leftHandInstance.transform.parent = transform;
+		hands[0] = leftHandInstance.GetComponent<CustomHand>();
+
+		GameObject rightHandInstance = (GameObject)Instantiate(rightHandPrefab);
+		rightHandInstance.transform.parent = transform;
+		hands[1] = rightHandInstance.GetComponent<CustomHand>();
+
+		transform.parent = FindObjectOfType<PlayerSetup>().transform;
+	}
+
+	//-------------------------------------------------
+	// Singleton instance of the Player. Only one can exist at a time.
+	//-------------------------------------------------
+	private static CustomPlayer _instance;
 		public static CustomPlayer instance
 		{
 			get
@@ -166,9 +205,9 @@ public class CustomPlayer : NetworkBehaviour
 		{
 			get
 			{
-				if (vRCameraTransform != null)
+				if (vRCameraInstance != null)
 				{
-					return vRCameraTransform;
+					return vRCameraInstance.transform;
 				}
 				return null;
 			}
@@ -238,14 +277,9 @@ public class CustomPlayer : NetworkBehaviour
 		//-------------------------------------------------
 		private void Awake()
 		{
-			if (trackingOriginTransform == null)
-			{
-				trackingOriginTransform = this.transform;
-			}
+			trackingOriginTransform = this.transform;
 		}
 
-		private Eyes eyes;
-		private Camera vRCamera;
 
 		//-------------------------------------------------
 		private IEnumerator Start()
@@ -253,13 +287,15 @@ public class CustomPlayer : NetworkBehaviour
 			_instance = this;
 
 			eyes = GetComponent<Eyes>();
-			vRCamera = hmdTransform.gameObject.GetComponent<Camera>();
 
 			while (SteamVR.initializedState == SteamVR.InitializedStates.None || SteamVR.initializedState == SteamVR.InitializedStates.Initializing)
 				yield return null;
 		}
 
-		protected virtual void Update()
+
+	private Eyes eyes;
+	private Camera vRCamera;
+	protected virtual void Update()
 		{
 			if (SteamVR.initializedState != SteamVR.InitializedStates.InitializeSuccess)
 				return;
@@ -277,33 +313,27 @@ public class CustomPlayer : NetworkBehaviour
 			}
 
 
-			if ( eyes != null && vRCamera != null )
+			if (eyes == null)
 			{
-				RaycastHit hit;
-				var cameraCenter = vRCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, vRCamera.nearClipPlane));
-				if (Physics.Raycast(cameraCenter, hmdTransform.forward, out hit, Mathf.Infinity))
-				{
-					eyes.lookTarget = hit.transform;
-					CmdNewLookTarget(hit.transform.gameObject);
-				}
+				return;
 			}
-		}
 
-	[Command]
-	void CmdNewLookTarget(GameObject lookTargetGameObject)
-	{
-		RpcNewLookTarget(lookTargetGameObject);
+			if (vRCameraInstance == null)
+			{
+				return;
+			}
+				
+			if (vRCamera == null)
+			{
+				vRCamera = vRCameraInstance.GetComponent<Camera>();
+			}
+			RaycastHit hit;
+			var cameraCenter = vRCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, vRCamera.nearClipPlane));
+			if (Physics.Raycast(cameraCenter, hmdTransform.forward, out hit, Mathf.Infinity))
+			{
+				eyes.lookTarget = hit.transform;
+			}
+			
 	}
-
-	[ClientRpc]
-	void RpcNewLookTarget(GameObject lookTargetGameObject)
-	{
-		if (isLocalPlayer)
-			return;
-
-		eyes.lookTarget = lookTargetGameObject.transform;
-	}
-
-
 }
 

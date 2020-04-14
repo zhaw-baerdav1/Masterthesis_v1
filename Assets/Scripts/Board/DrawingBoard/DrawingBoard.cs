@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using Valve.VR;
 
 public class DrawingBoard : NetworkBehaviour
 {
@@ -11,6 +14,26 @@ public class DrawingBoard : NetworkBehaviour
     private bool spawnLocationFree = true;
 
     private List<CubeDefinition> cubeList;
+
+    public SteamVR_Action_Boolean menu = SteamVR_Input.GetBooleanAction("Menu");
+
+    public void Start()
+    {
+        menu.AddOnChangeListener(OnSceneSwitch, SteamVR_Input_Sources.Any);
+    }
+
+    private void OnSceneSwitch(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
+    {
+        if ( newState)
+        {
+            if (isServer) {
+                SceneManager.LoadScene("ForestRoom");
+
+                CustomNetworkManager networkManager = FindObjectOfType<CustomNetworkManager>();
+                networkManager.ServerChangeScene("ForestRoom");
+            }
+        }
+    }
 
     public void removeCubes()
     {
@@ -28,8 +51,7 @@ public class DrawingBoard : NetworkBehaviour
         foreach(CubeDefinition cubeDefinition in cubeList) {
 
             CubeRepresentation cube = Instantiate(cubePrefab);
-            cube.AttachToDrawingBoard(transform);
-            cube.Initialize(cubeDefinition);
+            cube.setCubeDefinition(cubeDefinition);
 
             CmdSpawnCube(cube.gameObject);
         }
@@ -40,9 +62,16 @@ public class DrawingBoard : NetworkBehaviour
     [Command]
     public void CmdSpawnCube(GameObject cubeGameObject)
     {
-        CubeRepresentation cubeRepresentation = cubeGameObject.GetComponent<CubeRepresentation>();
-
         NetworkServer.Spawn(cubeGameObject);
+        RpcInitializeCube(cubeGameObject);
+    }
+
+    [ClientRpc]
+    void RpcInitializeCube(GameObject cubeGameObject)
+    {
+        CubeRepresentation cube = cubeGameObject.GetComponent<CubeRepresentation>();
+        cube.AttachToDrawingBoard(transform);
+        cube.Initialize();
     }
 
     private void Update()
