@@ -7,8 +7,13 @@ public class DrawingBoardSetup : MonoBehaviour
 {
     public SteamVR_ActionSet actionSetDrawingBoard;
 
-    void Start()
+    private void Awake()
     {
         actionSetDrawingBoard.Activate();
+    }
+
+    private void OnDestroy()
+    {
+        actionSetDrawingBoard.Deactivate();
     }
 }

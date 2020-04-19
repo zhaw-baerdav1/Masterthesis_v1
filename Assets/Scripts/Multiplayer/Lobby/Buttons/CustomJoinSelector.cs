@@ -14,6 +14,11 @@ public class CustomJoinSelector : MonoBehaviour
         WorkspaceList.OnWorkspaceSelected += WorkplaceList_OnWorkspaceSelected;
     }
 
+    private void OnDestroy()
+    {
+        WorkspaceList.OnWorkspaceSelected -= WorkplaceList_OnWorkspaceSelected;
+    }
+
     private void WorkplaceList_OnWorkspaceSelected(MatchInfoSnapshot selectedWorkspace)
     {
         workspaceToJoin = selectedWorkspace;

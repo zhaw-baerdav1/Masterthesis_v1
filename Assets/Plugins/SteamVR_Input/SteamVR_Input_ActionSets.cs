@@ -25,6 +25,8 @@ namespace Valve.VR
         
         private static SteamVR_Input_ActionSet_WhiteBoard p_WhiteBoard;
         
+        private static SteamVR_Input_ActionSet_RoomControl p_RoomControl;
+        
         public static SteamVR_Input_ActionSet_default _default
         {
             get
@@ -57,17 +59,27 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Input_ActionSet_RoomControl RoomControl
+        {
+            get
+            {
+                return SteamVR_Actions.p_RoomControl.GetCopy<SteamVR_Input_ActionSet_RoomControl>();
+            }
+        }
+        
         private static void StartPreInitActionSets()
         {
             SteamVR_Actions.p__default = ((SteamVR_Input_ActionSet_default)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_default>("/actions/default")));
             SteamVR_Actions.p_Lobby = ((SteamVR_Input_ActionSet_Lobby)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_Lobby>("/actions/Lobby")));
             SteamVR_Actions.p_DrawingBoard = ((SteamVR_Input_ActionSet_DrawingBoard)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_DrawingBoard>("/actions/DrawingBoard")));
             SteamVR_Actions.p_WhiteBoard = ((SteamVR_Input_ActionSet_WhiteBoard)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_WhiteBoard>("/actions/WhiteBoard")));
+            SteamVR_Actions.p_RoomControl = ((SteamVR_Input_ActionSet_RoomControl)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_RoomControl>("/actions/RoomControl")));
             Valve.VR.SteamVR_Input.actionSets = new Valve.VR.SteamVR_ActionSet[] {
                     SteamVR_Actions._default,
                     SteamVR_Actions.Lobby,
                     SteamVR_Actions.DrawingBoard,
-                    SteamVR_Actions.WhiteBoard};
+                    SteamVR_Actions.WhiteBoard,
+                    SteamVR_Actions.RoomControl};
         }
     }
 }

@@ -32,6 +32,11 @@ public class CustomEmoteEventManager : MonoBehaviour
         EmotionList.OnNewEmotion += EmotionList_OnNewEmotion;
     }
 
+    private void OnDestroy()
+    {
+        EmotionList.OnNewEmotion -= EmotionList_OnNewEmotion;
+    }
+
     private void EmotionList_OnNewEmotion(Emotion emotion)
     {
 

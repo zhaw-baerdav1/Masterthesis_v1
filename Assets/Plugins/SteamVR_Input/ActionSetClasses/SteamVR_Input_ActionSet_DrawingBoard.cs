@@ -64,13 +64,5 @@ namespace Valve.VR
                 return SteamVR_Actions.drawingBoard_SnapTurnDown;
             }
         }
-        
-        public virtual SteamVR_Action_Boolean Menu
-        {
-            get
-            {
-                return SteamVR_Actions.drawingBoard_Menu;
-            }
-        }
     }
 }

@@ -8,7 +8,6 @@ using static System.Net.Mime.MediaTypeNames;
 
 public class WorkspaceListPlane : MonoBehaviour
 {
-
     public WorkplaceListItem workplaceListItemPrefab;
 
     public SteamVR_Action_Boolean snapTurnRight = SteamVR_Input.GetBooleanAction("SnapTurnRight");
@@ -22,6 +21,14 @@ public class WorkspaceListPlane : MonoBehaviour
     {
         WorkspaceList.OnWorkspaceListChanged += WorkplaceList_OnWorkspaceListChanged;
         WorkspaceList.OnWorkspaceActivated += WorkplaceList_OnWorkspaceActivated;
+    }
+
+    private void OnDestroy()
+    {
+        WorkspaceList.OnWorkspaceListChanged -= WorkplaceList_OnWorkspaceListChanged;
+        WorkspaceList.OnWorkspaceActivated -= WorkplaceList_OnWorkspaceActivated;
+
+        DeactivateInput();
     }
 
     private void ActivateInput()

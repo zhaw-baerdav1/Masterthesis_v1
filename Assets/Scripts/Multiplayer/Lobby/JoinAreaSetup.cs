@@ -7,12 +7,17 @@ public class JoinAreaSetup : MonoBehaviour
 {
     public SteamVR_ActionSet actionSetLobby;
 
-    void Start()
+    private void Start()
     {
         WorkspaceList.HandleWorkspaceActivate(true);
         CharacterList.HandleCharacterActivate(false);
 
         actionSetLobby.Activate();
+    }
+
+    private void OnDestroy()
+    {
+        DeactivateSetup();
     }
 
     public void DeactivateSetup()

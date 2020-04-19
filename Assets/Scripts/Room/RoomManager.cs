@@ -9,27 +9,31 @@ using Valve.VR;
 public class RoomManager : NetworkBehaviour
 {
 
-    public SteamVR_Action_Boolean menu = SteamVR_Input.GetBooleanAction("Menu");
+    public SteamVR_Action_Boolean roomSwitch = SteamVR_Input.GetBooleanAction("RoomSwitch");
 
-    void Start()
+    void Awake()
     {
-        menu.AddOnChangeListener(OnSceneSwitch, SteamVR_Input_Sources.Any);
+        roomSwitch.AddOnChangeListener(OnRoomSwitch, SteamVR_Input_Sources.Any);
     }
 
-    private void OnSceneSwitch(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
+    private void OnDestroy()
+    {
+        roomSwitch.RemoveOnChangeListener(OnRoomSwitch, SteamVR_Input_Sources.Any);
+    }
+
+    private void OnRoomSwitch(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
     {
         if (!newState)
         {
             return;
         }
+
         if (!isServer)
         {
             return;
         }
 
-        //CustomNetworkManager networkManager = FindObjectOfType<CustomNetworkManager>();
-        //networkManager.ServerChangeScene("ForestRoom");
-
-        NetworkManager.singleton.ServerChangeScene("ForestRoom");
+        CustomNetworkManager networkManager = FindObjectOfType<CustomNetworkManager>();
+        networkManager.ChangeToNextRoom();        
     }
 }

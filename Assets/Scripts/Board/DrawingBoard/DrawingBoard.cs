@@ -18,6 +18,11 @@ public class DrawingBoard : MonoBehaviour
         CubeList.OnNewCubeDefinitionList += CubeList_OnNewCubeDefinitionList;
     }
 
+    private void OnDestroy()
+    {
+        CubeList.OnNewCubeDefinitionList -= CubeList_OnNewCubeDefinitionList;
+    }
+
     private void CubeList_OnNewCubeDefinitionList(List<CubeDefinition> cubeDefinitionList)
     {
         RemoveCubes();

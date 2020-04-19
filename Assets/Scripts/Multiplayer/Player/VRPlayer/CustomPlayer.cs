@@ -28,16 +28,14 @@ public class CustomPlayer : NetworkBehaviour
 
 	public Transform headOriginTransform;
 
-	[Tooltip("This action lets you know when the player has placed the headset on their head")]
 	public SteamVR_Action_Boolean headsetOnHead = SteamVR_Input.GetBooleanAction("HeadsetOnHead");
 
-	[Tooltip("Virtual transform corresponding to the meatspace tracking origin. Devices are tracked relative to this.")]
 	public Transform trackingOriginTransform;
 
-	[Tooltip("List of possible transforms for the head/HMD, including the no-SteamVR fallback camera.")]
+	protected bool isOfflinePlayer;
+
 	private GameObject vRCameraInstance;
 
-	[Tooltip("List of possible Hands, including no-SteamVR fallback Hands.")]
 	private CustomHand[] hands;
 
 
@@ -48,6 +46,7 @@ public class CustomPlayer : NetworkBehaviour
 		}
 
 		InstantiatePlayer();
+		base.OnStartLocalPlayer();
 	}
 
 	protected void InstantiatePlayer()
@@ -68,8 +67,6 @@ public class CustomPlayer : NetworkBehaviour
 		GameObject rightHandInstance = (GameObject)Instantiate(rightHandPrefab);
 		rightHandInstance.transform.parent = transform;
 		hands[1] = rightHandInstance.GetComponent<CustomHand>();
-
-		transform.parent = FindObjectOfType<PlayerSetup>().transform;
 	}
 
 	//-------------------------------------------------
@@ -275,9 +272,14 @@ public class CustomPlayer : NetworkBehaviour
 
 
 		//-------------------------------------------------
-		private void Awake()
+		protected void Awake()
 		{
 			trackingOriginTransform = this.transform;
+
+			if (isOfflinePlayer)
+			{
+				InstantiatePlayer();
+			}
 		}
 
 

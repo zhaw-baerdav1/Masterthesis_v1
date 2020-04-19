@@ -629,10 +629,10 @@ MonoBehaviour:
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 3777432285777188149, guid: 4bf88721e23f06d4491938b1773dd1f0,
     type: 3}
-  m_AutoCreatePlayer: 1
+  m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 1
-  m_OfflineScene: 
-  m_OnlineScene: 
+  m_OfflineScene: OfficeRoom
+  m_OnlineScene: OfficeRoom
   m_SpawnPrefabs:
   - {fileID: 3184351601374702731, guid: a0204d4a221a29c40ade7130b70bdf00, type: 3}
   - {fileID: 1832068680821055060, guid: 83039eb14bca5aa4ebf2e57034df1997, type: 3}
@@ -4022,6 +4022,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1104040476}
+  - component: {fileID: 1104040477}
   m_Layer: 0
   m_Name: Basics
   m_TagString: Untagged
@@ -4047,6 +4048,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1104040477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104040475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31630b04a13e6864e9cebdda507c8607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionSetRoomControl:
+    actionSetPath: /actions/RoomControl
 --- !u!1001 &1106344560
 PrefabInstance:
   m_ObjectHideFlags: 0

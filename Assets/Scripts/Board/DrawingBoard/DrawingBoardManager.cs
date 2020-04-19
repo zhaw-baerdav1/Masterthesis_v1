@@ -17,6 +17,12 @@ public class DrawingBoardManager : NetworkBehaviour
         cubeDefinitionList.Callback = CubeListUpdated;
     }
 
+    private void OnDestroy()
+    {
+        CubeList.OnNewCubeDefinition += CubeList_OnNewCubeDefinition;
+        cubeDefinitionList.Callback = null;
+    }
+
     private void CubeListUpdated(SyncList<CubeDefinition>.Operation op, int itemIndex)
     {
         List<CubeDefinition> updateCubeDefinitionList = new List<CubeDefinition>();

@@ -1,7 +1,8 @@
 ﻿public class CustomOfflinePlayer : CustomPlayer
 {
-	public void Awake()
+	private new void Awake()
 	{
-		InstantiatePlayer();
+		isOfflinePlayer = true;
+		base.Awake();
 	}
 }

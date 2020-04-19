@@ -102,12 +102,12 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/DrawingBoard/in/Menu",
-      "type": "boolean"
-    },
-    {
       "name": "/actions/WhiteBoard/in/Pose",
       "type": "pose"
+    },
+    {
+      "name": "/actions/RoomControl/in/RoomSwitch",
+      "type": "boolean"
     }
   ],
   "action_sets": [
@@ -125,6 +125,10 @@
     },
     {
       "name": "/actions/WhiteBoard",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/RoomControl",
       "usage": "single"
     }
   ],
@@ -205,7 +209,7 @@
       "/actions/DrawingBoard/in/SnapTurnUp": "SnapTurnUp",
       "/actions/DrawingBoard/in/SnapTurnDown": "SnapTurnDown",
       "/actions/WhiteBoard/in/Pose": "Pose",
-      "/actions/DrawingBoard/in/Menu": "Menu"
+      "/actions/RoomControl/in/RoomSwitch": "RoomSwitch"
     }
   ]
 }

@@ -24,6 +24,14 @@ public class CharacterListPlane : MonoBehaviour
         CharacterList.OnCharacterActivated += CharacterList_OnCharacterActivated;
     }
 
+    private void OnDestroy()
+    {
+        CharacterList.OnCharacterListChanged -= CharacterList_OnCharacterListChanged;
+        CharacterList.OnCharacterActivated -= CharacterList_OnCharacterActivated;
+
+        DeactivateInput();
+    }
+
     private void ActivateInput()
     {
         snapTurnLeft.AddOnChangeListener(OnWorkspaceSwitch, SteamVR_Input_Sources.Any);

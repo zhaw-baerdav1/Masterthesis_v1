@@ -8,7 +8,10 @@ using System;
 
 public class CustomNetworkManager : NetworkManager
 {
+    private bool refreshActivated = true;
     private float nextRefreshTime;
+    private static float refreshCycle = 5f;
+    
     private int playerCount = 0;
 
     public List<string> roomNameList;
@@ -16,9 +19,14 @@ public class CustomNetworkManager : NetworkManager
     public List<GameObject> playerList;
     private int selectedCharacterNumber;
 
-    private void Start()
+    private void Awake()
     {
         CharacterList.OnCharacterSelected += CharacterList_OnCharacterSelected;
+    }
+
+    private void OnDestroy()
+    {
+        CharacterList.OnCharacterSelected -= CharacterList_OnCharacterSelected;
     }
 
     private void CharacterList_OnCharacterSelected(int selectedNumber)
@@ -59,11 +67,29 @@ public class CustomNetworkManager : NetworkManager
         base.StartHost(responseData);
     }
 
+    public void ChangeToNextRoom()
+    {
+        string newRoom = RoomType.getNextRoom(networkSceneName);
+        ServerChangeScene(newRoom);
+    }
+
+    public override void OnClientSceneChanged(NetworkConnection conn)
+    {
+        ClientScene.RemovePlayer(0);
+
+        AddCustomPlayer(conn);
+    }    
+
     private void Update()
     {
+        if (!refreshActivated)
+        {
+            return;
+        }
+
         if (Time.time >= nextRefreshTime)
         {
-            nextRefreshTime = Time.time + 5f;
+            nextRefreshTime = Time.time + refreshCycle;
 
             RefreshWorkspaceList();
             RefreshCharacterList();
@@ -113,9 +139,15 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
+        AddCustomPlayer(conn);
+    }
+
+    private void AddCustomPlayer(NetworkConnection conn)
+    {
         SpawnProfile spawnProfile = new SpawnProfile();
         spawnProfile.characterId = selectedCharacterNumber;
 
+        ClientScene.Ready(conn);
         ClientScene.AddPlayer(client.connection, 0, spawnProfile);
     }
 }

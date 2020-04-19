@@ -267,24 +267,6 @@
                },
                "mode" : "trackpad",
                "path" : "/user/hand/right/input/trackpad"
-            },
-            {
-               "inputs" : {
-                  "click" : {
-                     "output" : "/actions/drawingboard/in/menu"
-                  }
-               },
-               "mode" : "button",
-               "path" : "/user/hand/left/input/application_menu"
-            },
-            {
-               "inputs" : {
-                  "click" : {
-                     "output" : "/actions/drawingboard/in/menu"
-                  }
-               },
-               "mode" : "button",
-               "path" : "/user/hand/right/input/application_menu"
             }
          ]
       },
@@ -344,6 +326,28 @@
          "poses" : [],
          "skeleton" : [],
          "sources" : []
+      },
+      "/actions/roomcontrol" : {
+         "sources" : [
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/roomcontrol/in/roomswitch"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/left/input/application_menu"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/roomcontrol/in/roomswitch"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/application_menu"
+            }
+         ]
       },
       "/actions/whiteboard" : {
          "poses" : [
