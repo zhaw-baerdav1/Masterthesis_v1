@@ -16,7 +16,7 @@ public class CustomNetworkManager : NetworkManager
     public List<GameObject> playerList;
     private int selectedCharacterNumber;
 
-    private void Awake()
+    private void Start()
     {
         CharacterList.OnCharacterSelected += CharacterList_OnCharacterSelected;
     }

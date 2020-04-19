@@ -27,7 +27,9 @@ public class RoomManager : NetworkBehaviour
             return;
         }
 
-        CustomNetworkManager networkManager = FindObjectOfType<CustomNetworkManager>();
-        networkManager.ServerChangeScene("ForestRoom");
+        //CustomNetworkManager networkManager = FindObjectOfType<CustomNetworkManager>();
+        //networkManager.ServerChangeScene("ForestRoom");
+
+        NetworkManager.singleton.ServerChangeScene("ForestRoom");
     }
 }
