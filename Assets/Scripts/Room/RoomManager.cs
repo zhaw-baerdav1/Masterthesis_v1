@@ -10,14 +10,21 @@ public class RoomManager : NetworkBehaviour
 {
 
     public SteamVR_Action_Boolean roomSwitch = SteamVR_Input.GetBooleanAction("RoomSwitch");
-
-    void Awake()
+    
+    public override void OnStartLocalPlayer()
     {
         roomSwitch.AddOnChangeListener(OnRoomSwitch, SteamVR_Input_Sources.Any);
+
+        base.OnStartLocalPlayer();
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         roomSwitch.RemoveOnChangeListener(OnRoomSwitch, SteamVR_Input_Sources.Any);
     }
 
@@ -28,12 +35,13 @@ public class RoomManager : NetworkBehaviour
             return;
         }
 
-        if (!isServer)
-        {
-            return;
-        }
+        CmdChangeToNextRoom();    
+    }
 
+    [Command]
+    private void CmdChangeToNextRoom()
+    {
         CustomNetworkManager networkManager = FindObjectOfType<CustomNetworkManager>();
-        networkManager.ChangeToNextRoom();        
+        networkManager.ChangeToNextRoom();
     }
 }

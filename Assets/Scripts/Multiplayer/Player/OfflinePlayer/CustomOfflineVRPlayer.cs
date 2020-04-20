@@ -1,4 +1,4 @@
-﻿public class CustomOfflinePlayer : CustomPlayer
+﻿public class CustomOfflineVRPlayer : CustomVRPlayer
 {
 	private new void Awake()
 	{

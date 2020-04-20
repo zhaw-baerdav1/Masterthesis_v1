@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.XR;
 
-public class CustomNonVRPlayer : NetworkBehaviour
+public class CustomNonVRPlayer : CustomPlayer
 {
 	private Camera staticCamera;
 	private MouseLook mouseLook;

@@ -17,9 +17,8 @@ using UnityEngine.Networking;
 // Singleton representing the local VR player/user, with methods for getting
 // the player's hands, head, tracking origin, and guesses for various properties.
 //-------------------------------------------------------------------------
-public class CustomPlayer : NetworkBehaviour
-	{
-
+public class CustomVRPlayer : CustomPlayer
+{
 	public GameObject vRCameraPrefab;
 	public GameObject steamVRPrefab;
 
@@ -41,10 +40,6 @@ public class CustomPlayer : NetworkBehaviour
 
 	public override void OnStartLocalPlayer()
 	{
-		if (!isClient) { 
-			return;
-		}
-
 		InstantiatePlayer();
 		base.OnStartLocalPlayer();
 	}
@@ -72,14 +67,14 @@ public class CustomPlayer : NetworkBehaviour
 	//-------------------------------------------------
 	// Singleton instance of the Player. Only one can exist at a time.
 	//-------------------------------------------------
-	private static CustomPlayer _instance;
-		public static CustomPlayer instance
+	private static CustomVRPlayer _instance;
+		public static CustomVRPlayer instance
 		{
 			get
 			{
 				if (_instance == null)
 				{
-					_instance = FindObjectOfType<CustomPlayer>();
+					_instance = FindObjectOfType<CustomVRPlayer>();
 				}
 				return _instance;
 			}

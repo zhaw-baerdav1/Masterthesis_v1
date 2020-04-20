@@ -17,19 +17,6 @@ public class JoinAreaSetup : MonoBehaviour
 
     private void OnDestroy()
     {
-        DeactivateSetup();
-    }
-
-    public void DeactivateSetup()
-    {
         actionSetLobby.Deactivate();
-
-        foreach (CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
-        {
-            if (customPlayer.name.Equals("OfflinePlayer"))
-            {
-                customPlayer.gameObject.SetActive(false);
-            }
-        }
     }
 }

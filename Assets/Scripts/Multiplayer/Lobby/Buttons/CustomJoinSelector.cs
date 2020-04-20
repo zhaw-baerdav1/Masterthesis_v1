@@ -36,7 +36,6 @@ public class CustomJoinSelector : MonoBehaviour
             return;
         }
 
-        FindObjectOfType<JoinAreaSetup>().DeactivateSetup();
         FindObjectOfType<CustomNetworkManager>().JoinWorkspace(workspaceToJoin);
         isJoining = true;
         

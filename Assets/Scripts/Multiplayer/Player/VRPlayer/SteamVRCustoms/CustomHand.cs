@@ -113,7 +113,7 @@ public class CustomHand : MonoBehaviour
         private const int ColliderArraySize = 32;
         private Collider[] overlappingColliders;
 
-        private CustomPlayer playerInstance;
+        private CustomVRPlayer playerInstance;
 
         private GameObject applicationLostFocusObject;
 
@@ -789,7 +789,7 @@ public class CustomHand : MonoBehaviour
         protected virtual IEnumerator Start()
         {
             // save off player instance
-            playerInstance = CustomPlayer.instance;
+            playerInstance = CustomVRPlayer.instance;
             if (!playerInstance)
             {
                 Debug.LogError("<b>[SteamVR Interaction]</b> No player instance found in Hand Start()", this);

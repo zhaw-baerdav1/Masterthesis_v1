@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3777432285777188145}
   - component: {fileID: 3777432285777188146}
   - component: {fileID: 3777432285777188147}
+  - component: {fileID: 3397300768197842314}
   m_Layer: 0
   m_Name: NonVRPlayer
   m_TagString: Untagged
@@ -184,3 +185,15 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &3397300768197842314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3777432285777188149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1c07a6449b0ca439ee6fac5f6f7d83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

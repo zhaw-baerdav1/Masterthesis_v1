@@ -11,14 +11,21 @@ public class DrawingBoardManager : NetworkBehaviour
 
     private CubeDefinitionList cubeDefinitionList = new CubeDefinitionList();
 
-    void Awake()
+    public override void OnStartLocalPlayer()
     {
         CubeList.OnNewCubeDefinition += CubeList_OnNewCubeDefinition;
         cubeDefinitionList.Callback = CubeListUpdated;
+
+        base.OnStartLocalPlayer();
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         CubeList.OnNewCubeDefinition += CubeList_OnNewCubeDefinition;
         cubeDefinitionList.Callback = null;
     }

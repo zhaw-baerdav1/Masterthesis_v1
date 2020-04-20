@@ -13,7 +13,6 @@ public class CustomHostSelector : MonoBehaviour
             return;
         }
 
-        FindObjectOfType<JoinAreaSetup>().DeactivateSetup();
         FindObjectOfType<CustomNetworkManager>().StartHosting();
         isHosting = true;
     }

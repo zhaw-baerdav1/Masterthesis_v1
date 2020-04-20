@@ -8,7 +8,6 @@ using System;
 
 public class CustomNetworkManager : NetworkManager
 {
-    private bool refreshActivated = true;
     private float nextRefreshTime;
     private static float refreshCycle = 5f;
     
@@ -44,8 +43,14 @@ public class CustomNetworkManager : NetworkManager
         Transform spawnPoint = this.startPositions[playerCount];
 
         GameObject newPlayer = (GameObject)Instantiate(playerToJoin, spawnPoint.position, spawnPoint.rotation);
-        newPlayer.SetActive(true);
-        
+
+        CustomPlayer customPlayer = newPlayer.GetComponent<CustomPlayer>();
+        if (customPlayer != null)
+        {
+            customPlayer.connectionId = conn.connectionId;
+            customPlayer.spawnOrderNumber = playerCount;
+        }
+
         NetworkServer.AddPlayerForConnection(conn, newPlayer, playerControllerId);
         playerCount++;
     }
@@ -73,19 +78,31 @@ public class CustomNetworkManager : NetworkManager
         ServerChangeScene(newRoom);
     }
 
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        Debug.Log("asda2");
+    }
+
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
-        ClientScene.RemovePlayer(0);
+        foreach (CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
+        {
+            int _connectionId = customPlayer.connectionId;
+            int currentConnectionId = conn.connectionId;
 
-        AddCustomPlayer(conn);
-    }    
+            if (_connectionId != currentConnectionId)
+            {
+                break;
+            }
+
+            Transform newStartPosition = this.startPositions[customPlayer.spawnOrderNumber];
+            customPlayer.transform.position = newStartPosition.position;
+            customPlayer.transform.rotation = newStartPosition.rotation;
+        }
+    }
 
     private void Update()
     {
-        if (!refreshActivated)
-        {
-            return;
-        }
 
         if (Time.time >= nextRefreshTime)
         {
@@ -147,7 +164,6 @@ public class CustomNetworkManager : NetworkManager
         SpawnProfile spawnProfile = new SpawnProfile();
         spawnProfile.characterId = selectedCharacterNumber;
 
-        ClientScene.Ready(conn);
         ClientScene.AddPlayer(client.connection, 0, spawnProfile);
     }
 }

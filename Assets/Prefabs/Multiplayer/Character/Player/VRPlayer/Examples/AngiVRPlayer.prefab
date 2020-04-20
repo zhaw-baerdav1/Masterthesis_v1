@@ -1190,6 +1190,7 @@ GameObject:
   - component: {fileID: 4271162262132897882}
   - component: {fileID: 5202925979964994705}
   - component: {fileID: -7680390445674250612}
+  - component: {fileID: 4730348843853936357}
   m_Layer: 0
   m_Name: AngiVRPlayer
   m_TagString: Untagged
@@ -7800,9 +7801,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c927fd6308be994e8c6875089b1256c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu:
-    actionPath: /actions/DrawingBoard/in/Menu
+  roomSwitch:
+    actionPath: /actions/RoomControl/in/RoomSwitch
     needsReinit: 0
+--- !u!114 &4730348843853936357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184351601374702731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1c07a6449b0ca439ee6fac5f6f7d83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3210277301699353186
 GameObject:
   m_ObjectHideFlags: 0
