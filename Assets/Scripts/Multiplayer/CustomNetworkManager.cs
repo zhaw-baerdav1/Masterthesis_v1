@@ -74,21 +74,36 @@ public class CustomNetworkManager : NetworkManager
 
     public void ChangeToNextRoom()
     {
-        string newRoom = RoomType.getNextRoom(networkSceneName);
-        ServerChangeScene(newRoom);
-    }
+        int currentIndex = roomNameList.IndexOf(networkSceneName);
 
-    public override void OnServerSceneChanged(string sceneName)
-    {
-        Debug.Log("asda2");
+        string newRoom = roomNameList[0];
+        if (currentIndex != (roomNameList.Count - 1))
+        {
+            newRoom = roomNameList[currentIndex + 1];
+        }
+
+        ServerChangeScene(newRoom);
     }
 
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
+        bool hasPlayerJoined = (ClientScene.localPlayers.Count != 0);
+
+        if (hasPlayerJoined)
+        {
+            UpdateStartPositions(conn.connectionId);
+            return;
+        }
+
+        AddCustomPlayer(conn);
+    }
+
+    private void UpdateStartPositions(int connectionId)
+    {
         foreach (CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
         {
             int _connectionId = customPlayer.connectionId;
-            int currentConnectionId = conn.connectionId;
+            int currentConnectionId = connectionId;
 
             if (_connectionId != currentConnectionId)
             {
@@ -156,7 +171,9 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        AddCustomPlayer(conn);
+        if (!clientLoadedScene) {
+            AddCustomPlayer(conn);
+        }
     }
 
     private void AddCustomPlayer(NetworkConnection conn)
@@ -164,6 +181,7 @@ public class CustomNetworkManager : NetworkManager
         SpawnProfile spawnProfile = new SpawnProfile();
         spawnProfile.characterId = selectedCharacterNumber;
 
+        ClientScene.Ready(conn);
         ClientScene.AddPlayer(client.connection, 0, spawnProfile);
     }
 }

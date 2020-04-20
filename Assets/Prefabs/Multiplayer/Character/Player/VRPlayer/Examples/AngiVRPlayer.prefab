@@ -1157,16 +1157,17 @@ GameObject:
   m_Component:
   - component: {fileID: 1903420860504759960}
   - component: {fileID: 8421815904213464034}
-  - component: {fileID: 3184351601374702722}
+  - component: {fileID: 3184351601374702725}
+  - component: {fileID: 3184351601374702724}
+  - component: {fileID: 2274870039430617381}
+  - component: {fileID: 3184351601374702723}
   - component: {fileID: 3184351601374702721}
+  - component: {fileID: 3184351601374702722}
   - component: {fileID: 3184351601374702720}
   - component: {fileID: 3184351601374702735}
   - component: {fileID: 3184351601374702734}
   - component: {fileID: 3184351601374702733}
   - component: {fileID: 3184351601374702732}
-  - component: {fileID: 3184351601374702723}
-  - component: {fileID: 3184351601374702725}
-  - component: {fileID: 3184351601374702724}
   - component: {fileID: 76302199269869359}
   - component: {fileID: 368881592540240457}
   - component: {fileID: 6409305930977760645}
@@ -1240,7 +1241,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3184351601374702722
+--- !u!114 &3184351601374702725
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1249,17 +1250,94 @@ MonoBehaviour:
   m_GameObject: {fileID: 3184351601374702731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 2069102741, guid: 21fe281538940584e84b6d5eedb3525e, type: 3}
+  m_Script: {fileID: 11500000, guid: f8258ea15b8f74c4889ce485d21cbbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useMergeWithInfluencer: 1
-  inspHeight: 150
-  inspShowHeads: 1
-  inspShowEmote: 1
-  inspShowEyes: 1
-  inspShowLids: 1
-  inspShowLipsync: 1
-  inspShowBlinks: 1
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &3184351601374702724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184351601374702731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d6c522af31447398568cc65334232b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.03448276
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &2274870039430617381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184351601374702731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee64685f2881fe9479b93b1d1583b4ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDebug: 0
+  useLocalLipSync: 1
+  amplifyMultipleExperimental: 1
+--- !u!114 &3184351601374702723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184351601374702731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a01f893637a0f0419c70d82375d9740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectionId: 0
+  spawnOrderNumber: 0
+  vRCameraPrefab: {fileID: 4325450220225927243, guid: 3aedd73606976e84c8a0314ecf312803,
+    type: 3}
+  steamVRPrefab: {fileID: 4231178378636976420, guid: a379896088c0b364681490b3db1d74ea,
+    type: 3}
+  leftHandPrefab: {fileID: 769578221515880287, guid: 97404c9d2069fd246a8bb330a4ce1fee,
+    type: 3}
+  rightHandPrefab: {fileID: 5202729478213818952, guid: b54dd6b0429d17a4a91da8bdd736664b,
+    type: 3}
+  headOriginTransform: {fileID: 4143277245415012132}
+  headsetOnHead:
+    actionPath: /actions/default/in/HeadsetOnHead
+    needsReinit: 0
+  trackingOriginTransform: {fileID: 1903420860504759960}
 --- !u!114 &3184351601374702721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3480,6 +3558,26 @@ MonoBehaviour:
   inspAnalysisDisplay: 0
   inspOverrideSecondaryMix: 0
   inspDetailedTimingAdjustments: 0
+--- !u!114 &3184351601374702722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184351601374702731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 2069102741, guid: 21fe281538940584e84b6d5eedb3525e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useMergeWithInfluencer: 1
+  inspHeight: 150
+  inspShowHeads: 1
+  inspShowEmote: 1
+  inspShowEyes: 1
+  inspShowLids: 1
+  inspShowLipsync: 1
+  inspShowBlinks: 1
 --- !u!82 &3184351601374702720
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3487,7 +3585,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3184351601374702731}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -7249,7 +7347,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3184351601374702731}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2ee237a7d3f8ff42b3e51066248bf96, type: 3}
   m_Name: 
@@ -7270,91 +7368,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3184351601374702731}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63f2328949d5429a96accf03e4f00310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3184351601374702723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3184351601374702731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a01f893637a0f0419c70d82375d9740, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vRCameraPrefab: {fileID: 4325450220225927243, guid: 3aedd73606976e84c8a0314ecf312803,
-    type: 3}
-  steamVRPrefab: {fileID: 4231178378636976420, guid: a379896088c0b364681490b3db1d74ea,
-    type: 3}
-  leftHandPrefab: {fileID: 769578221515880287, guid: 97404c9d2069fd246a8bb330a4ce1fee,
-    type: 3}
-  rightHandPrefab: {fileID: 5202729478213818952, guid: b54dd6b0429d17a4a91da8bdd736664b,
-    type: 3}
-  headOriginTransform: {fileID: 4143277245415012132}
-  headsetOnHead:
-    actionPath: /actions/default/in/HeadsetOnHead
-    needsReinit: 0
-  trackingOriginTransform: {fileID: 1903420860504759960}
---- !u!114 &3184351601374702725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3184351601374702731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8258ea15b8f74c4889ce485d21cbbb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &3184351601374702724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3184351601374702731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d6c522af31447398568cc65334232b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.03448276
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!114 &76302199269869359
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -41,6 +41,7 @@ public class CustomVRPlayer : CustomPlayer
 	public override void OnStartLocalPlayer()
 	{
 		InstantiatePlayer();
+	
 		base.OnStartLocalPlayer();
 	}
 

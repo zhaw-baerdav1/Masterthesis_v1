@@ -23,6 +23,8 @@ public class CustomNonVRPlayer : CustomPlayer
 
 		mouseLook = new MouseLook();
 		mouseLook.Init(transform, staticCamera.transform);
+
+		base.OnStartLocalPlayer();
 	}
 
 	void Update()
