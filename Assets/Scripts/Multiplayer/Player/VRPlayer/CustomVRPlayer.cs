@@ -40,9 +40,19 @@ public class CustomVRPlayer : CustomPlayer
 
 	public override void OnStartLocalPlayer()
 	{
-		InstantiatePlayer();
-	
 		base.OnStartLocalPlayer();
+
+		InstantiatePlayer();
+		HideAllMeshRenderers(this.gameObject);
+	}
+
+	private void HideAllMeshRenderers(GameObject gameObject)
+	{
+		SkinnedMeshRenderer[] skinnedMeshRenderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+		foreach (SkinnedMeshRenderer childSkinnedMeshRenderer in skinnedMeshRenderers)
+		{
+			childSkinnedMeshRenderer.enabled = false;
+		}
 	}
 
 	protected void InstantiatePlayer()
