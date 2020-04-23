@@ -92,6 +92,7 @@ namespace Dissonance.Audio.Capture
                 {
                     //Get the audioclip from Unity for this microphone (with a fairly large internal buffer)
                     _clip = Microphone.Start(_micName, true, 10, sampleRate);
+
                     if (_clip == null)
                     {
                         Log.Error("Failed to start microphone capture");
@@ -375,7 +376,7 @@ namespace Dissonance.Audio.Capture
 
                 //Send frame to subscribers
                 for (var i = 0; i < _subscribers.Count; i++)
-                    _subscribers[i].ReceiveMicrophoneData(segment, _format);
+                    _subscribers[i].ReceiveMicrophoneData(segment, _format, _micName, _clip);
             }
         }
         #endregion

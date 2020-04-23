@@ -5,8 +5,11 @@ using IBM.Cloud.SDK;
 using IBM.Cloud.SDK.Authentication.Iam;
 using IBM.Cloud.SDK.Utilities;
 using IBM.Cloud.SDK.DataTypes;
+using Dissonance.Audio.Capture;
+using System;
+using NAudio.Wave;
 
-public class TextStreamer : MonoBehaviour
+public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
 {
     #region PLEASE SET THESE VARIABLES IN THE INSPECTOR
     [Space(10)]
@@ -43,31 +46,8 @@ public class TextStreamer : MonoBehaviour
     void Start()
     {
         LogSystem.InstallDefaultReactors();
-        //Runnable.Run(CreateService());
-    }
-
-    private IEnumerator CreateService()
-    {
-        if (string.IsNullOrEmpty(_iamApikey))
-        {
-            throw new IBMException("Plesae provide IAM ApiKey for the service.");
-        }
-
-        IamAuthenticator authenticator = new IamAuthenticator(apikey: _iamApikey);
-
-        //  Wait for tokendata
-        while (!authenticator.CanAuthenticate())
-            yield return null;
-
-        _service = new SpeechToTextService(authenticator);
-        if (!string.IsNullOrEmpty(_serviceUrl))
-        {
-            _service.SetServiceUrl(_serviceUrl);
-        }
-        _service.StreamMultipart = true;
-
-        Active = true;
-       // StartRecording();
+        
+        
     }
 
     public bool Active
@@ -99,25 +79,6 @@ public class TextStreamer : MonoBehaviour
         }
     }
 
-    private void StartRecording()
-    {
-        if (_recordingRoutine == 0)
-        {
-            UnityObjectUtil.StartDestroyQueue();
-            //_recordingRoutine = Runnable.Run(RecordingHandler(_microphoneID));
-        }
-    }
-
-    private void StopRecording()
-    {
-        if (_recordingRoutine != 0)
-        {
-            //Microphone.End(_microphoneID);
-            Runnable.Stop(_recordingRoutine);
-            _recordingRoutine = 0;
-        }
-    }
-
     private void OnError(string error)
     {
         Active = false;
@@ -127,7 +88,6 @@ public class TextStreamer : MonoBehaviour
 
     public IEnumerator RecordingHandler(string microphoneID, AudioClip recording, int recordingHZ)
     {
-
 
         if (string.IsNullOrEmpty(_iamApikey))
         {
@@ -149,12 +109,9 @@ public class TextStreamer : MonoBehaviour
 
         Active = true;
 
-
         UnityObjectUtil.StartDestroyQueue();
 
         Log.Debug("TextSreamer.RecordingHandler()", "devices: {0}", Microphone.devices);
-        //AudioClip _recording = Microphone.Start(microphoneID, true, _recordingBufferSize, _recordingHZ);
-        //yield return null;      // let _recordingRoutine get set..
 
         if (_service == null)
         {
@@ -173,7 +130,6 @@ public class TextStreamer : MonoBehaviour
             {
                 Log.Error("TextSreamer.RecordingHandler()", "Microphone disconnected.");
 
-                StopRecording();
                 yield break;
             }
 
@@ -254,5 +210,22 @@ public class TextStreamer : MonoBehaviour
                 Log.Debug("TextSreamer.OnRecognizeSpeaker()", string.Format("speaker result: {0} | confidence: {3} | from: {1} | to: {2}", labelResult.speaker, labelResult.from, labelResult.to, labelResult.confidence));
             }
         }
+    }
+
+    private bool called = false;
+    public void ReceiveMicrophoneData(ArraySegment<float> buffer, WaveFormat format, string microphoneID, AudioClip recording)
+    {
+        if (called)
+        {
+            return;
+        }
+
+        called = true;
+        Runnable.Run(RecordingHandler(microphoneID, recording, format.SampleRate));
+    }
+
+    public void Reset()
+    {
+        //throw new NotImplementedException();
     }
 }

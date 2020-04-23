@@ -5,6 +5,7 @@ using Dissonance.Config;
 using Dissonance.Threading;
 using Dissonance.VAD;
 using NAudio.Wave;
+using UnityEngine;
 using UnityEngine.Profiling;
 
 namespace Dissonance.Audio.Capture
@@ -163,7 +164,7 @@ namespace Dissonance.Audio.Capture
             _resetApplied = true;
         }
 
-        void IMicrophoneSubscriber.ReceiveMicrophoneData(ArraySegment<float> data, [NotNull] WaveFormat format)
+        void IMicrophoneSubscriber.ReceiveMicrophoneData(ArraySegment<float> data, [NotNull] WaveFormat format, string microphoneID, AudioClip recording)
         {
             if (data.Array == null) throw new ArgumentNullException("data");
             if (!format.Equals(_resamplerInput.WaveFormat)) throw new ArgumentException("Incorrect format supplied to preprocessor", "format");
@@ -327,7 +328,7 @@ namespace Dissonance.Audio.Capture
                 {
                     try
                     {
-                        subs[i].ReceiveMicrophoneData(new ArraySegment<float>(buffer), OutputFormat);
+                        subs[i].ReceiveMicrophoneData(new ArraySegment<float>(buffer), OutputFormat, null, null);
                     }
                     catch (Exception ex)
                     {

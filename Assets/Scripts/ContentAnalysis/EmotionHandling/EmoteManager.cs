@@ -4,8 +4,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class CustomEmoteEventManager : MonoBehaviour
+public class EmoteManager : NetworkBehaviour
 {
     enum EmotionType
     {
@@ -27,13 +28,20 @@ public class CustomEmoteEventManager : MonoBehaviour
             { EmotionType.Sadness, "sadness" }
         };
 
-    private void Awake()
+    public override void OnStartLocalPlayer()
     {
         EmotionList.OnNewEmotion += EmotionList_OnNewEmotion;
+
+        base.OnStartLocalPlayer();
     }
 
     private void OnDestroy()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         EmotionList.OnNewEmotion -= EmotionList_OnNewEmotion;
     }
 
@@ -46,10 +54,8 @@ public class CustomEmoteEventManager : MonoBehaviour
             double score = emotionTypeEntry.Value;
 
             float frac = (float) (1 - (1 - score));
-            Emoter[] emoterList = FindObjectsOfType<Emoter>();
-            foreach (Emoter emoter in emoterList) { 
-                emoter.ManualEmote(expressionComponentName, ExpressionComponent.ExpressionHandler.OneWay, 1, true, frac);
-            }
+            Emoter emoter = GetComponent<Emoter>();
+            emoter.ManualEmote(expressionComponentName, ExpressionComponent.ExpressionHandler.OneWay, 1, true, frac);
         }
 
     }

@@ -3,6 +3,7 @@ using Dissonance.Audio.Codecs;
 using Dissonance.Networking;
 using Dissonance.Threading;
 using NAudio.Wave;
+using UnityEngine;
 
 namespace Dissonance.Audio.Capture
 {
@@ -70,7 +71,7 @@ namespace Dissonance.Audio.Capture
         }
         #endregion
 
-        public void ReceiveMicrophoneData(ArraySegment<float> inputSamples, [NotNull] WaveFormat format)
+        public void ReceiveMicrophoneData(ArraySegment<float> inputSamples, [NotNull] WaveFormat format, string microphoneID, AudioClip recording)
         {
             if (format == null)
                 throw new ArgumentNullException("format");

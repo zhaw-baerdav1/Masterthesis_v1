@@ -20,6 +20,8 @@ using UnityEngine.Networking;
 public class CustomVRPlayer : CustomPlayer
 {
 	public GameObject vRCameraPrefab;
+	private GameObject vRCameraInstance;
+
 	public GameObject steamVRPrefab;
 
 	public GameObject leftHandPrefab;
@@ -27,13 +29,14 @@ public class CustomVRPlayer : CustomPlayer
 
 	public Transform headOriginTransform;
 
+	public GameObject headColliderPrefab;
+
 	public SteamVR_Action_Boolean headsetOnHead = SteamVR_Input.GetBooleanAction("HeadsetOnHead");
 
 	public Transform trackingOriginTransform;
 
 	protected bool isOfflinePlayer;
 
-	private GameObject vRCameraInstance;
 
 	private CustomHand[] hands;
 
@@ -43,7 +46,8 @@ public class CustomVRPlayer : CustomPlayer
 		base.OnStartLocalPlayer();
 
 		InstantiatePlayer();
-		HideAllMeshRenderers(this.gameObject);
+		//HideAllMeshRenderers(this.gameObject);
+
 	}
 
 	private void HideAllMeshRenderers(GameObject gameObject)
@@ -73,6 +77,11 @@ public class CustomVRPlayer : CustomPlayer
 		GameObject rightHandInstance = (GameObject)Instantiate(rightHandPrefab);
 		rightHandInstance.transform.parent = transform;
 		hands[1] = rightHandInstance.GetComponent<CustomHand>();
+
+		GameObject headCollider = (GameObject)Instantiate(headColliderPrefab);
+		headCollider.transform.parent = headOriginTransform;
+		headCollider.transform.localPosition = Vector3.zero;
+		headCollider.transform.localRotation = Quaternion.identity;
 	}
 
 	//-------------------------------------------------
@@ -294,54 +303,26 @@ public class CustomVRPlayer : CustomPlayer
 		{
 			_instance = this;
 
-			eyes = GetComponent<Eyes>();
-
 			while (SteamVR.initializedState == SteamVR.InitializedStates.None || SteamVR.initializedState == SteamVR.InitializedStates.Initializing)
 				yield return null;
 		}
 
-
-	private Eyes eyes;
-	private Camera vRCamera;
 	protected virtual void Update()
+	{
+		if (SteamVR.initializedState != SteamVR.InitializedStates.InitializeSuccess)
+			return;
+
+		if (headsetOnHead != null)
 		{
-			if (SteamVR.initializedState != SteamVR.InitializedStates.InitializeSuccess)
-				return;
-
-			if (headsetOnHead != null)
+			if (headsetOnHead.GetStateDown(SteamVR_Input_Sources.Head))
 			{
-				if (headsetOnHead.GetStateDown(SteamVR_Input_Sources.Head))
-				{
-					Debug.Log("<b>SteamVR Interaction System</b> Headset placed on head");
-				}
-				else if (headsetOnHead.GetStateUp(SteamVR_Input_Sources.Head))
-				{
-					Debug.Log("<b>SteamVR Interaction System</b> Headset removed");
-				}
+				Debug.Log("<b>SteamVR Interaction System</b> Headset placed on head");
 			}
-
-
-			if (eyes == null)
+			else if (headsetOnHead.GetStateUp(SteamVR_Input_Sources.Head))
 			{
-				return;
+				Debug.Log("<b>SteamVR Interaction System</b> Headset removed");
 			}
-
-			if (vRCameraInstance == null)
-			{
-				return;
-			}
-				
-			if (vRCamera == null)
-			{
-				vRCamera = vRCameraInstance.GetComponent<Camera>();
-			}
-			RaycastHit hit;
-			var cameraCenter = vRCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, vRCamera.nearClipPlane));
-			if (Physics.Raycast(cameraCenter, hmdTransform.forward, out hit, Mathf.Infinity))
-			{
-				eyes.lookTarget = hit.transform;
-			}
-			
+		}			
 	}
 }
 

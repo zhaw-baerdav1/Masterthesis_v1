@@ -1347,9 +1347,11 @@ GameObject:
   - component: {fileID: 3184351601374702725}
   - component: {fileID: 3184351601374702724}
   - component: {fileID: 3184351601374702723}
-  - component: {fileID: 76302199269869359}
   - component: {fileID: 5202925979964994705}
   - component: {fileID: -7680390445674250612}
+  - component: {fileID: 2119963847018635357}
+  - component: {fileID: 3073198541844899648}
+  - component: {fileID: 8911600773743437808}
   - component: {fileID: 4730348843853936357}
   - component: {fileID: 6733965403781100013}
   - component: {fileID: 3449308376765951060}
@@ -1483,32 +1485,12 @@ MonoBehaviour:
   rightHandPrefab: {fileID: 5202729478213818952, guid: b54dd6b0429d17a4a91da8bdd736664b,
     type: 3}
   headOriginTransform: {fileID: 4143277245415012132}
+  headColliderPrefab: {fileID: 9021668578028007268, guid: 9149a77a52379d941a3cff9b72c9f841,
+    type: 3}
   headsetOnHead:
     actionPath: /actions/default/in/HeadsetOnHead
     needsReinit: 0
   trackingOriginTransform: {fileID: 1903420860504759960}
---- !u!114 &76302199269869359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3184351601374702731}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66acbee59d2b72b44a94af146fc71685, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Target: {fileID: 6745810983538311655}
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_InterpolateRotation: 0.5
-  m_InterpolateMovement: 0.5
-  m_SyncLevel: 0
-  m_NetworkChannel: 1
-  numBones: 0
-  binarySize: 0
 --- !u!114 &5202925979964994705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,6 +1518,42 @@ MonoBehaviour:
   roomSwitch:
     actionPath: /actions/RoomControl/in/RoomSwitch
     needsReinit: 0
+--- !u!114 &2119963847018635357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184351601374702731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f978dab14c2d9ee45961040d343913ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3073198541844899648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184351601374702731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2b7cfd167a02849806358b9e9adc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8911600773743437808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184351601374702731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd31c3e96d3c36d4ea4216b4bb822e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4730348843853936357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6852,10 +6870,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inspStateFoldoutReferences: 0
-  inspStateFoldoutHeads: 1
+  inspStateFoldoutHeads: 0
   inspStateFoldoutHeadProps: 1
   inspStateFoldoutAnimBones: 0
-  inspStateFoldoutEyes: 0
+  inspStateFoldoutEyes: 1
   inspStateFoldoutEyeProps: 1
   inspStateFoldoutEyelids: 0
   inspStateFoldoutEyelidBlinkProps: 1
@@ -6886,7 +6904,7 @@ MonoBehaviour:
   headTargetOffset: {x: 0, y: 0.052, z: 0}
   headClamp: {x: 45, y: 160, z: 45}
   headFacingCamera: 0
-  headRandom: 1
+  headRandom: 0
   headRandomFov: {x: 5, y: 45, z: 22.5}
   headRandFovHalf: {x: 0, y: 0, z: 0}
   headRandTimerRange: {x: 5, y: 10}
@@ -6983,7 +7001,7 @@ MonoBehaviour:
   useEyeSectors: 0
   eyeClamp: {x: 25, y: 45, z: 0}
   eyeRangeOfMotion2D: 0.1
-  eyeRandom: 1
+  eyeRandom: 0
   eyeRandomFov: {x: 2.5, y: 5, z: 10}
   eyeRandTrackFov: {x: 0.1, y: 0.05}
   eyeRandTrackFovAffinity: {x: 0.2, y: 0.1}
