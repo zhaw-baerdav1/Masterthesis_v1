@@ -11,6 +11,8 @@ public class CustomNonVRPlayer : CustomPlayer
 
 	public override void OnStartLocalPlayer()
 	{
+		base.OnStartLocalPlayer();
+
 		staticCamera = GetComponentInChildren<Camera>();
 
 		// attach camera to player.. 3rd person view..
@@ -23,8 +25,6 @@ public class CustomNonVRPlayer : CustomPlayer
 
 		mouseLook = new MouseLook();
 		mouseLook.Init(transform, staticCamera.transform);
-
-		base.OnStartLocalPlayer();
 	}
 
 	void Update()
