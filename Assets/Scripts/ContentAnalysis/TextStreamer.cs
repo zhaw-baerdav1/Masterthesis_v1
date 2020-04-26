@@ -8,6 +8,7 @@ using IBM.Cloud.SDK.DataTypes;
 using Dissonance.Audio.Capture;
 using System;
 using NAudio.Wave;
+using System.Collections.Generic;
 
 public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
 {
@@ -46,8 +47,33 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
     void Start()
     {
         LogSystem.InstallDefaultReactors();
-        
-        
+
+        Runnable.Run(CreateService());
+
+        UnityObjectUtil.StartDestroyQueue();
+    }
+
+    private IEnumerator CreateService()
+    {
+        if (string.IsNullOrEmpty(_iamApikey))
+        {
+            throw new IBMException("Plesae provide IAM ApiKey for the service.");
+        }
+
+        IamAuthenticator authenticator = new IamAuthenticator(apikey: _iamApikey);
+
+        //  Wait for tokendata
+        while (!authenticator.CanAuthenticate())
+            yield return null;
+
+        _service = new SpeechToTextService(authenticator);
+        if (!string.IsNullOrEmpty(_serviceUrl))
+        {
+            _service.SetServiceUrl(_serviceUrl);
+        }
+        _service.StreamMultipart = true;
+
+        Active = true;
     }
 
     public bool Active
@@ -88,27 +114,6 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
 
     public IEnumerator RecordingHandler(string microphoneID, AudioClip recording, int recordingHZ)
     {
-
-        if (string.IsNullOrEmpty(_iamApikey))
-        {
-            throw new IBMException("Plesae provide IAM ApiKey for the service.");
-        }
-
-        IamAuthenticator authenticator = new IamAuthenticator(apikey: _iamApikey);
-
-        //  Wait for tokendata
-        while (!authenticator.CanAuthenticate())
-            yield return null;
-
-        _service = new SpeechToTextService(authenticator);
-        if (!string.IsNullOrEmpty(_serviceUrl))
-        {
-            _service.SetServiceUrl(_serviceUrl);
-        }
-        _service.StreamMultipart = true;
-
-        Active = true;
-
         UnityObjectUtil.StartDestroyQueue();
 
         Log.Debug("TextSreamer.RecordingHandler()", "devices: {0}", Microphone.devices);
@@ -213,19 +218,34 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
     }
 
     private bool called = false;
-    public void ReceiveMicrophoneData(ArraySegment<float> buffer, WaveFormat format, string microphoneID, AudioClip recording)
+    private bool bFirstBlock = true;
+    float[] samples = null;
+    List<float> recordingArray = new List<float>();
+
+    public void ReceiveMicrophoneData(ArraySegment<float> buffer, WaveFormat format, string microphoneID, AudioClip recording, int writePos)
     {
-        if (called)
+       int samplingSize = recording.samples / 10;
+
+       recordingArray.AddRange(buffer.Array);
+
+        if ( recordingArray.Count < samplingSize)
         {
             return;
         }
 
-        called = true;
-        Runnable.Run(RecordingHandler(microphoneID, recording, format.SampleRate));
+        samples = recordingArray.ToArray();
+
+        AudioData record = new AudioData();
+        record.MaxLevel = Mathf.Max(Mathf.Abs(Mathf.Min(samples)), Mathf.Max(samples));
+        record.Clip = AudioClip.Create("Recording", recordingArray.Count, format.Channels, format.SampleRate, false);
+        record.Clip.SetData(samples, 0);
+
+        _service.OnListen(record);
+        recordingArray = new List<float>();
     }
 
-    public void Reset()
+        public void Reset()
     {
-        //throw new NotImplementedException();
+        Debug.Log("asd");
     }
 }

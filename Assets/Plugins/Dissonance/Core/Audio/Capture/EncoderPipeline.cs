@@ -71,7 +71,7 @@ namespace Dissonance.Audio.Capture
         }
         #endregion
 
-        public void ReceiveMicrophoneData(ArraySegment<float> inputSamples, [NotNull] WaveFormat format, string microphoneID, AudioClip recording)
+        public void ReceiveMicrophoneData(ArraySegment<float> inputSamples, [NotNull] WaveFormat format, string microphoneID, AudioClip recording, int writePos)
         {
             if (format == null)
                 throw new ArgumentNullException("format");

@@ -28,6 +28,13 @@ public class EmoteManager : NetworkBehaviour
             { EmotionType.Sadness, "sadness" }
         };
 
+    Emoter emoter;
+
+    private void Start()
+    {
+        emoter = GetComponent<Emoter>();
+    }
+
     public override void OnStartLocalPlayer()
     {
         EmotionList.OnNewEmotion += EmotionList_OnNewEmotion;
@@ -53,12 +60,29 @@ public class EmoteManager : NetworkBehaviour
             string expressionComponentName = emotionDictionary[emotionTypeEntry.Key];
             double score = emotionTypeEntry.Value;
 
-            float frac = (float) (1 - (1 - score));
-            Emoter emoter = GetComponent<Emoter>();
-            emoter.ManualEmote(expressionComponentName, ExpressionComponent.ExpressionHandler.OneWay, 1, true, frac);
+            CmdExpressEmote(expressionComponentName, score);
         }
 
     }
+
+    private void ExpressEmote(string expressionComponentName, double score)
+    {
+        float frac = (float)(1 - (1 - score));
+        emoter.ManualEmote(expressionComponentName, ExpressionComponent.ExpressionHandler.OneWay, 1.5f, true, frac);
+    }
+
+    [Command]
+    private void CmdExpressEmote(string expressionComponentName, double score)
+    {
+        RpcExpressEmote(expressionComponentName, score);
+    }
+
+    [ClientRpc]
+    private void RpcExpressEmote(string expressionComponentName, double score)
+    {
+        ExpressEmote(expressionComponentName, score);
+    }
+
 
     private Dictionary<EmotionType, double> getRelevantEmotionTypeDictionary(EmotionScores emotionScores)
     {

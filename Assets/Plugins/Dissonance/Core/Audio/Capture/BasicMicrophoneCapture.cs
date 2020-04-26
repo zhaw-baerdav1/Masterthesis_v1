@@ -376,7 +376,7 @@ namespace Dissonance.Audio.Capture
 
                 //Send frame to subscribers
                 for (var i = 0; i < _subscribers.Count; i++)
-                    _subscribers[i].ReceiveMicrophoneData(segment, _format, _micName, _clip);
+                    _subscribers[i].ReceiveMicrophoneData(segment, _format, _micName, _clip, _readHead);
             }
         }
         #endregion

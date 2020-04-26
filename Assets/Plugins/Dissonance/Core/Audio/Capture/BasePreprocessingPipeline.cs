@@ -164,7 +164,7 @@ namespace Dissonance.Audio.Capture
             _resetApplied = true;
         }
 
-        void IMicrophoneSubscriber.ReceiveMicrophoneData(ArraySegment<float> data, [NotNull] WaveFormat format, string microphoneID, AudioClip recording)
+        void IMicrophoneSubscriber.ReceiveMicrophoneData(ArraySegment<float> data, [NotNull] WaveFormat format, string microphoneID, AudioClip recording, int writePos)
         {
             if (data.Array == null) throw new ArgumentNullException("data");
             if (!format.Equals(_resamplerInput.WaveFormat)) throw new ArgumentException("Incorrect format supplied to preprocessor", "format");
@@ -328,7 +328,7 @@ namespace Dissonance.Audio.Capture
                 {
                     try
                     {
-                        subs[i].ReceiveMicrophoneData(new ArraySegment<float>(buffer), OutputFormat, null, null);
+                        subs[i].ReceiveMicrophoneData(new ArraySegment<float>(buffer), OutputFormat, null, null, 0);
                     }
                     catch (Exception ex)
                     {
