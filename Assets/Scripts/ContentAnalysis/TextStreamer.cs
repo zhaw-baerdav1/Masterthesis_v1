@@ -178,10 +178,12 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
                     string text = string.Format("{0} ({1}, {2:0.00})\n", alt.transcript, res.final ? "Final" : "Interim", alt.confidence);
                     Log.Debug("TextSreamer.OnRecognize()", text);
                     ResultsField.text = text;
-                    if ( res.final)
+                    if (res.final)
                     {
-                        Runnable.Run(textAnalyzer.Analyze(text));
-                        Runnable.Run(toneAnalyzer.Analyze(text));
+                        Runnable.Run(textAnalyzer.Analyze(alt.transcript));
+                        Runnable.Run(toneAnalyzer.Analyze(alt.transcript));
+
+                        NamingList.UsableNamingDetected(alt.transcript);
                     }
                 }
 

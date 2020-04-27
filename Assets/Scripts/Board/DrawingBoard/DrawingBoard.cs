@@ -10,6 +10,8 @@ public class DrawingBoard : MonoBehaviour
 
     [SerializeField]
     public CubeRepresentation cubePrefab;
+    [SerializeField]
+    public ArrowRepresentation arrowPrefab;
 
     [SerializeField]
     public Material defaultMaterial;
@@ -33,6 +35,8 @@ public class DrawingBoard : MonoBehaviour
         CubeList.OnCubeMoveDown += CubeList_OnCubeMoveDown;
         CubeList.OnCubeMoveLeft += CubeList_OnCubeMoveLeft;
         CubeList.OnCubeMoveRight += CubeList_OnCubeMoveRight;
+
+        ArrowList.OnNewArrowDefinitionList += ArrowList_OnNewArrowDefinitionList;
     }
 
     private void OnDestroy()
@@ -48,8 +52,9 @@ public class DrawingBoard : MonoBehaviour
         CubeList.OnCubeMoveDown -= CubeList_OnCubeMoveDown;
         CubeList.OnCubeMoveLeft -= CubeList_OnCubeMoveLeft;
         CubeList.OnCubeMoveRight -= CubeList_OnCubeMoveRight;
-    }
 
+        ArrowList.OnNewArrowDefinitionList -= ArrowList_OnNewArrowDefinitionList;
+    }
 
     private void CubeList_OnNewCubeDefinitionList(List<CubeDefinition> cubeDefinitionList)
     {
@@ -94,7 +99,8 @@ public class DrawingBoard : MonoBehaviour
 
         if(movedCubeDefinition != null)
         {
-            CubeList.TriggerCubeChange(movedCubeDefinition);
+            CubeList.TriggerCubeChange(movedCubeDefinition.id, movedCubeDefinition.position);
+
             movedCubeDefinition = null;
         }
     }
@@ -169,6 +175,28 @@ public class DrawingBoard : MonoBehaviour
                 movedCubeDefinition = cube.GetCubeDefinition();
                 break;
             }
+        }
+    }
+
+    private void ArrowList_OnNewArrowDefinitionList(List<ArrowDefinition> arrowDefinitionList)
+    {
+        RemoveArrows();
+
+        foreach (ArrowDefinition arrowDefinition in arrowDefinitionList)
+        {
+            ArrowRepresentation arrow = Instantiate(arrowPrefab);
+            arrow.SetArrowDefinition(arrowDefinition);
+            arrow.AttachToDrawingBoard(transform);
+            arrow.Initialize();
+        }
+    }
+
+    public void RemoveArrows()
+    {
+        var arrows = GetComponentsInChildren<ArrowRepresentation>();
+        foreach (var arrow in arrows)
+        {
+            Destroy(arrow.gameObject);
         }
     }
 }

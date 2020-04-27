@@ -72,6 +72,7 @@ public class CubeList : MonoBehaviour
 
     public static void CubeSelection()
     {
+        TriggerPotentialArrowCreation();
 
         if (!selectedCubeDefinitionId.Equals(-1))
         {
@@ -92,6 +93,14 @@ public class CubeList : MonoBehaviour
             selectedCubeDefinitionId = lookAtCubeDefinitionId;
 
             OnCubeSelected(selectedCubeDefinitionId);
+        }
+    }
+
+    private static void TriggerPotentialArrowCreation()
+    {
+        if (!selectedCubeDefinitionId.Equals(-1) && !lookAtCubeDefinitionId.Equals(-1) && !lookAtCubeDefinitionId.Equals(selectedCubeDefinitionId))
+        {
+            ArrowList.TriggerNewArrowDefinition(selectedCubeDefinitionId, lookAtCubeDefinitionId);
         }
     }
 
@@ -135,9 +144,33 @@ public class CubeList : MonoBehaviour
         OnCubeMoveRight(selectedCubeDefinitionId);
     }
 
-    public static void TriggerCubeChange(CubeDefinition cubeDefinition)
+    public static void TriggerCubeChange(long id, Vector3 position)
     {
+        CubeDefinition cubeDefinition = GetCubeDefinitionById(id);
+        cubeDefinition.position = position;
+
         OnTriggerCubeChange(cubeDefinition);
+    }
+
+    public static void TriggerCubeChange(string naming)
+    {
+        CubeDefinition cubeDefinition = GetCubeDefinitionById(selectedCubeDefinitionId);
+        cubeDefinition.naming = naming;
+
+        OnTriggerCubeChange(cubeDefinition);
+    }
+
+    private static CubeDefinition GetCubeDefinitionById(long id)
+    {
+        foreach(CubeDefinition cubeDefinition in cubeDefinitionList)
+        {
+            if (cubeDefinition.id.Equals(id))
+            {
+                return cubeDefinition;
+            }
+        }
+
+        return null;
     }
 
     public static void CubeChangeCompleted(CubeDefinition cubeDefinition)
@@ -147,7 +180,7 @@ public class CubeList : MonoBehaviour
             CubeDefinition _cubeDefinition = cubeDefinitionList[i];
             if (!cubeDefinition.id.Equals(_cubeDefinition.id))
             {
-                return;
+                continue;
             }
 
             cubeDefinitionList[i].id = cubeDefinition.id;

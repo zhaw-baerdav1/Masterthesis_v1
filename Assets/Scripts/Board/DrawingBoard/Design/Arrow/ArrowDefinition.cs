@@ -1,0 +1,18 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class ArrowDefinition
+{
+    public long id;
+    public long startCubeDefinitionId;
+    public long endCubeDefinitionId;
+
+    public ArrowDefinition(long _id, long _startCubeDefinitionId, long _endCubeDefinitionId)
+    {
+        id = _id;
+        startCubeDefinitionId = _startCubeDefinitionId;
+        endCubeDefinitionId = _endCubeDefinitionId;
+    }
+}

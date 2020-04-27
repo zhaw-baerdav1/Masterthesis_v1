@@ -21,6 +21,7 @@ public class DrawingBoardManager : NetworkBehaviour
 
         CubeList.OnNewCubeDefinition += CubeList_OnNewCubeDefinition;
         CubeList.OnTriggerCubeChange += CubeList_OnTriggerCubeChange;
+        ArrowList.OnNewArrowDefinition += ArrowList_OnNewArrowDefinition;
 
         selectedCube.AddOnChangeListener(OnCubeSelected, SteamVR_Input_Sources.Any);
 
@@ -39,6 +40,7 @@ public class DrawingBoardManager : NetworkBehaviour
 
         CubeList.OnNewCubeDefinition -= CubeList_OnNewCubeDefinition;
         CubeList.OnTriggerCubeChange -= CubeList_OnTriggerCubeChange;
+        ArrowList.OnNewArrowDefinition -= ArrowList_OnNewArrowDefinition;
 
         selectedCube.RemoveOnChangeListener(OnCubeSelected, SteamVR_Input_Sources.Any);
 
@@ -47,9 +49,7 @@ public class DrawingBoardManager : NetworkBehaviour
         moveCubeLeft.RemoveOnChangeListener(OnCubeMoveLeft, SteamVR_Input_Sources.Any);
         moveCubeRight.RemoveOnChangeListener(OnCubeMoveRight, SteamVR_Input_Sources.Any);
     }
-
-
-
+       
     private void CubeList_OnNewCubeDefinition(CubeDefinition cubeDefinition)
     {
         CmdAddCube(cubeDefinition.id, cubeDefinition.naming, cubeDefinition.position);
@@ -84,6 +84,24 @@ public class DrawingBoardManager : NetworkBehaviour
     {
         CubeDefinition cubeDefinition = new CubeDefinition(id, naming, position);
         CubeList.CubeChangeCompleted(cubeDefinition);
+    }
+
+    private void ArrowList_OnNewArrowDefinition(ArrowDefinition arrowDefinition)
+    {
+        CmdAddArrow(arrowDefinition.id, arrowDefinition.startCubeDefinitionId, arrowDefinition.endCubeDefinitionId);
+    }
+
+    [Command]
+    private void CmdAddArrow(long id, long startCubeDefinitionId, long endCubeDefinitionId)
+    {
+        RpcAddArrow(id, startCubeDefinitionId, endCubeDefinitionId);
+    }
+
+    [ClientRpc]
+    private void RpcAddArrow(long id, long startCubeDefinitionId, long endCubeDefinitionId)
+    {
+        ArrowDefinition arrowDefinition = new ArrowDefinition(id, startCubeDefinitionId, endCubeDefinitionId);
+        ArrowList.AddNewArrowDefinitionList(arrowDefinition);
     }
 
     private void OnCubeSelected(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
