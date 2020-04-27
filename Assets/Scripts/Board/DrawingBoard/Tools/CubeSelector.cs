@@ -10,15 +10,15 @@ public class CubeSelector : MonoBehaviour
 
     private void Awake()
     {
-        CubeList.OnNewCubeDefinitionList += CubeList_OnNewCubeDefinitionList;
+        CubeList.OnCubeChangeCompleted += CubeList_OnCubeChangeCompleted;
     }
 
     private void OnDestroy()
     {
-        CubeList.OnNewCubeDefinitionList -= CubeList_OnNewCubeDefinitionList;
+        CubeList.OnCubeChangeCompleted -= CubeList_OnCubeChangeCompleted;
     }
 
-    private void CubeList_OnNewCubeDefinitionList(List<CubeDefinition> cubeDefinitionList)
+    private void CubeList_OnCubeChangeCompleted()
     {
         allowNewCube = true;
     }

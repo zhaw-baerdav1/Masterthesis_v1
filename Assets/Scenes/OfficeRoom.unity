@@ -6785,5 +6785,15 @@ PrefabInstance:
       propertyPath: _metadataExpanded
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8178499535517528443, guid: f24ca4113e0d77146915f2a450531d9b,
+        type: 3}
+      propertyPath: ReliableSequencedChannel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178499535517528443, guid: f24ca4113e0d77146915f2a450531d9b,
+        type: 3}
+      propertyPath: UnreliableChannel
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f24ca4113e0d77146915f2a450531d9b, type: 3}

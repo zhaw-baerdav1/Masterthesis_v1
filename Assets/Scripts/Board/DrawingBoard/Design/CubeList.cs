@@ -24,7 +24,7 @@ public class CubeList : MonoBehaviour
     public static event Action<long> OnCubeMoveRight = delegate { };
 
     public static event Action<CubeDefinition> OnTriggerCubeChange = delegate { };
-    public static event Action<CubeDefinition> OnCubeChangeCompleted = delegate { };
+    public static event Action OnCubeChangeCompleted = delegate { };
 
 
     public static void TriggerNewCubeDefinition(CubeDefinition cubeDefinition)
@@ -155,6 +155,7 @@ public class CubeList : MonoBehaviour
             cubeDefinitionList[i].position = cubeDefinition.position;
         }
 
+        OnCubeChangeCompleted();
         OnNewCubeDefinitionList(cubeDefinitionList);
     }
 }
