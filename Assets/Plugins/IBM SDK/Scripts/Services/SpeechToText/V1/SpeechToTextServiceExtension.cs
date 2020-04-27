@@ -100,7 +100,7 @@ namespace IBM.Watson.SpeechToText.V1
         private bool _detectSilence = true;            // If true, then we will try not to record silence.
         private float _silenceThreshold = 0.0f;         // If the audio level is below this value, then it's considered silent.
         private int _recordingHZ = -1;
-        private int _inactivityTimeout = 60;
+        private int _inactivityTimeout = 7200;
         private string _customization_id = null;
         private string _languageCustomizationId = null;
         private string _acoustic_customization_id = null;

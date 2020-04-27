@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public struct CubeDefinition
+public class CubeDefinition
 {
     public long id;
     public string naming;

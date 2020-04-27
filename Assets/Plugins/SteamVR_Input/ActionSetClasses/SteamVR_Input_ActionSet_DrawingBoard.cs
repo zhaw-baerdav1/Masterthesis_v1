@@ -25,14 +25,6 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Vector2 Touchpad
-        {
-            get
-            {
-                return SteamVR_Actions.drawingBoard_Touchpad;
-            }
-        }
-        
         public virtual SteamVR_Action_Boolean SnapTurnLeft
         {
             get

@@ -28,10 +28,6 @@ public class HeadRotationManager : NetworkBehaviour
 			return;
 		}
 
-		//if (NetworkServer.active) { 
-		//	return;
-		//}
-
 		if (eyes == null)
 		{
 			return;
@@ -60,11 +56,23 @@ public class HeadRotationManager : NetworkBehaviour
 			lookTargetName = hitTransform.name;
 			CmdSetNewLookTarget(lookTargetName);
 
-			//if (Time.time - m_LastClientSendTime > GetNetworkSendInterval())
-			//{
-			//	SendTransform();
-			//	m_LastClientSendTime = Time.time;
-			//}
+			//cube handling
+			CubeList.CubeLookAway();
+
+			GameObject lookAtGameObject = hit.transform.gameObject;
+			BoxCollider lookAtBoxCollider = lookAtGameObject.GetComponent<BoxCollider>();
+			if (lookAtBoxCollider == null)
+			{
+				return;
+			}
+			CubeRepresentation lookAtCubeRepresentation = lookAtGameObject.GetComponent<CubeRepresentation>();
+			if (lookAtCubeRepresentation == null)
+			{
+				return;
+			}
+
+			long lookAtCubeDefinitionId = lookAtCubeRepresentation.GetCubeDefinition().id;
+			CubeList.CubeLookAt(lookAtCubeDefinitionId);
 		}
 
 	}

@@ -1,21 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class CubeSelector : MonoBehaviour
 {
+    private bool allowNewCube = true;
 
-    bool cubethere = false;
+    private void Awake()
+    {
+        CubeList.OnNewCubeDefinitionList += CubeList_OnNewCubeDefinitionList;
+    }
+
+    private void OnDestroy()
+    {
+        CubeList.OnNewCubeDefinitionList -= CubeList_OnNewCubeDefinitionList;
+    }
+
+    private void CubeList_OnNewCubeDefinitionList(List<CubeDefinition> cubeDefinitionList)
+    {
+        allowNewCube = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (cubethere)
+        if (!allowNewCube)
         {
             return;
         }
 
-        CubeDefinition cubeDefinition = new CubeDefinition(1, "Test1", new Vector3(0, 0.05f, 0));
-        CubeList.AddNewCubeDefinition(cubeDefinition);
-        cubethere = true;
+        CubeDefinition cubeDefinition = new CubeDefinition(0, "Test1", new Vector3(0, 0.05f, 0));
+        CubeList.TriggerNewCubeDefinition(cubeDefinition);
+        allowNewCube = false;
     }
 }

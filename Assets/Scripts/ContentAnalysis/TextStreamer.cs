@@ -246,6 +246,6 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
 
         public void Reset()
     {
-        Debug.Log("asd");
+        //nothing to do here
     }
 }

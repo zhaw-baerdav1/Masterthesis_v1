@@ -82,10 +82,6 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/DrawingBoard/in/Touchpad",
-      "type": "vector2"
-    },
-    {
       "name": "/actions/DrawingBoard/in/SnapTurnLeft",
       "type": "boolean"
     },
@@ -203,7 +199,6 @@
       "/actions/Lobby/in/SnapTurnDown": "SnapTurnDown",
       "/actions/Lobby/in/SnapTurnUp": "SnapTurnUp",
       "/actions/DrawingBoard/in/GrabPinch": "GrabPinch",
-      "/actions/DrawingBoard/in/Touchpad": "Touchpad",
       "/actions/DrawingBoard/in/SnapTurnLeft": "SnapTurnLeft",
       "/actions/DrawingBoard/in/SnapTurnRight": "SnapTurnRight",
       "/actions/DrawingBoard/in/SnapTurnUp": "SnapTurnUp",

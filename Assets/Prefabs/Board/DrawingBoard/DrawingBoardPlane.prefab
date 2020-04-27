@@ -109,9 +109,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 7776821177601379596, guid: 83039eb14bca5aa4ebf2e57034df1997,
     type: 3}
-  menu:
-    actionPath: /actions/DrawingBoard/in/Menu
-    needsReinit: 0
+  defaultMaterial: {fileID: 2100000, guid: 2536f1f630d08f441b76cba76e8cf597, type: 2}
+  lookAtMaterial: {fileID: 2100000, guid: 4bc52937c3c17274f942302c482c69ac, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: 79b6bc15374199f4c90b61b8c09d3d4a, type: 2}
 --- !u!114 &2694518996202466119
 MonoBehaviour:
   m_ObjectHideFlags: 0

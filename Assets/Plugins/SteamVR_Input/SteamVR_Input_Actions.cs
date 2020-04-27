@@ -55,8 +55,6 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_drawingBoard_GrabPinch;
         
-        private static SteamVR_Action_Vector2 p_drawingBoard_Touchpad;
-        
         private static SteamVR_Action_Boolean p_drawingBoard_SnapTurnLeft;
         
         private static SteamVR_Action_Boolean p_drawingBoard_SnapTurnRight;
@@ -221,14 +219,6 @@ namespace Valve.VR
             }
         }
         
-        public static SteamVR_Action_Vector2 drawingBoard_Touchpad
-        {
-            get
-            {
-                return SteamVR_Actions.p_drawingBoard_Touchpad.GetCopy<SteamVR_Action_Vector2>();
-            }
-        }
-        
         public static SteamVR_Action_Boolean drawingBoard_SnapTurnLeft
         {
             get
@@ -299,7 +289,6 @@ namespace Valve.VR
                     SteamVR_Actions.lobby_SnapTurnUp,
                     SteamVR_Actions.lobby_SnapTurnDown,
                     SteamVR_Actions.drawingBoard_GrabPinch,
-                    SteamVR_Actions.drawingBoard_Touchpad,
                     SteamVR_Actions.drawingBoard_SnapTurnLeft,
                     SteamVR_Actions.drawingBoard_SnapTurnRight,
                     SteamVR_Actions.drawingBoard_SnapTurnUp,
@@ -325,7 +314,6 @@ namespace Valve.VR
                     SteamVR_Actions.lobby_SnapTurnUp,
                     SteamVR_Actions.lobby_SnapTurnDown,
                     SteamVR_Actions.drawingBoard_GrabPinch,
-                    SteamVR_Actions.drawingBoard_Touchpad,
                     SteamVR_Actions.drawingBoard_SnapTurnLeft,
                     SteamVR_Actions.drawingBoard_SnapTurnRight,
                     SteamVR_Actions.drawingBoard_SnapTurnUp,
@@ -361,8 +349,7 @@ namespace Valve.VR
                     SteamVR_Actions.roomControl_RoomSwitch};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze};
-            Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
-                    SteamVR_Actions.drawingBoard_Touchpad};
+            Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[0];
             Valve.VR.SteamVR_Input.actionsVector3 = new Valve.VR.SteamVR_Action_Vector3[0];
             Valve.VR.SteamVR_Input.actionsSkeleton = new Valve.VR.SteamVR_Action_Skeleton[] {
                     SteamVR_Actions.default_SkeletonLeftHand,
@@ -383,7 +370,6 @@ namespace Valve.VR
                     SteamVR_Actions.lobby_SnapTurnUp,
                     SteamVR_Actions.lobby_SnapTurnDown,
                     SteamVR_Actions.drawingBoard_GrabPinch,
-                    SteamVR_Actions.drawingBoard_Touchpad,
                     SteamVR_Actions.drawingBoard_SnapTurnLeft,
                     SteamVR_Actions.drawingBoard_SnapTurnRight,
                     SteamVR_Actions.drawingBoard_SnapTurnUp,
@@ -412,7 +398,6 @@ namespace Valve.VR
             SteamVR_Actions.p_lobby_SnapTurnUp = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/Lobby/in/SnapTurnUp")));
             SteamVR_Actions.p_lobby_SnapTurnDown = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/Lobby/in/SnapTurnDown")));
             SteamVR_Actions.p_drawingBoard_GrabPinch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/DrawingBoard/in/GrabPinch")));
-            SteamVR_Actions.p_drawingBoard_Touchpad = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/DrawingBoard/in/Touchpad")));
             SteamVR_Actions.p_drawingBoard_SnapTurnLeft = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/DrawingBoard/in/SnapTurnLeft")));
             SteamVR_Actions.p_drawingBoard_SnapTurnRight = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/DrawingBoard/in/SnapTurnRight")));
             SteamVR_Actions.p_drawingBoard_SnapTurnUp = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/DrawingBoard/in/SnapTurnUp")));
