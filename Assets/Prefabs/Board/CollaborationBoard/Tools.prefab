@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4470075395170937570}
   - component: {fileID: 2962277253336960969}
   - component: {fileID: 7674212638351607732}
-  - component: {fileID: 6263526990296086863}
+  - component: {fileID: 1074865132954274016}
   m_Layer: 0
   m_Name: IdeaSelector
   m_TagString: Untagged
@@ -108,7 +108,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 0.04290652, z: 10}
   m_Center: {x: 0, y: 0.00223875, z: -0.00000745058}
---- !u!114 &6263526990296086863
+--- !u!114 &1074865132954274016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 301967700140342867}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761982e8a78b2b24cbff7e3dbcdead60, type: 3}
+  m_Script: {fileID: 11500000, guid: 682efb83244cf184cbb5861f53cc4957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1670938363053100878

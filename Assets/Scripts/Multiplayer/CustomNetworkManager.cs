@@ -92,6 +92,7 @@ public class CustomNetworkManager : NetworkManager
         if (hasPlayerJoined)
         {
             UpdateStartPositions(conn.connectionId);
+            ClientScene.Ready(conn);
             return;
         }
 

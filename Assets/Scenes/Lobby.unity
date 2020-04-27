@@ -215,6 +215,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 16251525}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &39857295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 39857296}
+  m_Layer: 0
+  m_Name: AngiVRPlayer_HeadTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &39857296
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39857295}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.64525795, y: 1.727063, z: -1.3890676}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &113699227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -350,7 +380,7 @@ MonoBehaviour:
   m_OnlineScene: OfficeRoom
   m_SpawnPrefabs:
   - {fileID: 1832068680821055060, guid: 83039eb14bca5aa4ebf2e57034df1997, type: 3}
-  - {fileID: 3184351601374702731, guid: a0204d4a221a29c40ade7130b70bdf00, type: 3}
+  - {fileID: 8209260915281814015, guid: a0204d4a221a29c40ade7130b70bdf00, type: 3}
   - {fileID: 1800537847287148293, guid: 0e403fe4f31353046ac4d0db2e8d3914, type: 3}
   m_CustomConfig: 1
   m_MaxConnections: 4
@@ -412,7 +442,7 @@ MonoBehaviour:
   - MedievalRoom
   - ForestRoom
   playerList:
-  - {fileID: 3184351601374702731, guid: a0204d4a221a29c40ade7130b70bdf00, type: 3}
+  - {fileID: 8209260915281814015, guid: a0204d4a221a29c40ade7130b70bdf00, type: 3}
   - {fileID: 1800537847287148293, guid: 0e403fe4f31353046ac4d0db2e8d3914, type: 3}
 --- !u!1001 &158956676
 PrefabInstance:
@@ -1978,6 +2008,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &645684800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 645684801}
+  m_Layer: 0
+  m_Name: AngiVRPlayer_EyeTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &645684801
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645684800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.64437383, y: 1.7629191, z: -1.3113065}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &665431500
 GameObject:
