@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 7776821177601379596, guid: 83039eb14bca5aa4ebf2e57034df1997,
     type: 3}
-  arrowPrefab: {fileID: 2149174048616898625, guid: 275e91dbfc577944e9b17fe0265b43a8,
+  arrowPrefab: {fileID: 5837404731276943687, guid: 1c9a9029788b64f4985655dbc9665eeb,
     type: 3}
   defaultMaterial: {fileID: 2100000, guid: 2536f1f630d08f441b76cba76e8cf597, type: 2}
   lookAtMaterial: {fileID: 2100000, guid: 4bc52937c3c17274f942302c482c69ac, type: 2}

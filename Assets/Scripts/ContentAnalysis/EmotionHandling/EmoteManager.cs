@@ -88,27 +88,27 @@ public class EmoteManager : NetworkBehaviour
     {
         Dictionary<EmotionType, double> emotionTypeDictonary = new Dictionary<EmotionType, double>();
 
-        if (emotionScores.Anger.Value > emotionScoreThreshold)
+        if (emotionScores.Anger != null &&  emotionScores.Anger.Value > emotionScoreThreshold)
         {
             emotionTypeDictonary.Add(EmotionType.Anger, emotionScores.Anger.Value);
         }
 
-        if (emotionScores.Disgust.Value > emotionScoreThreshold)
+        if (emotionScores.Disgust != null && emotionScores.Disgust.Value > emotionScoreThreshold)
         {
             emotionTypeDictonary.Add(EmotionType.Disgust, emotionScores.Disgust.Value);
         }
 
-        if (emotionScores.Fear.Value > emotionScoreThreshold)
+        if (emotionScores.Fear != null && emotionScores.Fear.Value > emotionScoreThreshold)
         {
             emotionTypeDictonary.Add(EmotionType.Fear, emotionScores.Fear.Value);
         }
 
-        if (emotionScores.Joy.Value > emotionScoreThreshold)
+        if (emotionScores.Joy != null && emotionScores.Joy.Value > emotionScoreThreshold)
         {
             emotionTypeDictonary.Add(EmotionType.Joy, emotionScores.Joy.Value);
         }
 
-        if (emotionScores.Sadness.Value > emotionScoreThreshold)
+        if (emotionScores.Sadness != null && emotionScores.Sadness.Value > emotionScoreThreshold)
         {
             emotionTypeDictonary.Add(EmotionType.Sadness, emotionScores.Sadness.Value);
         }
