@@ -51,7 +51,7 @@ public class NamingSelector : MonoBehaviour
         }
         else
         {
-            ApplyState(recordingActiveMaterial);
+            ApplyState(recordingInactiveMaterial);
         }
     }
 

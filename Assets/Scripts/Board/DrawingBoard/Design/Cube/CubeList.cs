@@ -157,6 +157,7 @@ public class CubeList : MonoBehaviour
         CubeDefinition cubeDefinition = GetCubeDefinitionById(selectedCubeDefinitionId);
         cubeDefinition.naming = naming;
 
+        CubeSelection();
         OnTriggerCubeChange(cubeDefinition);
     }
 

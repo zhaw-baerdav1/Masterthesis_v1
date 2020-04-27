@@ -21,6 +21,15 @@ public class NamingList : MonoBehaviour
             return;
         }
 
+        if (string.IsNullOrEmpty(text))
+        {
+            return;
+        }
+
+        char[] textChar = text.ToCharArray();
+        textChar[0] = char.ToUpper(textChar[0]);
+        text = new string(textChar);
+
         CubeList.TriggerCubeChange(text);
         ChangeRecordingMode(false);
     }
