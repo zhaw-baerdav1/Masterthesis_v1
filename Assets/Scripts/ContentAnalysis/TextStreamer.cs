@@ -226,6 +226,12 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
 
     public void ReceiveMicrophoneData(ArraySegment<float> buffer, WaveFormat format, string microphoneID, AudioClip recording, int writePos)
     {
+        if(_service == null)
+        {
+            Debug.LogWarning("IBM Service not ready.");
+            return;
+        }
+
        int samplingSize = recording.samples / 10;
 
        recordingArray.AddRange(buffer.Array);

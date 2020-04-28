@@ -17,11 +17,19 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_WhiteBoard : Valve.VR.SteamVR_ActionSet
     {
         
-        public virtual SteamVR_Action_Pose Pose
+        public virtual SteamVR_Action_Boolean SnapTurnLeft
         {
             get
             {
-                return SteamVR_Actions.whiteBoard_Pose;
+                return SteamVR_Actions.whiteBoard_SnapTurnLeft;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean SnapTurnRight
+        {
+            get
+            {
+                return SteamVR_Actions.whiteBoard_SnapTurnRight;
             }
         }
     }

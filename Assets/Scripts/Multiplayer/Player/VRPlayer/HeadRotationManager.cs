@@ -46,7 +46,7 @@ public class HeadRotationManager : NetworkBehaviour
 			Transform hitTransform = hit.transform;
 			Transform headOriginTransform = customVRPlayer.headOriginTransform;
 
-			if (headOriginTransform != null && headOriginTransform.Equals(hitTransform.parent.transform))
+			if (headOriginTransform != null && hitTransform.parent != null && headOriginTransform.Equals(hitTransform.parent.transform))
 			{
 				return;
 			}

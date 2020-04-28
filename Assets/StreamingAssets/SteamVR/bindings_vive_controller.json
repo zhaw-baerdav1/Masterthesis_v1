@@ -342,18 +342,40 @@
       "/actions/whiteboard" : {
          "chords" : [],
          "haptics" : [],
-         "poses" : [
+         "poses" : [],
+         "skeleton" : [],
+         "sources" : [
             {
-               "output" : "/actions/whiteboard/in/pose",
-               "path" : "/user/hand/left/pose/raw"
+               "inputs" : {
+                  "east" : {
+                     "output" : "/actions/whiteboard/in/snapturnright"
+                  },
+                  "west" : {
+                     "output" : "/actions/whiteboard/in/snapturnleft"
+                  }
+               },
+               "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "click"
+               },
+               "path" : "/user/hand/left/input/trackpad"
             },
             {
-               "output" : "/actions/whiteboard/in/pose",
-               "path" : "/user/hand/right/pose/raw"
+               "inputs" : {
+                  "east" : {
+                     "output" : "/actions/whiteboard/in/snapturnright"
+                  },
+                  "west" : {
+                     "output" : "/actions/whiteboard/in/snapturnleft"
+                  }
+               },
+               "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "click"
+               },
+               "path" : "/user/hand/right/input/trackpad"
             }
-         ],
-         "skeleton" : [],
-         "sources" : []
+         ]
       }
    },
    "category" : "steamvr_input",

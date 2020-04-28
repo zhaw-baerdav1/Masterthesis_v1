@@ -98,8 +98,12 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/WhiteBoard/in/Pose",
-      "type": "pose"
+      "name": "/actions/WhiteBoard/in/SnapTurnLeft",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/WhiteBoard/in/SnapTurnRight",
+      "type": "boolean"
     },
     {
       "name": "/actions/RoomControl/in/RoomSwitch",
@@ -203,8 +207,9 @@
       "/actions/DrawingBoard/in/SnapTurnRight": "SnapTurnRight",
       "/actions/DrawingBoard/in/SnapTurnUp": "SnapTurnUp",
       "/actions/DrawingBoard/in/SnapTurnDown": "SnapTurnDown",
-      "/actions/WhiteBoard/in/Pose": "Pose",
-      "/actions/RoomControl/in/RoomSwitch": "RoomSwitch"
+      "/actions/RoomControl/in/RoomSwitch": "RoomSwitch",
+      "/actions/WhiteBoard/in/SnapTurnLeft": "SnapTurnLeft",
+      "/actions/WhiteBoard/in/SnapTurnRight": "SnapTurnRight"
     }
   ]
 }

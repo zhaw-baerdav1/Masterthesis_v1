@@ -65,6 +65,11 @@ public class CustomHand : MonoBehaviour
         [HideInInspector]
         public CustomRenderModel hoverhighlightRenderModel;
 
+        private SteamVR_Skeleton_JointIndexEnum fingerJointHover = SteamVR_Skeleton_JointIndexEnum.indexTip;
+        private float fingerJointHoverRadius = 0.025f;
+        private LayerMask hoverLayerMask = -1;
+        private float hoverUpdateInterval = 0.1f;
+
         public bool showDebugText = false;
         public bool spewDebugText = false;
         public bool showDebugInteractables = false;
@@ -72,7 +77,7 @@ public class CustomHand : MonoBehaviour
         public struct AttachedObject
         {
             public GameObject attachedObject;
-            public Interactable interactable;
+            public CustomInteractable interactable;
             public Rigidbody attachedRigidbody;
             public CollisionDetectionMode collisionDetectionMode;
             public bool attachedRigidbodyWasKinematic;
@@ -105,7 +110,7 @@ public class CustomHand : MonoBehaviour
 
         public bool hoverLocked { get; private set; }
 
-        private Interactable _hoveringInteractable;
+        private CustomInteractable _hoveringInteractable;
 
         private TextMesh debugText;
         private int prevOverlappingColliders = 0;
@@ -142,7 +147,7 @@ public class CustomHand : MonoBehaviour
         //-------------------------------------------------
         // The Interactable object this Hand is currently hovering over
         //-------------------------------------------------
-        public Interactable hoveringInteractable
+        public CustomInteractable hoveringInteractable
         {
             get { return _hoveringInteractable; }
             set
@@ -381,7 +386,7 @@ public class CustomHand : MonoBehaviour
             }
 
             attachedObject.attachedObject = objectToAttach;
-            attachedObject.interactable = objectToAttach.GetComponent<Interactable>();
+            attachedObject.interactable = objectToAttach.GetComponent<CustomInteractable>();
             attachedObject.allowTeleportWhileAttachedToHand = objectToAttach.GetComponent<AllowTeleportWhileAttachedToHand>();
             attachedObject.handAttachmentPointTransform = this.transform;
 
@@ -795,6 +800,11 @@ public class CustomHand : MonoBehaviour
                 Debug.LogError("<b>[SteamVR Interaction]</b> No player instance found in Hand Start()", this);
             }
 
+            if (this.gameObject.layer == 0)
+                Debug.LogWarning("<b>[SteamVR Interaction]</b> Hand is on default layer. This puts unnecessary strain on hover checks as it is always true for hand colliders (which are then ignored).", this);
+            else
+                hoverLayerMask &= ~(1 << this.gameObject.layer); //ignore self for hovering
+
             // allocate array for colliders
             overlappingColliders = new Collider[ColliderArraySize];
 
@@ -812,8 +822,124 @@ public class CustomHand : MonoBehaviour
             }
         }
 
-        //-------------------------------------------------
-        private void UpdateDebugText()
+    protected virtual void UpdateHovering()
+    {
+        if ((isActive == false))
+        {
+            return;
+        }
+
+        if (hoverLocked)
+            return;
+
+        if (applicationLostFocusObject.activeSelf)
+            return;
+
+        float closestDistance = float.MaxValue;
+        CustomInteractable closestInteractable = null;
+
+        if (mainRenderModel != null && mainRenderModel.IsHandVisibile())
+        {
+            float scaledHoverRadius = fingerJointHoverRadius * Mathf.Abs(SteamVR_Utils.GetLossyScale(this.transform));
+            CheckHoveringForTransform(mainRenderModel.GetBonePosition((int)fingerJointHover), scaledHoverRadius / 2f, ref closestDistance, ref closestInteractable, Color.yellow);
+        }
+
+        // Hover on this one
+        hoveringInteractable = closestInteractable;
+    }
+
+    protected virtual bool CheckHoveringForTransform(Vector3 hoverPosition, float hoverRadius, ref float closestDistance, ref CustomInteractable closestInteractable, Color debugColor)
+    {
+        bool foundCloser = false;
+
+        // null out old vals
+        for (int i = 0; i < overlappingColliders.Length; ++i)
+        {
+            overlappingColliders[i] = null;
+        }
+
+        int numColliding = Physics.OverlapSphereNonAlloc(hoverPosition, hoverRadius, overlappingColliders, hoverLayerMask.value);
+
+        if (numColliding >= ColliderArraySize)
+            Debug.LogWarning("<b>[SteamVR Interaction]</b> This hand is overlapping the max number of colliders: " + ColliderArraySize + ". Some collisions may be missed. Increase ColliderArraySize on Hand.cs");
+
+        // DebugVar
+        int iActualColliderCount = 0;
+
+        // Pick the closest hovering
+        for (int colliderIndex = 0; colliderIndex < overlappingColliders.Length; colliderIndex++)
+        {
+            Collider collider = overlappingColliders[colliderIndex];
+
+            if (collider == null)
+                continue;
+
+            CustomInteractable contacting = collider.GetComponentInParent<CustomInteractable>();
+
+            // Yeah, it's null, skip
+            if (contacting == null)
+                continue;
+
+            // Ignore this collider for hovering
+            IgnoreHovering ignore = collider.GetComponent<IgnoreHovering>();
+            if (ignore != null)
+            {
+                if (ignore.onlyIgnoreHand == null || ignore.onlyIgnoreHand == this)
+                {
+                    continue;
+                }
+            }
+
+            // Can't hover over the object if it's attached
+            bool hoveringOverAttached = false;
+            for (int attachedIndex = 0; attachedIndex < attachedObjects.Count; attachedIndex++)
+            {
+                if (attachedObjects[attachedIndex].attachedObject == contacting.gameObject)
+                {
+                    hoveringOverAttached = true;
+                    break;
+                }
+            }
+
+            if (hoveringOverAttached)
+                continue;
+
+            // Best candidate so far...
+            float distance = Vector3.Distance(contacting.transform.position, hoverPosition);
+            //float distance = Vector3.Distance(collider.bounds.center, hoverPosition);
+            bool lowerPriority = false;
+            if (closestInteractable != null)
+            { // compare to closest interactable to check priority
+                lowerPriority = contacting.hoverPriority < closestInteractable.hoverPriority;
+            }
+            bool isCloser = (distance < closestDistance);
+            if (isCloser && !lowerPriority)
+            {
+                closestDistance = distance;
+                closestInteractable = contacting;
+                foundCloser = true;
+            }
+            iActualColliderCount++;
+        }
+
+        if (showDebugInteractables && foundCloser)
+        {
+            Debug.DrawLine(hoverPosition, closestInteractable.transform.position, debugColor, .05f, false);
+        }
+
+        if (iActualColliderCount > 0 && iActualColliderCount != prevOverlappingColliders)
+        {
+            prevOverlappingColliders = iActualColliderCount;
+
+            if (spewDebugText)
+                HandDebugLog("Found " + iActualColliderCount + " overlapping colliders.");
+        }
+
+        return foundCloser;
+    }
+
+    //-------------------------------------------------
+    private void UpdateDebugText()
         {
             if (showDebugText)
             {
@@ -866,7 +992,12 @@ public class CustomHand : MonoBehaviour
         protected virtual void OnEnable()
         {
             inputFocusAction.enabled = true;
-        }
+
+            // Stagger updates between hands
+            float hoverUpdateBegin = ((otherHand != null) && (otherHand.GetInstanceID() < GetInstanceID())) ? (0.5f * hoverUpdateInterval) : (0.0f);
+            InvokeRepeating("UpdateHovering", hoverUpdateBegin, hoverUpdateInterval);
+            InvokeRepeating("UpdateDebugText", hoverUpdateBegin, hoverUpdateInterval);
+    }
 
 
         //-------------------------------------------------
@@ -896,7 +1027,7 @@ public class CustomHand : MonoBehaviour
         /// <summary>
         /// Returns true when the hand is currently hovering over the interactable passed in
         /// </summary>
-        public bool IsStillHovering(Interactable interactable)
+        public bool IsStillHovering(CustomInteractable interactable)
         {
             return hoveringInteractable == interactable;
         }
@@ -1145,7 +1276,7 @@ public class CustomHand : MonoBehaviour
         //
         // interactable - The Interactable to hover over indefinitely.
         //-------------------------------------------------
-        public void HoverLock(Interactable interactable)
+        public void HoverLock(CustomInteractable interactable)
         {
             if (spewDebugText)
                 HandDebugLog("HoverLock " + interactable);
@@ -1159,7 +1290,7 @@ public class CustomHand : MonoBehaviour
         //
         // interactable - The hover-locked Interactable to stop hovering over indefinitely.
         //-------------------------------------------------
-        public void HoverUnlock(Interactable interactable)
+        public void HoverUnlock(CustomInteractable interactable)
         {
             if (spewDebugText)
                 HandDebugLog("HoverUnlock " + interactable);
@@ -1366,4 +1497,4 @@ public class CustomHand : MonoBehaviour
 
 
     [System.Serializable]
-    public class HandEvent : UnityEvent<Hand> { }
+    public class HandEvent : UnityEvent<CustomHand> { }

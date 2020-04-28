@@ -3881,6 +3881,7 @@ GameObject:
   - component: {fileID: 8209260915281814001}
   - component: {fileID: 8209260915281814000}
   - component: {fileID: -6857828231827344965}
+  - component: {fileID: 325365736503641648}
   - component: {fileID: 8209260915281814007}
   - component: {fileID: 8209260915281814004}
   - component: {fileID: 8209260915281814011}
@@ -4111,6 +4112,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32f5f492fcba9f45ac442e2ffaf50e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &325365736503641648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8209260915281814015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25719b932a80844eb543dc02fb4f9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchColorLeft:
+    actionPath: /actions/default/in/SnapTurnLeft
+    needsReinit: 0
+  switchColorRight:
+    actionPath: /actions/default/in/SnapTurnRight
+    needsReinit: 0
 --- !u!114 &8209260915281814007
 MonoBehaviour:
   m_ObjectHideFlags: 0
