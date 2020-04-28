@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class WhiteBoardPen : MonoBehaviour
 {
-	private WhiteBoard whiteBoard;
+	[SerializeField]
+	public WhiteBoard whiteBoard;
+
 	private GameObject tip;
 	private RaycastHit touch;
 	private Quaternion lastAngle;
@@ -15,11 +17,11 @@ public class WhiteBoardPen : MonoBehaviour
 	public List<Color> colorList = new List<Color>();
 	private int currentColorIndex = 0;
 
+	private CustomVRPlayer ownerCustomVRPlayer;
+
 	// Use this for initialization
 	void Start()
 	{
-		// Get our Whiteboard component from the whiteboard object
-		whiteBoard = GameObject.Find("WhiteBoard").GetComponent<WhiteBoard>();
 		tip = transform.Find("Tip").gameObject;
 
 		ApplyTipColor(currentColorIndex);
@@ -77,15 +79,18 @@ public class WhiteBoardPen : MonoBehaviour
 		Vector3 tipPosition = tip.transform.position;
 		
 		// Check for a Raycast from the tip of the pen
-		if (Physics.Raycast(tipPosition, -transform.up, out touch, tipHeight))
-		{
-			
-			if (!touch.transform.gameObject.name.Equals("WhiteBoard"))
+		if (Physics.Raycast(tipPosition, transform.up, out touch, tipHeight))
+		{			
+			if (!touch.transform.gameObject.Equals(whiteBoard.gameObject))
 			{
 				return;
 			}
 
-			whiteBoard = touch.collider.GetComponent<WhiteBoard>();
+			if (ownerCustomVRPlayer == null)
+			{
+				ownerCustomVRPlayer = tip.GetComponentInParent<CustomVRPlayer>();
+				whiteBoard.SetOwnerCustomVRPlayer(ownerCustomVRPlayer);
+			}
 
 			// Set whiteboard parameters
 			whiteBoard.SetTouchPosition(touch.textureCoord.x, touch.textureCoord.y);

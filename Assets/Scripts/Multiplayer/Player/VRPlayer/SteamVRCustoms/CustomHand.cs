@@ -65,10 +65,19 @@ public class CustomHand : MonoBehaviour
         [HideInInspector]
         public CustomRenderModel hoverhighlightRenderModel;
 
-        private SteamVR_Skeleton_JointIndexEnum fingerJointHover = SteamVR_Skeleton_JointIndexEnum.indexTip;
-        private float fingerJointHoverRadius = 0.025f;
-        private LayerMask hoverLayerMask = -1;
-        private float hoverUpdateInterval = 0.1f;
+        public bool useHoverSphere = true;
+        public Transform hoverSphereTransform;
+        public float hoverSphereRadius = 0.05f;
+        public LayerMask hoverLayerMask = -1;
+        public float hoverUpdateInterval = 0.1f;
+
+        public bool useControllerHoverComponent = true;
+        public string controllerHoverComponent = "tip";
+        public float controllerHoverRadius = 0.075f;
+
+        public bool useFingerJointHover = true;
+        public SteamVR_Skeleton_JointIndexEnum fingerJointHover = SteamVR_Skeleton_JointIndexEnum.indexTip;
+        public float fingerJointHoverRadius = 0.025f;
 
         public bool showDebugText = false;
         public bool spewDebugText = false;
@@ -760,7 +769,10 @@ public class CustomHand : MonoBehaviour
         protected virtual void Awake()
         {
             inputFocusAction = SteamVR_Events.InputFocusAction(OnInputFocus);
-        
+
+            if (hoverSphereTransform == null)
+                hoverSphereTransform = this.transform;
+
             if (objectAttachmentPoint == null)
                 objectAttachmentPoint = this.transform;
 
@@ -838,7 +850,19 @@ public class CustomHand : MonoBehaviour
         float closestDistance = float.MaxValue;
         CustomInteractable closestInteractable = null;
 
-        if (mainRenderModel != null && mainRenderModel.IsHandVisibile())
+        if (useHoverSphere)
+        {
+            float scaledHoverRadius = hoverSphereRadius * Mathf.Abs(SteamVR_Utils.GetLossyScale(hoverSphereTransform));
+            CheckHoveringForTransform(hoverSphereTransform.position, scaledHoverRadius, ref closestDistance, ref closestInteractable, Color.green);
+        }
+
+        if (useControllerHoverComponent && mainRenderModel != null && mainRenderModel.IsControllerVisibile())
+        {
+            float scaledHoverRadius = controllerHoverRadius * Mathf.Abs(SteamVR_Utils.GetLossyScale(this.transform));
+            CheckHoveringForTransform(mainRenderModel.GetControllerPosition(controllerHoverComponent), scaledHoverRadius / 2f, ref closestDistance, ref closestInteractable, Color.blue);
+        }
+
+        if (useFingerJointHover && mainRenderModel != null && mainRenderModel.IsHandVisibile())
         {
             float scaledHoverRadius = fingerJointHoverRadius * Mathf.Abs(SteamVR_Utils.GetLossyScale(this.transform));
             CheckHoveringForTransform(mainRenderModel.GetBonePosition((int)fingerJointHover), scaledHoverRadius / 2f, ref closestDistance, ref closestInteractable, Color.yellow);

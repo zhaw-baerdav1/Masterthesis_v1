@@ -14,6 +14,8 @@ public class WhiteBoardManager : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
 
+        WhiteBoardEventSystem.OnApplyTexture += WhiteBoardEventSystem_OnApplyTexture;
+
         switchColorLeft.AddOnChangeListener(OnSwitchColorLeft, SteamVR_Input_Sources.Any);
         switchColorRight.AddOnChangeListener(OnSwitchColorRight, SteamVR_Input_Sources.Any);
     }
@@ -25,8 +27,27 @@ public class WhiteBoardManager : NetworkBehaviour
             return;
         }
 
+        WhiteBoardEventSystem.OnApplyTexture -= WhiteBoardEventSystem_OnApplyTexture;
+
         switchColorLeft.RemoveOnChangeListener(OnSwitchColorLeft, SteamVR_Input_Sources.Any);
         switchColorRight.RemoveOnChangeListener(OnSwitchColorRight, SteamVR_Input_Sources.Any);
+    }
+
+    private void WhiteBoardEventSystem_OnApplyTexture(int ownerConnectionId, int x, int y)
+    {
+        CmdApplyTexture(ownerConnectionId, x, y);
+    }
+
+    [Command]
+    private void CmdApplyTexture(int ownerConnectionId, int x, int y)
+    {
+        RpcApplyTexture(ownerConnectionId, x, y);
+    }
+
+    [ClientRpc]
+    private void RpcApplyTexture(int ownerConnectionId, int x, int y)
+    {
+        WhiteBoardEventSystem.ApplyTexture(ownerConnectionId, x, y);
     }
 
     private void OnSwitchColorRight(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)

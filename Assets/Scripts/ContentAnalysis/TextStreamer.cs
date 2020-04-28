@@ -48,9 +48,17 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
     {
         LogSystem.InstallDefaultReactors();
 
-        Runnable.Run(CreateService());
+        _recordingRoutine = Runnable.Run(CreateService());
 
         UnityObjectUtil.StartDestroyQueue();
+    }
+
+    private void OnDestroy()
+    {
+        if(_recordingRoutine != 0)
+        {
+            Runnable.Stop(_recordingRoutine);
+        }
     }
 
     private IEnumerator CreateService()
