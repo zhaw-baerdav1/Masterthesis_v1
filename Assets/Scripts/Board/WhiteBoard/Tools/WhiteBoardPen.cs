@@ -17,10 +17,10 @@ public class WhiteBoardPen : MonoBehaviour
 	public List<Color> colorList = new List<Color>();
 	private int currentColorIndex = 0;
 
-	private CustomVRPlayer ownerCustomVRPlayer;
-
 	private Vector3 oldPosition;
 	private Quaternion oldRotation;
+
+	private CustomVRPlayer ownerCustomVRPlayer;
 
 	// Use this for initialization
 	void Start()
@@ -49,7 +49,16 @@ public class WhiteBoardPen : MonoBehaviour
 		WhiteBoardEventSystem.OnResetPens -= WhiteBoardEventSystem_OnResetPens;
 	}
 
+	public void SetOwnerCustomVRPlayer(CustomVRPlayer customVRPlayer)
+	{
+		if(ownerCustomVRPlayer != null)
+		{
+			return;
+		}
 
+		ownerCustomVRPlayer = customVRPlayer;
+		whiteBoard.SetOwnerCustomVRPlayer(ownerCustomVRPlayer);
+	}
 
 	private void ColorList_OnSwitchColorRight()
 	{
@@ -96,12 +105,6 @@ public class WhiteBoardPen : MonoBehaviour
 			if (!touch.transform.gameObject.Equals(whiteBoard.gameObject))
 			{
 				return;
-			}
-
-			if (ownerCustomVRPlayer == null)
-			{
-				ownerCustomVRPlayer = tip.GetComponentInParent<CustomVRPlayer>();
-				whiteBoard.SetOwnerCustomVRPlayer(ownerCustomVRPlayer);
 			}
 
 			// Set whiteboard parameters

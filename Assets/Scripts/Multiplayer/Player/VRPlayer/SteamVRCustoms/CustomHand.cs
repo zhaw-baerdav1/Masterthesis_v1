@@ -564,6 +564,13 @@ public class CustomHand : MonoBehaviour
 
             attachedObjects.Add(attachedObject);
 
+            WhiteBoardPen whiteBoardPen = objectToAttach.GetComponent<WhiteBoardPen>();
+            if(whiteBoardPen != null)
+            {
+                CustomVRPlayer customVRPlayer = gameObject.GetComponentInParent<CustomVRPlayer>();
+                whiteBoardPen.SetOwnerCustomVRPlayer(customVRPlayer);
+            }
+
             if (spewDebugText)
                 HandDebugLog("AttachObject " + objectToAttach);
             objectToAttach.SendMessage("OnAttachedToHand", this, SendMessageOptions.DontRequireReceiver);

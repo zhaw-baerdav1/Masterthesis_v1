@@ -6,35 +6,55 @@ using UnityEngine;
 
 public class WhiteBoard : MonoBehaviour
 {
-	private int textureSize = 2048;
-	private int penSize = 10;
+	private int textureSize = 480;
+	private int penSize = 1;
 	private Texture2D texture;
 	private Color[] color;
+	private Texture2D networkTexture;
 
 	private bool touching, touchingLast;
 	private float posX, posY;
 	private float lastX, lastY;
+
+	private bool shouldSyncWithNetwork = false;
+	private bool sendableRectangleIdentified = false;
+	private const float pollTimer = 5;
+	
+	private int minX;
+	private int minY;
+	private int maxX;
+	private int maxY;
 
 	private CustomVRPlayer ownerCustomVRPlayer;
 
 	private void Awake()
 	{
 		WhiteBoardEventSystem.OnApplyTexture += WhiteBoardEventSystem_OnApplyTexture;
+
+		shouldSyncWithNetwork = true;
 	}
 
 	private void OnDestroy()
 	{
 		WhiteBoardEventSystem.OnApplyTexture -= WhiteBoardEventSystem_OnApplyTexture;
+
+		shouldSyncWithNetwork = false;
 	}
 
-	private void WhiteBoardEventSystem_OnApplyTexture(int ownerConnectionId, int x, int y)
+	private void WhiteBoardEventSystem_OnApplyTexture(int connectionId, int startX, int startY, int width, int height, byte[] textureBytes)
 	{
-		if(ownerCustomVRPlayer != null && ownerCustomVRPlayer.connectionId.Equals(ownerConnectionId))
+		if (ownerCustomVRPlayer != null && connectionId.Equals(ownerCustomVRPlayer.connectionId))
 		{
 			return;
 		}
 
-		DrawPixels(x, y);
+		Texture2D receivedTexture = new Texture2D(width, height);
+		receivedTexture.LoadImage(textureBytes);
+		
+		Color[] pix = receivedTexture.GetPixels();
+
+		networkTexture.SetPixels(startX, startY, width, height, pix);
+		networkTexture.Apply();
 	}
 
 	// Use this for initialization
@@ -42,9 +62,11 @@ public class WhiteBoard : MonoBehaviour
 	{
 		// Set whiteboard texture
 		texture = new Texture2D(textureSize, textureSize);
+		networkTexture = new Texture2D(textureSize, textureSize);
 
 		Renderer renderer = GetComponent<Renderer>();
-		renderer.material.mainTexture = (Texture)texture;
+		renderer.materials[0].mainTexture = (Texture)texture;
+		renderer.materials[1].mainTexture = (Texture)networkTexture;
 	}
 
 	// Update is called once per frame
@@ -64,8 +86,6 @@ public class WhiteBoard : MonoBehaviour
 		if (touching)
 		{
 			texture.Apply();
-
-			//WhiteBoardEventSystem.ApplyTexture(ownerCustomVRPlayer.connectionId, x, y);
 		}
 
 		this.lastX = (float)x;
@@ -74,10 +94,18 @@ public class WhiteBoard : MonoBehaviour
 		this.touchingLast = this.touching;
 	}
 
+	public void SetOwnerCustomVRPlayer(CustomVRPlayer customVRPlayer)
+	{
+		ownerCustomVRPlayer = customVRPlayer;
+		
+		StartCoroutine(SyncTexture());
+	}
+
 	private void DrawPixels(int x, int y)
 	{
 		// Set base touch pixels
 		texture.SetPixels(x, y, penSize, penSize, color);
+		DetectUsedRectangle(x, y);
 
 		// Interpolate pixels from previous touch
 		for (float t = 0.01f; t < 1.00f; t += 0.01f)
@@ -85,7 +113,18 @@ public class WhiteBoard : MonoBehaviour
 			int lerpX = (int)Mathf.Lerp(lastX, (float)x, t);
 			int lerpY = (int)Mathf.Lerp(lastY, (float)y, t);
 			texture.SetPixels(lerpX, lerpY, penSize, penSize, color);
+			DetectUsedRectangle(lerpX, lerpY);
 		}
+	}
+
+	private void DetectUsedRectangle(int x, int y)
+	{
+		minX = Mathf.Min(x, minX);
+		minY = Mathf.Min(y, minY);
+		maxX = Mathf.Max(x, maxX);
+		maxY = Mathf.Max(y, maxY);
+
+		sendableRectangleIdentified = true;
 	}
 
 	public void ToggleTouch(bool touching)
@@ -103,9 +142,30 @@ public class WhiteBoard : MonoBehaviour
 	{
 		this.color = Enumerable.Repeat<Color>(color, penSize * penSize).ToArray<Color>();
 	}
-
-	public void SetOwnerCustomVRPlayer(CustomVRPlayer _ownerCustomVRPlayer)
+	
+	private IEnumerator SyncTexture()
 	{
-		ownerCustomVRPlayer = _ownerCustomVRPlayer;
+		float timeCheck = Time.time;
+		while (shouldSyncWithNetwork)
+		{
+			if(Time.time - timeCheck > pollTimer && sendableRectangleIdentified)
+			{
+				int width = maxX - minX;
+				int height = maxY - minY;
+
+				Color[] pix = texture.GetPixels(minX, minY, width, height);
+
+				Texture2D sendableTexture = new Texture2D(width, height);
+				sendableTexture.SetPixels(pix);
+				sendableTexture.Apply();
+
+				WhiteBoardEventSystem.ApplyTexture(ownerCustomVRPlayer.connectionId, minX, minY, width, height, sendableTexture.EncodeToPNG());
+
+				timeCheck = Time.time;
+				sendableRectangleIdentified = false;
+			}
+
+			yield return null;
+		}
 	}
 }

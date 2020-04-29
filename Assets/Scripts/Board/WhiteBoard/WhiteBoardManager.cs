@@ -22,8 +22,6 @@ public class WhiteBoardManager : NetworkBehaviour
         switchColorRight.AddOnChangeListener(OnSwitchColorRight, SteamVR_Input_Sources.Any);
     }
 
-
-
     public void OnDestroy()
     {
         if (!isLocalPlayer)
@@ -38,21 +36,21 @@ public class WhiteBoardManager : NetworkBehaviour
         switchColorRight.RemoveOnChangeListener(OnSwitchColorRight, SteamVR_Input_Sources.Any);
     }
 
-    private void WhiteBoardEventSystem_OnApplyTexture(int ownerConnectionId, int x, int y)
+    private void WhiteBoardEventSystem_OnApplyTexture(int connectionId, int startX, int startY, int width, int height, byte[] textureBytes)
     {
-        CmdApplyTexture(ownerConnectionId, x, y);
+        CmdApplyTexture(connectionId, startX, startY, width, height, textureBytes);
     }
 
-    [Command]
-    private void CmdApplyTexture(int ownerConnectionId, int x, int y)
+    [Command(channel = 4)]
+    private void CmdApplyTexture(int connectionId, int startX, int startY, int width, int height, byte[] textureBytes)
     {
-        RpcApplyTexture(ownerConnectionId, x, y);
+        RpcApplyTexture(connectionId, startX, startY, width, height, textureBytes);
     }
 
     [ClientRpc]
-    private void RpcApplyTexture(int ownerConnectionId, int x, int y)
+    private void RpcApplyTexture(int connectionId, int startX, int startY, int width, int height, byte[] textureBytes)
     {
-        WhiteBoardEventSystem.ApplyTexture(ownerConnectionId, x, y);
+        WhiteBoardEventSystem.ApplyTexture(connectionId, startX, startY, width, height, textureBytes);
     }
 
     private void OnSwitchColorRight(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
