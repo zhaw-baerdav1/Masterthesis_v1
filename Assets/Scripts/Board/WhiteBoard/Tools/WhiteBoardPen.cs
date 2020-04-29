@@ -19,9 +19,15 @@ public class WhiteBoardPen : MonoBehaviour
 
 	private CustomVRPlayer ownerCustomVRPlayer;
 
+	private Vector3 oldPosition;
+	private Quaternion oldRotation;
+
 	// Use this for initialization
 	void Start()
 	{
+		oldPosition = transform.position;
+		oldRotation = transform.rotation;
+
 		tip = transform.Find("Tip").gameObject;
 
 		ApplyTipColor(currentColorIndex);
@@ -31,13 +37,19 @@ public class WhiteBoardPen : MonoBehaviour
 	{
 		ColorList.OnSwitchColorLeft += ColorList_OnSwitchColorLeft;
 		ColorList.OnSwitchColorRight += ColorList_OnSwitchColorRight;
+
+		WhiteBoardEventSystem.OnResetPens += WhiteBoardEventSystem_OnResetPens;
 	}
 
 	private void OnDestroy()
 	{
 		ColorList.OnSwitchColorLeft -= ColorList_OnSwitchColorLeft;
 		ColorList.OnSwitchColorRight -= ColorList_OnSwitchColorRight;
+
+		WhiteBoardEventSystem.OnResetPens -= WhiteBoardEventSystem_OnResetPens;
 	}
+
+
 
 	private void ColorList_OnSwitchColorRight()
 	{
@@ -114,5 +126,11 @@ public class WhiteBoardPen : MonoBehaviour
 		{
 			transform.rotation = lastAngle;
 		}
+	}
+
+	private void WhiteBoardEventSystem_OnResetPens()
+	{
+		transform.position = oldPosition;
+		transform.rotation = oldRotation;
 	}
 }

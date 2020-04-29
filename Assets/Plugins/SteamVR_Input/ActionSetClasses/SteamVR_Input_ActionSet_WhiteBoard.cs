@@ -32,5 +32,13 @@ namespace Valve.VR
                 return SteamVR_Actions.whiteBoard_SnapTurnRight;
             }
         }
+        
+        public virtual SteamVR_Action_Boolean SnapTurnUp
+        {
+            get
+            {
+                return SteamVR_Actions.whiteBoard_SnapTurnUp;
+            }
+        }
     }
 }

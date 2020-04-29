@@ -106,6 +106,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/WhiteBoard/in/SnapTurnUp",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/RoomControl/in/RoomSwitch",
       "type": "boolean"
     }
@@ -209,7 +213,8 @@
       "/actions/DrawingBoard/in/SnapTurnDown": "SnapTurnDown",
       "/actions/RoomControl/in/RoomSwitch": "RoomSwitch",
       "/actions/WhiteBoard/in/SnapTurnLeft": "SnapTurnLeft",
-      "/actions/WhiteBoard/in/SnapTurnRight": "SnapTurnRight"
+      "/actions/WhiteBoard/in/SnapTurnRight": "SnapTurnRight",
+      "/actions/WhiteBoard/in/SnapTurnUp": "SnapTurnUp"
     }
   ]
 }

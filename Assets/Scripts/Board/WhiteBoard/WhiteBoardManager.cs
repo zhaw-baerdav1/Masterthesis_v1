@@ -7,6 +7,7 @@ using Valve.VR;
 
 public class WhiteBoardManager : NetworkBehaviour
 {
+    public SteamVR_Action_Boolean resetPen = SteamVR_Input.GetBooleanAction("SnapTurnUp");
     public SteamVR_Action_Boolean switchColorLeft = SteamVR_Input.GetBooleanAction("SnapTurnLeft");
     public SteamVR_Action_Boolean switchColorRight = SteamVR_Input.GetBooleanAction("SnapTurnRight");
     
@@ -16,9 +17,12 @@ public class WhiteBoardManager : NetworkBehaviour
 
         WhiteBoardEventSystem.OnApplyTexture += WhiteBoardEventSystem_OnApplyTexture;
 
+        resetPen.AddOnChangeListener(OnResetPen, SteamVR_Input_Sources.Any);
         switchColorLeft.AddOnChangeListener(OnSwitchColorLeft, SteamVR_Input_Sources.Any);
         switchColorRight.AddOnChangeListener(OnSwitchColorRight, SteamVR_Input_Sources.Any);
     }
+
+
 
     public void OnDestroy()
     {
@@ -29,6 +33,7 @@ public class WhiteBoardManager : NetworkBehaviour
 
         WhiteBoardEventSystem.OnApplyTexture -= WhiteBoardEventSystem_OnApplyTexture;
 
+        resetPen.RemoveOnChangeListener(OnResetPen, SteamVR_Input_Sources.Any);
         switchColorLeft.RemoveOnChangeListener(OnSwitchColorLeft, SteamVR_Input_Sources.Any);
         switchColorRight.RemoveOnChangeListener(OnSwitchColorRight, SteamVR_Input_Sources.Any);
     }
@@ -64,6 +69,14 @@ public class WhiteBoardManager : NetworkBehaviour
         if (newState)
         {
             ColorList.SwitchColorLeft();
+        }
+    }
+
+    private void OnResetPen(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
+    {
+        if (newState)
+        {
+            WhiteBoardEventSystem.ResetPens();
         }
     }
 }

@@ -350,6 +350,9 @@
                   "east" : {
                      "output" : "/actions/whiteboard/in/snapturnright"
                   },
+                  "north" : {
+                     "output" : "/actions/whiteboard/in/snapturnup"
+                  },
                   "west" : {
                      "output" : "/actions/whiteboard/in/snapturnleft"
                   }
@@ -364,6 +367,9 @@
                "inputs" : {
                   "east" : {
                      "output" : "/actions/whiteboard/in/snapturnright"
+                  },
+                  "north" : {
+                     "output" : "/actions/whiteboard/in/snapturnup"
                   },
                   "west" : {
                      "output" : "/actions/whiteboard/in/snapturnleft"
