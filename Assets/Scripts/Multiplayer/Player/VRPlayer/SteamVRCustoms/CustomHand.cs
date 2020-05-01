@@ -1335,15 +1335,15 @@ public class CustomHand : MonoBehaviour
         public void TriggerHapticPulse(ushort microSecondsDuration)
         {
             float seconds = (float)microSecondsDuration / 1000000f;
-            hapticAction.Execute(0, seconds, 1f / seconds, 1, handType);
+            //hapticAction.Execute(0, seconds, 1f / seconds, 1, handType);
         }
 
         public void TriggerHapticPulse(float duration, float frequency, float amplitude)
         {
-            hapticAction.Execute(0, duration, frequency, amplitude, handType);
+            //hapticAction.Execute(0, duration, frequency, amplitude, handType);
         }
 
-        public GrabTypes GetGrabStarting(GrabTypes explicitType = GrabTypes.None)
+    public GrabTypes GetGrabStarting(GrabTypes explicitType = GrabTypes.None)
         {
             if (explicitType != GrabTypes.None)
             {

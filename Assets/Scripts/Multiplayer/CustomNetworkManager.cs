@@ -87,12 +87,13 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
+        ClientScene.Ready(conn);
+
         bool hasPlayerJoined = (ClientScene.localPlayers.Count != 0);
 
         if (hasPlayerJoined)
         {
             UpdateStartPositions(conn.connectionId);
-            ClientScene.Ready(conn);
             return;
         }
 
@@ -108,7 +109,7 @@ public class CustomNetworkManager : NetworkManager
 
             if (_connectionId != currentConnectionId)
             {
-                break;
+                continue;
             }
 
             Transform newStartPosition = this.startPositions[customPlayer.spawnOrderNumber];
@@ -172,7 +173,9 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        if (!clientLoadedScene) {
+        if (!clientLoadedScene)
+        {
+            ClientScene.Ready(conn);
             AddCustomPlayer(conn);
         }
     }
@@ -182,7 +185,6 @@ public class CustomNetworkManager : NetworkManager
         SpawnProfile spawnProfile = new SpawnProfile();
         spawnProfile.characterId = selectedCharacterNumber;
 
-        ClientScene.Ready(conn);
         ClientScene.AddPlayer(client.connection, 0, spawnProfile);
     }
 }

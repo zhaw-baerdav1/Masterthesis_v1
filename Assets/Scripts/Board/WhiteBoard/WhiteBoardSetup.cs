@@ -11,9 +11,4 @@ public class WhiteBoardSetup : MonoBehaviour
     {
         actionSetWhiteBoard.Activate();
     }
-
-    private void OnDestroy()
-    {
-        actionSetWhiteBoard.Deactivate();
-    }
 }

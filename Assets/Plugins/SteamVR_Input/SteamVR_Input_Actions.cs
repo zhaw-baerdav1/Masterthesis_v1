@@ -43,8 +43,6 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_default_SnapTurnDown;
         
-        private static SteamVR_Action_Vibration p_default_Haptic;
-        
         private static SteamVR_Action_Boolean p_lobby_SnapTurnLeft;
         
         private static SteamVR_Action_Boolean p_lobby_SnapTurnRight;
@@ -175,14 +173,6 @@ namespace Valve.VR
             }
         }
         
-        public static SteamVR_Action_Vibration default_Haptic
-        {
-            get
-            {
-                return SteamVR_Actions.p_default_Haptic.GetCopy<SteamVR_Action_Vibration>();
-            }
-        }
-        
         public static SteamVR_Action_Boolean lobby_SnapTurnLeft
         {
             get
@@ -303,7 +293,6 @@ namespace Valve.VR
                     SteamVR_Actions.default_SnapTurnRight,
                     SteamVR_Actions.default_SnapTurnUp,
                     SteamVR_Actions.default_SnapTurnDown,
-                    SteamVR_Actions.default_Haptic,
                     SteamVR_Actions.lobby_SnapTurnLeft,
                     SteamVR_Actions.lobby_SnapTurnRight,
                     SteamVR_Actions.lobby_SnapTurnUp,
@@ -344,10 +333,8 @@ namespace Valve.VR
                     SteamVR_Actions.whiteBoard_SnapTurnRight,
                     SteamVR_Actions.whiteBoard_SnapTurnUp,
                     SteamVR_Actions.roomControl_RoomSwitch};
-            Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
-                    SteamVR_Actions.default_Haptic};
-            Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
-                    SteamVR_Actions.default_Haptic};
+            Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[0];
+            Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[0];
             Valve.VR.SteamVR_Input.actionsPose = new Valve.VR.SteamVR_Action_Pose[] {
                     SteamVR_Actions.default_Pose};
             Valve.VR.SteamVR_Input.actionsBoolean = new Valve.VR.SteamVR_Action_Boolean[] {
@@ -421,7 +408,6 @@ namespace Valve.VR
             SteamVR_Actions.p_default_SnapTurnRight = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SnapTurnRight")));
             SteamVR_Actions.p_default_SnapTurnUp = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SnapTurnUp")));
             SteamVR_Actions.p_default_SnapTurnDown = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SnapTurnDown")));
-            SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
             SteamVR_Actions.p_lobby_SnapTurnLeft = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/Lobby/in/SnapTurnLeft")));
             SteamVR_Actions.p_lobby_SnapTurnRight = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/Lobby/in/SnapTurnRight")));
             SteamVR_Actions.p_lobby_SnapTurnUp = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/Lobby/in/SnapTurnUp")));

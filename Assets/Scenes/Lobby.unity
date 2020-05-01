@@ -376,8 +376,8 @@ MonoBehaviour:
     type: 3}
   m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 1
-  m_OfflineScene: 
-  m_OnlineScene: OfficeRoom
+  m_OfflineScene: Lobby
+  m_OnlineScene: ForestRoom
   m_SpawnPrefabs:
   - {fileID: 8209260915281814015, guid: a0204d4a221a29c40ade7130b70bdf00, type: 3}
   - {fileID: 1800537847287148293, guid: 0e403fe4f31353046ac4d0db2e8d3914, type: 3}
@@ -423,7 +423,7 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 050000000000000005000000000000000a000000
+  m_Channels: 0500000000000000050000000000000004000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
@@ -695,7 +695,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 254496114}
-  - component: {fileID: 254496113}
   m_Layer: 0
   m_Name: Basics
   m_TagString: Untagged
@@ -703,20 +702,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &254496113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 254496112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31630b04a13e6864e9cebdda507c8607, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionSetRoomControl:
-    actionSetPath: /actions/RoomControl
 --- !u!4 &254496114
 Transform:
   m_ObjectHideFlags: 0

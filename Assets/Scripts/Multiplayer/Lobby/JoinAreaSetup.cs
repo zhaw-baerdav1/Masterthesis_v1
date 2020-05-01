@@ -14,9 +14,4 @@ public class JoinAreaSetup : MonoBehaviour
 
         actionSetLobby.Activate();
     }
-
-    private void OnDestroy()
-    {
-        actionSetLobby.Deactivate();
-    }
 }

@@ -11,9 +11,4 @@ public class DrawingBoardSetup : MonoBehaviour
     {
         actionSetDrawingBoard.Activate();
     }
-
-    private void OnDestroy()
-    {
-        actionSetDrawingBoard.Deactivate();
-    }
 }

@@ -46,7 +46,7 @@ public class CustomVRPlayer : CustomPlayer
 		base.OnStartLocalPlayer();
 
 		InstantiatePlayer();
-		//HideAllMeshRenderers(this.gameObject);
+		HideAllMeshRenderers(this.gameObject);
 
 	}
 

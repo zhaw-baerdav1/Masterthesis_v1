@@ -13,9 +13,9 @@ public class RoomManager : NetworkBehaviour
     
     public override void OnStartLocalPlayer()
     {
-        roomSwitch.AddOnChangeListener(OnRoomSwitch, SteamVR_Input_Sources.Any);
-
         base.OnStartLocalPlayer();
+
+        roomSwitch.AddOnChangeListener(OnRoomSwitch, SteamVR_Input_Sources.Any);
     }
 
     public void OnDestroy()
