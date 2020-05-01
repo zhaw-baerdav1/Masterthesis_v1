@@ -24,7 +24,7 @@ public class CubeRepresentation : MonoBehaviour
     public void Initialize()
     {
         transform.localRotation = Quaternion.identity;
-        transform.localScale = new Vector3(0.5f, 0.07f, 1.5f);
+        transform.localScale = new Vector3(.08f, .08f, .08f);
 
         ApplyPosition();
         ApplyText();
@@ -52,7 +52,7 @@ public class CubeRepresentation : MonoBehaviour
         CubeDefinition _cubeDefinition = GetCubeDefinition();
         Vector3 position = _cubeDefinition.position;
 
-        position.x = position.x + 0.1f;
+        position.x = position.x + 0.05f;
 
         cubeDefinition.position = position;
 
@@ -64,7 +64,7 @@ public class CubeRepresentation : MonoBehaviour
         CubeDefinition _cubeDefinition = GetCubeDefinition();
         Vector3 position = _cubeDefinition.position;
 
-        position.x = position.x - 0.1f;
+        position.x = position.x - 0.05f;
 
         cubeDefinition.position = position;
 
@@ -76,7 +76,7 @@ public class CubeRepresentation : MonoBehaviour
         CubeDefinition _cubeDefinition = GetCubeDefinition();
         Vector3 position = _cubeDefinition.position;
 
-        position.z = position.z + 0.1f;
+        position.z = position.z + 0.05f;
 
         cubeDefinition.position = position;
 
@@ -88,7 +88,7 @@ public class CubeRepresentation : MonoBehaviour
         CubeDefinition _cubeDefinition = GetCubeDefinition();
         Vector3 position = _cubeDefinition.position;
 
-        position.z = position.z - 0.1f;
+        position.z = position.z - 0.05f;
 
         cubeDefinition.position = position;
 

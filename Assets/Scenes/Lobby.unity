@@ -379,7 +379,6 @@ MonoBehaviour:
   m_OfflineScene: 
   m_OnlineScene: OfficeRoom
   m_SpawnPrefabs:
-  - {fileID: 1832068680821055060, guid: 83039eb14bca5aa4ebf2e57034df1997, type: 3}
   - {fileID: 8209260915281814015, guid: a0204d4a221a29c40ade7130b70bdf00, type: 3}
   - {fileID: 1800537847287148293, guid: 0e403fe4f31353046ac4d0db2e8d3914, type: 3}
   m_CustomConfig: 1
