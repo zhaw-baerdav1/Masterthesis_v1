@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class WhiteBoardEventSystem : MonoBehaviour
 {
-    public static event Action<int, int, int, int, int, byte[]> OnApplyTexture = delegate { };
+    public static event Action<int, Rect, byte[]> OnSendTexture = delegate { };
+    public static event Action<int, Rect, byte[]> OnReceiveTexture = delegate { };
 
     public static event Action OnResetPens = delegate { };
 
-    public static void ApplyTexture(int connectionId, int startX, int startY, int width, int height, byte[] textureBytes)
+    public static void SendTexture(int connectionId, Rect sendableRectangle, byte[] textureBytes)
     {
-        OnApplyTexture(connectionId, startX, startY, width, height, textureBytes);
+        OnSendTexture(connectionId, sendableRectangle, textureBytes);
+    }
+    public static void ReceiveTexture(int connectionId, Rect receivableRectangle, byte[] textureBytes)
+    {
+        OnReceiveTexture(connectionId, receivableRectangle, textureBytes);
     }
 
     public static void ResetPens()

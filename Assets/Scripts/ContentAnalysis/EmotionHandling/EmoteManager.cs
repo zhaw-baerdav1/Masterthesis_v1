@@ -54,6 +54,10 @@ public class EmoteManager : NetworkBehaviour
 
     private void EmotionList_OnNewEmotion(Emotion emotion)
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 
         Dictionary<EmotionType, double> relevantEmotionTypeDictionary = getRelevantEmotionTypeDictionary(emotion.getEmotionScores());
         foreach (KeyValuePair<EmotionType, double> emotionTypeEntry in relevantEmotionTypeDictionary) {

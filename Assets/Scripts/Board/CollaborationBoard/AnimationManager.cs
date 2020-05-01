@@ -41,10 +41,7 @@ public class AnimationManager : NetworkBehaviour
             return;
         }
 
-        CustomPlayer customPlayer = GetComponent<CustomPlayer>();
-        int connectionId = customPlayer.connectionId;
-
-        CmdPlayAnimation(connectionId, animationDictionary[AnimationType.Standup]);
+        CmdPlayAnimation(animationDictionary[AnimationType.Standup]);
     }
 
     public void HasNoIdea()
@@ -59,29 +56,18 @@ public class AnimationManager : NetworkBehaviour
             return;
         }
 
-        CustomPlayer customPlayer = GetComponent<CustomPlayer>();
-        int connectionId = customPlayer.connectionId;
-
-        CmdPlayAnimation(connectionId, animationDictionary[AnimationType.Office]);
+        CmdPlayAnimation(animationDictionary[AnimationType.Office]);
     }
 
     [Command]
-    private void CmdPlayAnimation(int connectionId, string animationName)
+    private void CmdPlayAnimation(string animationName)
     {
-        RpcPlayAnimation(connectionId, animationName);
+        RpcPlayAnimation(animationName);
     }
 
     [ClientRpc]
-    private void RpcPlayAnimation(int connectionId, string animationName)
+    private void RpcPlayAnimation(string animationName)
     {
-        CustomPlayer customPlayer = GetComponent<CustomPlayer>();
-        int _connectionId = customPlayer.connectionId;
-
-        if (!connectionId.Equals(_connectionId))
-        {
-            return;
-        }
-
         animator.Play(animationName);
     }
 }

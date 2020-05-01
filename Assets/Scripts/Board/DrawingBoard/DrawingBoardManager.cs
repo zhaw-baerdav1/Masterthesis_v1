@@ -52,6 +52,11 @@ public class DrawingBoardManager : NetworkBehaviour
        
     private void CubeList_OnNewCubeDefinition(CubeDefinition cubeDefinition)
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         CmdAddCube(cubeDefinition.id, cubeDefinition.naming, cubeDefinition.position);
     }
 
@@ -70,6 +75,11 @@ public class DrawingBoardManager : NetworkBehaviour
 
     private void CubeList_OnTriggerCubeChange(CubeDefinition cubeDefinition)
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         CmdChangeCube(cubeDefinition.id, cubeDefinition.naming, cubeDefinition.position);
     }
 
@@ -88,6 +98,11 @@ public class DrawingBoardManager : NetworkBehaviour
 
     private void ArrowList_OnNewArrowDefinition(ArrowDefinition arrowDefinition)
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         CmdAddArrow(arrowDefinition.id, arrowDefinition.startCubeDefinitionId, arrowDefinition.endCubeDefinitionId);
     }
 

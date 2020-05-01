@@ -35,6 +35,11 @@ public class RoomManager : NetworkBehaviour
             return;
         }
 
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         CmdChangeToNextRoom();    
     }
 

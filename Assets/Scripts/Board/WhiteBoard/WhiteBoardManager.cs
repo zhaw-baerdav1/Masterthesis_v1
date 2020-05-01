@@ -15,7 +15,7 @@ public class WhiteBoardManager : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
 
-        WhiteBoardEventSystem.OnApplyTexture += WhiteBoardEventSystem_OnApplyTexture;
+        WhiteBoardEventSystem.OnSendTexture += WhiteBoardEventSystem_OnSendTexture;
 
         resetPen.AddOnChangeListener(OnResetPen, SteamVR_Input_Sources.Any);
         switchColorLeft.AddOnChangeListener(OnSwitchColorLeft, SteamVR_Input_Sources.Any);
@@ -29,28 +29,33 @@ public class WhiteBoardManager : NetworkBehaviour
             return;
         }
 
-        WhiteBoardEventSystem.OnApplyTexture -= WhiteBoardEventSystem_OnApplyTexture;
+        WhiteBoardEventSystem.OnSendTexture -= WhiteBoardEventSystem_OnSendTexture;
 
         resetPen.RemoveOnChangeListener(OnResetPen, SteamVR_Input_Sources.Any);
         switchColorLeft.RemoveOnChangeListener(OnSwitchColorLeft, SteamVR_Input_Sources.Any);
         switchColorRight.RemoveOnChangeListener(OnSwitchColorRight, SteamVR_Input_Sources.Any);
     }
 
-    private void WhiteBoardEventSystem_OnApplyTexture(int connectionId, int startX, int startY, int width, int height, byte[] textureBytes)
+    private void WhiteBoardEventSystem_OnSendTexture(int connectionId, Rect sendableRectangle, byte[] textureBytes)
     {
-        CmdApplyTexture(connectionId, startX, startY, width, height, textureBytes);
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        CmdApplyTexture(connectionId, sendableRectangle, textureBytes);
     }
 
     [Command(channel = 4)]
-    private void CmdApplyTexture(int connectionId, int startX, int startY, int width, int height, byte[] textureBytes)
+    private void CmdApplyTexture(int connectionId, Rect sendableRectangle, byte[] textureBytes)
     {
-        RpcApplyTexture(connectionId, startX, startY, width, height, textureBytes);
+        RpcApplyTexture(connectionId, sendableRectangle, textureBytes);
     }
 
     [ClientRpc]
-    private void RpcApplyTexture(int connectionId, int startX, int startY, int width, int height, byte[] textureBytes)
+    private void RpcApplyTexture(int connectionId, Rect sendableRectangle, byte[] textureBytes)
     {
-        WhiteBoardEventSystem.ApplyTexture(connectionId, startX, startY, width, height, textureBytes);
+        WhiteBoardEventSystem.ReceiveTexture(connectionId, sendableRectangle, textureBytes);
     }
 
     private void OnSwitchColorRight(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
