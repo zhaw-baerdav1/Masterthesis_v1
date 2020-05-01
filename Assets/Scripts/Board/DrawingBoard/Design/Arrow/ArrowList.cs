@@ -33,6 +33,11 @@ public class ArrowList : MonoBehaviour
         OnNewArrowDefinitionList(arrowDefinitionList);
     }
 
+    public static void RefreshArrowDefinitionList()
+    {
+        OnNewArrowDefinitionList(arrowDefinitionList);
+    }
+
     public static void ChangeArrowMode(bool on)
     {
         arrowMode = on;

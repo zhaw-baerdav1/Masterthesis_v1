@@ -67,6 +67,8 @@ public class DrawingBoard : MonoBehaviour
             cube.AttachToDrawingBoard(transform);
             cube.Initialize();
         }
+
+        ArrowList.RefreshArrowDefinitionList();
     }
 
     public void RemoveCubes()
