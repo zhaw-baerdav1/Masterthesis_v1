@@ -54,9 +54,6 @@ public class ArrowRepresentation : MonoBehaviour
             }
         }
 
-        startPosition = startCubeWorldPosition;
-        endPosition = endCubeWorldPosition;
-
         lineRenderer = GetComponent<LineRenderer>();
 
         lineRenderer.material.SetTextureScale("_MainTex", new Vector2(5f, 1f));
