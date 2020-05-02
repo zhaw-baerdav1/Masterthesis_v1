@@ -44,13 +44,7 @@ public class HeadRotationManager : NetworkBehaviour
 		if (Physics.Raycast(cameraCenter, customVRPlayer.hmdTransform.forward, out hit, Mathf.Infinity))
 		{
 			Transform hitTransform = hit.transform;
-			Transform headOriginTransform = customVRPlayer.headOriginTransform;
-
-			if (headOriginTransform != null && hitTransform.parent != null && headOriginTransform.Equals(hitTransform.parent.transform))
-			{
-				return;
-			}
-
+			
 			eyes.lookTarget = hitTransform;
 
 			lookTargetName = hitTransform.name;

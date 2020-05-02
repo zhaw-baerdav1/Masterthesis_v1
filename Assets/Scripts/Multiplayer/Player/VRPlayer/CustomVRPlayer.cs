@@ -79,7 +79,7 @@ public class CustomVRPlayer : CustomPlayer
 		hands[1] = rightHandInstance.GetComponent<CustomHand>();
 
 		GameObject headCollider = (GameObject)Instantiate(headColliderPrefab);
-		headCollider.transform.parent = headOriginTransform;
+		headCollider.transform.parent = vRCameraInstance.transform;
 		headCollider.transform.localPosition = Vector3.zero;
 		headCollider.transform.localRotation = Quaternion.identity;
 	}
