@@ -40,6 +40,11 @@ public class RoomManager : NetworkBehaviour
             return;
         }
 
+        if (!isServer)
+        {
+            return;
+        }
+
         CmdChangeToNextRoom();    
     }
 

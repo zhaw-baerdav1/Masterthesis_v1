@@ -18,8 +18,6 @@ public class CustomPlayer : NetworkBehaviour, IDissonancePlayer
     private string _playerId;
     [SyncVar]
 	public int connectionId;
-	[SyncVar]
-	public int spawnOrderNumber;
 
 	public Vector3 Position
 	{

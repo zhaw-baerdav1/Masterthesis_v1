@@ -3882,7 +3882,6 @@ GameObject:
   - component: {fileID: 8209260915281814000}
   - component: {fileID: -6857828231827344965}
   - component: {fileID: 325365736503641648}
-  - component: {fileID: 8209260915281814007}
   - component: {fileID: 8209260915281814004}
   - component: {fileID: 8209260915281814011}
   - component: {fileID: 8209260915281814009}
@@ -4014,7 +4013,7 @@ MonoBehaviour:
     type: 3}
   rightHandPrefab: {fileID: 5202729478213818952, guid: b54dd6b0429d17a4a91da8bdd736664b,
     type: 3}
-  headOriginTransform: {fileID: 7251869716457192016}
+  headOriginTransform: {fileID: 3532997587111595386}
   headColliderPrefab: {fileID: 9021668578028007268, guid: 9149a77a52379d941a3cff9b72c9f841,
     type: 3}
   headsetOnHead:
@@ -4124,24 +4123,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25719b932a80844eb543dc02fb4f9cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resetPen:
+    actionPath: /actions/default/in/SnapTurnUp
+    needsReinit: 0
   switchColorLeft:
     actionPath: /actions/default/in/SnapTurnLeft
     needsReinit: 0
   switchColorRight:
     actionPath: /actions/default/in/SnapTurnRight
     needsReinit: 0
---- !u!114 &8209260915281814007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8209260915281814015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d1c07a6449b0ca439ee6fac5f6f7d83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8209260915281814004
 MonoBehaviour:
   m_ObjectHideFlags: 0

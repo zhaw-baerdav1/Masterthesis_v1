@@ -55,7 +55,9 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
 
     private void OnDestroy()
     {
-        if(_recordingRoutine != 0)
+        Active = false;
+
+        if (_recordingRoutine != 0)
         {
             Runnable.Stop(_recordingRoutine);
         }

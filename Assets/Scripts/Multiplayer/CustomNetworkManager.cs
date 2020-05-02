@@ -16,6 +16,9 @@ public class CustomNetworkManager : NetworkManager
     public List<string> roomNameList;
 
     public List<GameObject> playerList;
+
+    private Dictionary<int, int> spawnDictionary = new Dictionary<int, int>();
+
     private int selectedCharacterNumber;
 
     private void Awake()
@@ -35,21 +38,27 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
     {
+        int connectionId = conn.connectionId;
+
         SpawnProfile spawnProfile = new SpawnProfile();
         spawnProfile.Deserialize(extraMessageReader);
 
-        GameObject playerToJoin = playerList[spawnProfile.characterId];
-        
-        Transform spawnPoint = this.startPositions[playerCount];
+        int spawnOrderNumber = playerCount;
+        if (spawnDictionary.ContainsKey(connectionId))
+        {
+            spawnOrderNumber = spawnDictionary[connectionId];
+        }
 
+        spawnDictionary[connectionId] = spawnOrderNumber;
+
+        Transform spawnPoint = this.startPositions[spawnOrderNumber];
+
+        GameObject playerToJoin = playerList[spawnProfile.characterId];
         GameObject newPlayer = (GameObject)Instantiate(playerToJoin, spawnPoint.position, spawnPoint.rotation);
 
         CustomPlayer customPlayer = newPlayer.GetComponent<CustomPlayer>();
-        if (customPlayer != null)
-        {
-            customPlayer.connectionId = conn.connectionId;
-            customPlayer.spawnOrderNumber = playerCount;
-        }
+        customPlayer.connectionId = connectionId;
+
 
         NetworkServer.AddPlayerForConnection(conn, newPlayer, playerControllerId);
         playerCount++;
@@ -76,13 +85,12 @@ public class CustomNetworkManager : NetworkManager
     {
         int currentIndex = roomNameList.IndexOf(networkSceneName);
 
-        string newRoom = roomNameList[0];
-        if (currentIndex != (roomNameList.Count - 1))
+        if (currentIndex == (roomNameList.Count - 1))
         {
-            newRoom = roomNameList[currentIndex + 1];
+            return;
         }
 
-        ServerChangeScene(newRoom);
+        ServerChangeScene(roomNameList[currentIndex + 1]);
     }
 
     public override void OnClientSceneChanged(NetworkConnection conn)
@@ -93,29 +101,10 @@ public class CustomNetworkManager : NetworkManager
 
         if (hasPlayerJoined)
         {
-            UpdateStartPositions(conn.connectionId);
-            return;
+            ClientScene.RemovePlayer(0);
         }
 
         AddCustomPlayer(conn);
-    }
-
-    private void UpdateStartPositions(int connectionId)
-    {
-        foreach (CustomPlayer customPlayer in FindObjectsOfType<CustomPlayer>())
-        {
-            int _connectionId = customPlayer.connectionId;
-            int currentConnectionId = connectionId;
-
-            if (_connectionId != currentConnectionId)
-            {
-                continue;
-            }
-
-            Transform newStartPosition = this.startPositions[customPlayer.spawnOrderNumber];
-            customPlayer.transform.position = newStartPosition.position;
-            customPlayer.transform.rotation = newStartPosition.rotation;
-        }
     }
 
     private void Update()

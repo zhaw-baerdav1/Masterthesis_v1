@@ -36,6 +36,14 @@ public class VoiceManager : NetworkBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        if (basicMicrophoneCapture != null && textStreamer != null)
+        {
+            basicMicrophoneCapture.Unsubscribe(textStreamer);
+        }
+    }
+
     private IEnumerator WaitAudioCaptureLink()
     {
         // implement internal timer to avoid WaitForSeconds GC

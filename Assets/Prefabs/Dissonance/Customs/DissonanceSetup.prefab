@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8134884573659405767}
   - component: {fileID: 8178499531899314425}
   - component: {fileID: 8178499535517528443}
-  - component: {fileID: 8136124463323308928}
   - component: {fileID: 1891028685460986672}
   - component: {fileID: 8136561515190600827}
   - component: {fileID: 168369331138074962}
+  - component: {fileID: 7183699028603411835}
   m_Layer: 0
   m_Name: DissonanceSetup
   m_TagString: Untagged
@@ -73,18 +73,6 @@ MonoBehaviour:
   UnreliableChannel: 1
   ReliableSequencedChannel: 0
   TypeCode: 18385
---- !u!114 &8136124463323308928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8136124463323308929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d1c07a6449b0ca439ee6fac5f6f7d83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1891028685460986672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,3 +158,15 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &7183699028603411835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8136124463323308929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1c07a6449b0ca439ee6fac5f6f7d83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

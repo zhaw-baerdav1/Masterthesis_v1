@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Dissonance;
+using UnityEngine.Networking;
 
 namespace CrazyMinnow.SALSA.DissonanceLink
 {
     [AddComponentMenu( "Crazy Minnow Studio/SALSA LipSync/Add-ons/SalsaDissonanceLink" )]
-    public class SalsaDissonanceLink : MonoBehaviour
+    public class SalsaDissonanceLink : NetworkBehaviour
     {
         // RELEASE NOTES & TODO ITEMS:
         //    2.0.0-BETA : Initial release for SALSA LipSync v2.
@@ -56,8 +57,10 @@ namespace CrazyMinnow.SALSA.DissonanceLink
         private const float PollTimer = .5f;        // how often the coro rechecks for playerState discovery
 
         // using OnEnable() since it's probably necessary to re-process if the player is disabled/enabled for any reason
-        private void OnEnable()
+        private void OnStartLocalPlayer()
         {
+            base.OnStartLocalPlayer();
+
             // link up required components
             salsa = GetComponent<Salsa>();
 
