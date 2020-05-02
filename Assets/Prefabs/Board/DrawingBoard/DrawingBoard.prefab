@@ -48,9 +48,9 @@ MonoBehaviour:
     type: 3}
   arrowPrefab: {fileID: 5676177995947606054, guid: 00875388cc9aefb4cad4b584d5059d80,
     type: 3}
-  defaultMaterial: {fileID: 2100000, guid: 2536f1f630d08f441b76cba76e8cf597, type: 2}
-  lookAtMaterial: {fileID: 2100000, guid: 4bc52937c3c17274f942302c482c69ac, type: 2}
-  selectedMaterial: {fileID: 2100000, guid: 79b6bc15374199f4c90b61b8c09d3d4a, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 981a6c651e539497da0058d713deecde, type: 2}
+  lookAtMaterial: {fileID: 2100000, guid: 14fac2c4db58a492aba33d256a37a52a, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: c2c33447d8a9c48e0aebebbe09c0a6a2, type: 2}
 --- !u!1 &7554798188182518326
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CubeRepresentation : MonoBehaviour
@@ -34,8 +35,8 @@ public class CubeRepresentation : MonoBehaviour
     {
         CubeDefinition _cubeDefinition = GetCubeDefinition();
 
-        TextMesh[] textMeshes = GetComponentsInChildren<TextMesh>();
-        foreach (TextMesh textMesh in textMeshes)
+        TextMeshPro[] textMeshes = GetComponentsInChildren<TextMeshPro>();
+        foreach (TextMeshPro textMesh in textMeshes)
         {
             textMesh.text = _cubeDefinition.naming;
         }
