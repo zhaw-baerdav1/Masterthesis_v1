@@ -9,6 +9,7 @@ public class WhiteBoardEventSystem : MonoBehaviour
     public static event Action<int, Rect, byte[]> OnReceiveTexture = delegate { };
 
     public static event Action OnResetPens = delegate { };
+    public static event Action OnResetWhiteBoard = delegate { };
 
     public static void SendTexture(int connectionId, Rect sendableRectangle, byte[] textureBytes)
     {
@@ -22,5 +23,10 @@ public class WhiteBoardEventSystem : MonoBehaviour
     public static void ResetPens()
     {
         OnResetPens();
+    }
+
+    public static void ResetWhiteBoard()
+    {
+        OnResetWhiteBoard();
     }
 }

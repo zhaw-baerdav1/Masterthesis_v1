@@ -17,11 +17,13 @@ public class NetworkWhiteBoard : MonoBehaviour
 	private void Awake()
 	{
 		WhiteBoardEventSystem.OnReceiveTexture += WhiteBoardEventSystem_OnReceiveTexture;
+		WhiteBoardEventSystem.OnResetWhiteBoard += WhiteBoardEventSystem_OnResetWhiteBoard;
 	}
 
 	private void OnDestroy()
 	{
 		WhiteBoardEventSystem.OnReceiveTexture -= WhiteBoardEventSystem_OnReceiveTexture;
+		WhiteBoardEventSystem.OnResetWhiteBoard -= WhiteBoardEventSystem_OnResetWhiteBoard;
 	}
 
 	private void WhiteBoardEventSystem_OnReceiveTexture(int connectionId, Rect receivableRectangle, byte[] textureBytes)
@@ -40,6 +42,14 @@ public class NetworkWhiteBoard : MonoBehaviour
 	{
 		networkTexture = new Texture2D(textureSize, textureSize);
 
+		ResetTexture();
+
+		Renderer renderer = GetComponent<Renderer>();
+		renderer.material.mainTexture = (Texture)networkTexture;
+	}
+
+	private void ResetTexture()
+	{
 		Color fillColor = Color.clear;
 		Color[] fillPixels = networkTexture.GetPixels();
 
@@ -50,9 +60,6 @@ public class NetworkWhiteBoard : MonoBehaviour
 
 		networkTexture.SetPixels(fillPixels);
 		networkTexture.Apply();
-
-		Renderer renderer = GetComponent<Renderer>();
-		renderer.material.mainTexture = (Texture)networkTexture;
 	}
 
 	// Update is called once per frame
@@ -85,5 +92,10 @@ public class NetworkWhiteBoard : MonoBehaviour
 	public void SetOwnerCustomVRPlayer(CustomVRPlayer customVRPlayer)
 	{
 		ownerCustomVRPlayer = customVRPlayer;
+	}
+
+	private void WhiteBoardEventSystem_OnResetWhiteBoard()
+	{
+		ResetTexture();
 	}
 }

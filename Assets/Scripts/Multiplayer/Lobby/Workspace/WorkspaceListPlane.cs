@@ -10,9 +10,9 @@ public class WorkspaceListPlane : MonoBehaviour
 {
     public WorkplaceListItem workplaceListItemPrefab;
 
-    public SteamVR_Action_Boolean snapTurnRight = SteamVR_Input.GetBooleanAction("SnapTurnRight");
-    public SteamVR_Action_Boolean snapTurnUp = SteamVR_Input.GetBooleanAction("SnapTurnUp");
-    public SteamVR_Action_Boolean snapTurnDown = SteamVR_Input.GetBooleanAction("SnapTurnDown");
+    public SteamVR_Action_Boolean lobbySnapTurnRight = SteamVR_Input.GetBooleanAction("Lobby", "LobbySnapTurnRight");
+    public SteamVR_Action_Boolean lobbySnapTurnUp = SteamVR_Input.GetBooleanAction("Lobby", "LobbySnapTurnUp");
+    public SteamVR_Action_Boolean lobbySnapTurnDown = SteamVR_Input.GetBooleanAction("Lobby", "LobbySnapTurnDown");
 
     private int count = 0;
     private int selectedNumber = 0;
@@ -33,16 +33,16 @@ public class WorkspaceListPlane : MonoBehaviour
 
     private void ActivateInput()
     {
-        snapTurnRight.AddOnChangeListener(OnWorkspaceSwitch, SteamVR_Input_Sources.Any);
-        snapTurnUp.AddOnChangeListener(OnWorkspaceListUp, SteamVR_Input_Sources.Any);
-        snapTurnDown.AddOnChangeListener(OnWorkspaceListDown, SteamVR_Input_Sources.Any);
+        lobbySnapTurnRight.AddOnChangeListener(OnWorkspaceSwitch, SteamVR_Input_Sources.Any);
+        lobbySnapTurnUp.AddOnChangeListener(OnWorkspaceListUp, SteamVR_Input_Sources.Any);
+        lobbySnapTurnDown.AddOnChangeListener(OnWorkspaceListDown, SteamVR_Input_Sources.Any);
     }
 
     private void DeactivateInput()
     {
-        snapTurnRight.RemoveOnChangeListener(OnWorkspaceSwitch, SteamVR_Input_Sources.Any);
-        snapTurnUp.RemoveOnChangeListener(OnWorkspaceListUp, SteamVR_Input_Sources.Any);
-        snapTurnDown.RemoveOnChangeListener(OnWorkspaceListDown, SteamVR_Input_Sources.Any);
+        lobbySnapTurnRight.RemoveOnChangeListener(OnWorkspaceSwitch, SteamVR_Input_Sources.Any);
+        lobbySnapTurnUp.RemoveOnChangeListener(OnWorkspaceListUp, SteamVR_Input_Sources.Any);
+        lobbySnapTurnDown.RemoveOnChangeListener(OnWorkspaceListDown, SteamVR_Input_Sources.Any);
     }
 
     private void OnWorkspaceListDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)

@@ -9,7 +9,7 @@ using Valve.VR;
 public class RoomManager : NetworkBehaviour
 {
 
-    public SteamVR_Action_Boolean roomSwitch = SteamVR_Input.GetBooleanAction("RoomSwitch");
+    public SteamVR_Action_Boolean roomSwitch = SteamVR_Input.GetBooleanAction("RoomControl", "RoomSwitch");
     
     public override void OnStartLocalPlayer()
     {

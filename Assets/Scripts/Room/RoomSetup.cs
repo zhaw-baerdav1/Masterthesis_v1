@@ -11,4 +11,9 @@ public class RoomSetup : MonoBehaviour
     {
         actionSetRoomControl.Activate();
     }
+
+    private void OnDestroy()
+    {
+        actionSetRoomControl.Deactivate();
+    }
 }

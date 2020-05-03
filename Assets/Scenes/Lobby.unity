@@ -556,13 +556,13 @@ MonoBehaviour:
     type: 3}
   snapTurnLeft:
     actionPath: /actions/Lobby/in/SnapTurnLeft
-    needsReinit: 0
+    needsReinit: 1
   snapTurnUp:
     actionPath: /actions/Lobby/in/SnapTurnUp
-    needsReinit: 0
+    needsReinit: 1
   snapTurnDown:
     actionPath: /actions/Lobby/in/SnapTurnDown
-    needsReinit: 0
+    needsReinit: 1
 --- !u!64 &171688138
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1198,13 +1198,13 @@ MonoBehaviour:
     type: 3}
   snapTurnRight:
     actionPath: /actions/Lobby/in/SnapTurnRight
-    needsReinit: 0
+    needsReinit: 1
   snapTurnUp:
     actionPath: /actions/Lobby/in/SnapTurnUp
-    needsReinit: 0
+    needsReinit: 1
   snapTurnDown:
     actionPath: /actions/Lobby/in/SnapTurnDown
-    needsReinit: 0
+    needsReinit: 1
 --- !u!64 &343421815
 MeshCollider:
   m_ObjectHideFlags: 0

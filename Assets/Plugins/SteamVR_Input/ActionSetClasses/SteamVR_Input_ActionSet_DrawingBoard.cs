@@ -17,43 +17,43 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_DrawingBoard : Valve.VR.SteamVR_ActionSet
     {
         
-        public virtual SteamVR_Action_Boolean GrabPinch
+        public virtual SteamVR_Action_Boolean DBGrabPinch
         {
             get
             {
-                return SteamVR_Actions.drawingBoard_GrabPinch;
+                return SteamVR_Actions.drawingBoard_DBGrabPinch;
             }
         }
         
-        public virtual SteamVR_Action_Boolean SnapTurnLeft
+        public virtual SteamVR_Action_Boolean DBSnapTurnLeft
         {
             get
             {
-                return SteamVR_Actions.drawingBoard_SnapTurnLeft;
+                return SteamVR_Actions.drawingBoard_DBSnapTurnLeft;
             }
         }
         
-        public virtual SteamVR_Action_Boolean SnapTurnRight
+        public virtual SteamVR_Action_Boolean DBSnapTurnRight
         {
             get
             {
-                return SteamVR_Actions.drawingBoard_SnapTurnRight;
+                return SteamVR_Actions.drawingBoard_DBSnapTurnRight;
             }
         }
         
-        public virtual SteamVR_Action_Boolean SnapTurnUp
+        public virtual SteamVR_Action_Boolean DBSnapTurnUp
         {
             get
             {
-                return SteamVR_Actions.drawingBoard_SnapTurnUp;
+                return SteamVR_Actions.drawingBoard_DBSnapTurnUp;
             }
         }
         
-        public virtual SteamVR_Action_Boolean SnapTurnDown
+        public virtual SteamVR_Action_Boolean DBSnapTurnDown
         {
             get
             {
-                return SteamVR_Actions.drawingBoard_SnapTurnDown;
+                return SteamVR_Actions.drawingBoard_DBSnapTurnDown;
             }
         }
     }

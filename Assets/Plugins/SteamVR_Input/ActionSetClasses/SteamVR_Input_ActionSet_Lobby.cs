@@ -17,35 +17,35 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_Lobby : Valve.VR.SteamVR_ActionSet
     {
         
-        public virtual SteamVR_Action_Boolean SnapTurnLeft
+        public virtual SteamVR_Action_Boolean LobbySnapTurnLeft
         {
             get
             {
-                return SteamVR_Actions.lobby_SnapTurnLeft;
+                return SteamVR_Actions.lobby_LobbySnapTurnLeft;
             }
         }
         
-        public virtual SteamVR_Action_Boolean SnapTurnRight
+        public virtual SteamVR_Action_Boolean LobbySnapTurnRight
         {
             get
             {
-                return SteamVR_Actions.lobby_SnapTurnRight;
+                return SteamVR_Actions.lobby_LobbySnapTurnRight;
             }
         }
         
-        public virtual SteamVR_Action_Boolean SnapTurnUp
+        public virtual SteamVR_Action_Boolean LobbySnapTurnUp
         {
             get
             {
-                return SteamVR_Actions.lobby_SnapTurnUp;
+                return SteamVR_Actions.lobby_LobbySnapTurnUp;
             }
         }
         
-        public virtual SteamVR_Action_Boolean SnapTurnDown
+        public virtual SteamVR_Action_Boolean LobbySnapTurnDown
         {
             get
             {
-                return SteamVR_Actions.lobby_SnapTurnDown;
+                return SteamVR_Actions.lobby_LobbySnapTurnDown;
             }
         }
     }

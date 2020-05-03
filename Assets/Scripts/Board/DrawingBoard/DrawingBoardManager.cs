@@ -8,12 +8,12 @@ using Valve.VR;
 public class DrawingBoardManager : NetworkBehaviour
 {
 
-    public SteamVR_Action_Boolean selectedCube = SteamVR_Input.GetBooleanAction("GrabPinch");
+    public SteamVR_Action_Boolean dBGrabPinch = SteamVR_Input.GetBooleanAction("DrawingBoard", "DBGrabPinch");
 
-    public SteamVR_Action_Boolean moveCubeUp = SteamVR_Input.GetBooleanAction("SnapTurnUp");
-    public SteamVR_Action_Boolean moveCubeDown = SteamVR_Input.GetBooleanAction("SnapTurnDown");
-    public SteamVR_Action_Boolean moveCubeLeft = SteamVR_Input.GetBooleanAction("SnapTurnLeft");
-    public SteamVR_Action_Boolean moveCubeRight = SteamVR_Input.GetBooleanAction("SnapTurnRight");
+    public SteamVR_Action_Boolean dBSnapTurnUp = SteamVR_Input.GetBooleanAction("DrawingBoard", "DBSnapTurnUp");
+    public SteamVR_Action_Boolean dBSnapTurnDown = SteamVR_Input.GetBooleanAction("DrawingBoard", "DBSnapTurnDown");
+    public SteamVR_Action_Boolean dBSnapTurnLeft = SteamVR_Input.GetBooleanAction("DrawingBoard", "DBSnapTurnLeft");
+    public SteamVR_Action_Boolean dBSnapTurnRight = SteamVR_Input.GetBooleanAction("DrawingBoard", "DBSnapTurnRight");
     
     public override void OnStartLocalPlayer()
     {
@@ -23,12 +23,12 @@ public class DrawingBoardManager : NetworkBehaviour
         CubeList.OnTriggerCubeChange += CubeList_OnTriggerCubeChange;
         ArrowList.OnNewArrowDefinition += ArrowList_OnNewArrowDefinition;
 
-        selectedCube.AddOnChangeListener(OnCubeSelected, SteamVR_Input_Sources.Any);
+        dBGrabPinch.AddOnChangeListener(OnCubeSelected, SteamVR_Input_Sources.Any);
 
-        moveCubeUp.AddOnChangeListener(OnCubeMoveUp, SteamVR_Input_Sources.Any);
-        moveCubeDown.AddOnChangeListener(OnCubeMoveDown, SteamVR_Input_Sources.Any);
-        moveCubeLeft.AddOnChangeListener(OnCubeMoveLeft, SteamVR_Input_Sources.Any);
-        moveCubeRight.AddOnChangeListener(OnCubeMoveRight, SteamVR_Input_Sources.Any);
+        dBSnapTurnUp.AddOnChangeListener(OnCubeMoveUp, SteamVR_Input_Sources.Any);
+        dBSnapTurnDown.AddOnChangeListener(OnCubeMoveDown, SteamVR_Input_Sources.Any);
+        dBSnapTurnLeft.AddOnChangeListener(OnCubeMoveLeft, SteamVR_Input_Sources.Any);
+        dBSnapTurnRight.AddOnChangeListener(OnCubeMoveRight, SteamVR_Input_Sources.Any);
     }
 
     public void OnDestroy()
@@ -42,12 +42,12 @@ public class DrawingBoardManager : NetworkBehaviour
         CubeList.OnTriggerCubeChange -= CubeList_OnTriggerCubeChange;
         ArrowList.OnNewArrowDefinition -= ArrowList_OnNewArrowDefinition;
 
-        selectedCube.RemoveOnChangeListener(OnCubeSelected, SteamVR_Input_Sources.Any);
+        dBGrabPinch.RemoveOnChangeListener(OnCubeSelected, SteamVR_Input_Sources.Any);
 
-        moveCubeUp.RemoveOnChangeListener(OnCubeMoveUp, SteamVR_Input_Sources.Any);
-        moveCubeDown.RemoveOnChangeListener(OnCubeMoveDown, SteamVR_Input_Sources.Any);
-        moveCubeLeft.RemoveOnChangeListener(OnCubeMoveLeft, SteamVR_Input_Sources.Any);
-        moveCubeRight.RemoveOnChangeListener(OnCubeMoveRight, SteamVR_Input_Sources.Any);
+        dBSnapTurnUp.RemoveOnChangeListener(OnCubeMoveUp, SteamVR_Input_Sources.Any);
+        dBSnapTurnDown.RemoveOnChangeListener(OnCubeMoveDown, SteamVR_Input_Sources.Any);
+        dBSnapTurnLeft.RemoveOnChangeListener(OnCubeMoveLeft, SteamVR_Input_Sources.Any);
+        dBSnapTurnRight.RemoveOnChangeListener(OnCubeMoveRight, SteamVR_Input_Sources.Any);
     }
        
     private void CubeList_OnNewCubeDefinition(CubeDefinition cubeDefinition)

@@ -23,11 +23,15 @@ public class WhiteBoard : MonoBehaviour
 
 	private void Awake()
 	{
+		WhiteBoardEventSystem.OnResetWhiteBoard += WhiteBoardEventSystem_OnResetWhiteBoard;
+
 		shouldSyncWithNetwork = true;
 	}
 
 	private void OnDestroy()
 	{
+		WhiteBoardEventSystem.OnResetWhiteBoard -= WhiteBoardEventSystem_OnResetWhiteBoard;
+
 		shouldSyncWithNetwork = false;
 	}
 
@@ -37,6 +41,14 @@ public class WhiteBoard : MonoBehaviour
 		// Set whiteboard texture
 		texture = new Texture2D(textureSize, textureSize);
 
+		ResetTexture();
+
+		Renderer renderer = GetComponent<Renderer>();
+		renderer.material.mainTexture = (Texture)texture;
+	}
+
+	private void ResetTexture()
+	{
 		Color fillColor = Color.clear;
 		Color[] fillPixels = texture.GetPixels();
 
@@ -47,9 +59,6 @@ public class WhiteBoard : MonoBehaviour
 
 		texture.SetPixels(fillPixels);
 		texture.Apply();
-
-		Renderer renderer = GetComponent<Renderer>();
-		renderer.material.mainTexture = (Texture)texture;
 	}
 
 	// Update is called once per frame
@@ -147,5 +156,10 @@ public class WhiteBoard : MonoBehaviour
 
 			yield return null;
 		}
+	}
+
+	private void WhiteBoardEventSystem_OnResetWhiteBoard()
+	{
+		ResetTexture();
 	}
 }

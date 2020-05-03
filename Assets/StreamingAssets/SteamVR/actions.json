@@ -58,51 +58,55 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/Lobby/in/SnapTurnLeft",
+      "name": "/actions/Lobby/in/LobbySnapTurnLeft",
       "type": "boolean"
     },
     {
-      "name": "/actions/Lobby/in/SnapTurnRight",
+      "name": "/actions/Lobby/in/LobbySnapTurnRight",
       "type": "boolean"
     },
     {
-      "name": "/actions/Lobby/in/SnapTurnUp",
+      "name": "/actions/Lobby/in/LobbySnapTurnUp",
       "type": "boolean"
     },
     {
-      "name": "/actions/Lobby/in/SnapTurnDown",
+      "name": "/actions/Lobby/in/LobbySnapTurnDown",
       "type": "boolean"
     },
     {
-      "name": "/actions/DrawingBoard/in/GrabPinch",
+      "name": "/actions/DrawingBoard/in/DBGrabPinch",
       "type": "boolean"
     },
     {
-      "name": "/actions/DrawingBoard/in/SnapTurnLeft",
+      "name": "/actions/DrawingBoard/in/DBSnapTurnLeft",
       "type": "boolean"
     },
     {
-      "name": "/actions/DrawingBoard/in/SnapTurnRight",
+      "name": "/actions/DrawingBoard/in/DBSnapTurnRight",
       "type": "boolean"
     },
     {
-      "name": "/actions/DrawingBoard/in/SnapTurnUp",
+      "name": "/actions/DrawingBoard/in/DBSnapTurnUp",
       "type": "boolean"
     },
     {
-      "name": "/actions/DrawingBoard/in/SnapTurnDown",
+      "name": "/actions/DrawingBoard/in/DBSnapTurnDown",
       "type": "boolean"
     },
     {
-      "name": "/actions/WhiteBoard/in/SnapTurnLeft",
+      "name": "/actions/WhiteBoard/in/WBSnapTurnLeft",
       "type": "boolean"
     },
     {
-      "name": "/actions/WhiteBoard/in/SnapTurnRight",
+      "name": "/actions/WhiteBoard/in/WBSnapTurnRight",
       "type": "boolean"
     },
     {
-      "name": "/actions/WhiteBoard/in/SnapTurnUp",
+      "name": "/actions/WhiteBoard/in/WBSnapTurnUp",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/WhiteBoard/in/WBSnapTurnDown",
       "type": "boolean"
     },
     {
@@ -197,19 +201,20 @@
       "/actions/default/in/SnapTurnRight": "Snap Turn (Right)",
       "/actions/default/in/SnapTurnUp": "Snap Turn (Up)",
       "/actions/default/in/SnapTurnDown": "Snap Turn (Down)",
-      "/actions/Lobby/in/SnapTurnLeft": "SnapTurnLeft",
-      "/actions/Lobby/in/SnapTurnRight": "SnapTurnRight",
-      "/actions/Lobby/in/SnapTurnDown": "SnapTurnDown",
-      "/actions/Lobby/in/SnapTurnUp": "SnapTurnUp",
-      "/actions/DrawingBoard/in/GrabPinch": "GrabPinch",
-      "/actions/DrawingBoard/in/SnapTurnLeft": "SnapTurnLeft",
-      "/actions/DrawingBoard/in/SnapTurnRight": "SnapTurnRight",
-      "/actions/DrawingBoard/in/SnapTurnUp": "SnapTurnUp",
-      "/actions/DrawingBoard/in/SnapTurnDown": "SnapTurnDown",
       "/actions/RoomControl/in/RoomSwitch": "RoomSwitch",
-      "/actions/WhiteBoard/in/SnapTurnLeft": "SnapTurnLeft",
-      "/actions/WhiteBoard/in/SnapTurnRight": "SnapTurnRight",
-      "/actions/WhiteBoard/in/SnapTurnUp": "SnapTurnUp"
+      "/actions/Lobby/in/LobbySnapTurnLeft": "LobbySnapTurnLeft",
+      "/actions/Lobby/in/LobbySnapTurnRight": "LobbySnapTurnRight",
+      "/actions/Lobby/in/LobbySnapTurnUp": "LobbySnapTurnUp",
+      "/actions/Lobby/in/LobbySnapTurnDown": "LobbySnapTurnDown",
+      "/actions/DrawingBoard/in/DBGrabPinch": "DBGrabPinch",
+      "/actions/DrawingBoard/in/DBSnapTurnLeft": "DBSnapTurnLeft",
+      "/actions/DrawingBoard/in/DBSnapTurnRight": "DBSnapTurnRight",
+      "/actions/DrawingBoard/in/DBSnapTurnUp": "DBSnapTurnUp",
+      "/actions/DrawingBoard/in/DBSnapTurnDown": "DBSnapTurnDown",
+      "/actions/WhiteBoard/in/WBSnapTurnLeft": "WBSnapTurnLeft",
+      "/actions/WhiteBoard/in/WBSnapTurnRight": "WBSnapTurnRight",
+      "/actions/WhiteBoard/in/WBSnapTurnUp": "WBSnapTurnUp",
+      "/actions/WhiteBoard/in/WBSnapTurnDown": "WBSnapTurnDown"
     }
   ]
 }
