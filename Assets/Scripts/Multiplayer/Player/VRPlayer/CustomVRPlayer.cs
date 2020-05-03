@@ -28,7 +28,6 @@ public class CustomVRPlayer : CustomPlayer
 	public GameObject rightHandPrefab;
 
 	public Transform headOriginTransform;
-
 	public GameObject headColliderPrefab;
 
 	public SteamVR_Action_Boolean headsetOnHead = SteamVR_Input.GetBooleanAction("HeadsetOnHead");
@@ -36,7 +35,6 @@ public class CustomVRPlayer : CustomPlayer
 	public Transform trackingOriginTransform;
 
 	protected bool isOfflinePlayer;
-
 
 	private CustomHand[] hands;
 
@@ -46,7 +44,7 @@ public class CustomVRPlayer : CustomPlayer
 		base.OnStartLocalPlayer();
 
 		InstantiatePlayer();
-		HideAllMeshRenderers(this.gameObject);
+		//HideAllMeshRenderers(this.gameObject);
 
 	}
 
@@ -61,13 +59,20 @@ public class CustomVRPlayer : CustomPlayer
 
 	protected void InstantiatePlayer()
 	{
+		Valve.VR.OpenVR.System.ResetSeatedZeroPose();
+		Valve.VR.OpenVR.Compositor.SetTrackingSpace(Valve.VR.ETrackingUniverseOrigin.TrackingUniverseSeated);
+
 		GameObject _vRCameraInstance = (GameObject)Instantiate(vRCameraPrefab);
 		_vRCameraInstance.transform.parent = transform;
+
+		//Vector3 offset = _vRCameraInstance.transform.position - headOriginTransform.position;
+		//headOriginTransform.position = headOriginTransform.position + offset;
+
 		vRCameraInstance = _vRCameraInstance;
 
 		GameObject steamVRInstance = (GameObject)Instantiate(steamVRPrefab);
 		steamVRInstance.transform.parent = transform;
-
+		
 		hands = new CustomHand[2];
 
 		GameObject leftHandInstance = (GameObject)Instantiate(leftHandPrefab);
@@ -79,9 +84,10 @@ public class CustomVRPlayer : CustomPlayer
 		hands[1] = rightHandInstance.GetComponent<CustomHand>();
 
 		GameObject headCollider = (GameObject)Instantiate(headColliderPrefab);
-		headCollider.transform.parent = vRCameraInstance.transform;
+		headCollider.transform.parent = headOriginTransform.transform;
 		headCollider.transform.localPosition = Vector3.zero;
 		headCollider.transform.localRotation = Quaternion.identity;
+
 	}
 
 	//-------------------------------------------------
@@ -322,7 +328,7 @@ public class CustomVRPlayer : CustomPlayer
 			{
 				Debug.Log("<b>SteamVR Interaction System</b> Headset removed");
 			}
-		}			
+		}
 	}
 }
 

@@ -727,6 +727,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 962606020}
     m_Modifications:
+    - target: {fileID: 141746128802695293, guid: d76bdaa89f1d63740ba84a6a482fb679,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 141746128802695293, guid: d76bdaa89f1d63740ba84a6a482fb679,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.355
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: headOriginTransform
       value: 
@@ -754,7 +764,7 @@ PrefabInstance:
     - target: {fileID: 1163591501518025343, guid: d76bdaa89f1d63740ba84a6a482fb679,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.411
+      value: -3.169
       objectReference: {fileID: 0}
     - target: {fileID: 1163591501518025343, guid: d76bdaa89f1d63740ba84a6a482fb679,
         type: 3}
@@ -876,6 +886,18 @@ PrefabInstance:
       propertyPath: grabPinchAction.actionPath
       value: /actions/default/in/GrabPinch
       objectReference: {fileID: 0}
+    - target: {fileID: 3830563709032143755, guid: d76bdaa89f1d63740ba84a6a482fb679,
+        type: 3}
+      propertyPath: headOffset
+      value: 
+      objectReference: {fileID: 3933948521033153463, guid: efe25901525a09f43a7003f31ceed5b6,
+        type: 3}
+    - target: {fileID: 3830563709032143755, guid: d76bdaa89f1d63740ba84a6a482fb679,
+        type: 3}
+      propertyPath: headOffsetPrefab
+      value: 
+      objectReference: {fileID: 1442380468337700867, guid: efe25901525a09f43a7003f31ceed5b6,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d76bdaa89f1d63740ba84a6a482fb679, type: 3}
 --- !u!1001 &265925230
