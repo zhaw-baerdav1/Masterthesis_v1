@@ -138,7 +138,7 @@ ModelImporter:
     - serializedVersion: 16
       name: 0_T-Pose
       takeName: 0_T-Pose
-      internalID: -8765926809051069468
+      internalID: -7881739814215078984
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -167,7 +167,7 @@ ModelImporter:
     - serializedVersion: 16
       name: 0_T Pose
       takeName: 0_T Pose
-      internalID: 5876027164343189283
+      internalID: -174682182651802183
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -196,7 +196,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Office
       takeName: Office
-      internalID: -4908757183028424067
+      internalID: 4343042457862162447
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -225,7 +225,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Gesture F1
       takeName: Gesture F1
-      internalID: -2104111055778846515
+      internalID: 7585733518708376839
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
