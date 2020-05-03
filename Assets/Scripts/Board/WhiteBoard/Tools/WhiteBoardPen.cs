@@ -7,6 +7,8 @@ public class WhiteBoardPen : MonoBehaviour
 {
 	[SerializeField]
 	public WhiteBoard whiteBoard;
+	[SerializeField]
+	public NetworkWhiteBoard networkWhiteBoard;
 
 	private GameObject tip;
 	private RaycastHit touch;
@@ -57,7 +59,9 @@ public class WhiteBoardPen : MonoBehaviour
 		}
 
 		ownerCustomVRPlayer = customVRPlayer;
+
 		whiteBoard.SetOwnerCustomVRPlayer(ownerCustomVRPlayer);
+		networkWhiteBoard.SetOwnerCustomVRPlayer(ownerCustomVRPlayer);
 	}
 
 	private void ColorList_OnSwitchColorRight()
@@ -84,12 +88,13 @@ public class WhiteBoardPen : MonoBehaviour
 		currentColorIndex = colorIndex;
 
 		Color color = colorList[currentColorIndex];
+		color.a = 1;
 		whiteBoard.SetColor(color);
 
 		Material material = new Material(Shader.Find("Standard"));
 		material.color = color;
 
-		MeshRenderer meshRenderer = tip.GetComponent<MeshRenderer>();
+		MeshRenderer meshRenderer = tip.transform.Find("TipColor").GetComponent<MeshRenderer>();
 		meshRenderer.material = material;		
 	}
 
@@ -98,7 +103,7 @@ public class WhiteBoardPen : MonoBehaviour
 	{
 		float tipHeight = tip.transform.localScale.y;
 		Vector3 tipPosition = tip.transform.position;
-		
+
 		// Check for a Raycast from the tip of the pen
 		if (Physics.Raycast(tipPosition, transform.up, out touch, tipHeight))
 		{			

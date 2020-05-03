@@ -55,7 +55,9 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
 
     private void OnDestroy()
     {
-        Active = false;
+        if(_service != null) { 
+            Active = false;
+        }
 
         if (_recordingRoutine != 0)
         {

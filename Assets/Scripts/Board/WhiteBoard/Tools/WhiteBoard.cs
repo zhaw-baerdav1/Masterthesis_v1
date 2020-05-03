@@ -10,7 +10,6 @@ public class WhiteBoard : MonoBehaviour
 	private int penSize = 2;
 	private Texture2D texture;
 	private Color[] color;
-	private Texture2D networkTexture;
 
 	private bool touching, touchingLast;
 	private float posX, posY;
@@ -20,34 +19,16 @@ public class WhiteBoard : MonoBehaviour
 	private const float pollTimer = 2;
 	private Rect sendableRectangle = Rect.zero;
 
-	private byte[] receivedTextureBytes;
-	private Rect receivedRectangle = Rect.zero;
-
 	private CustomVRPlayer ownerCustomVRPlayer;
 
 	private void Awake()
 	{
-		WhiteBoardEventSystem.OnReceiveTexture += WhiteBoardEventSystem_OnReceiveTexture;
-
 		shouldSyncWithNetwork = true;
 	}
 
 	private void OnDestroy()
 	{
-		WhiteBoardEventSystem.OnReceiveTexture -= WhiteBoardEventSystem_OnReceiveTexture;
-
 		shouldSyncWithNetwork = false;
-	}
-
-	private void WhiteBoardEventSystem_OnReceiveTexture(int connectionId, Rect receivableRectangle, byte[] textureBytes)
-	{
-		if (ownerCustomVRPlayer != null && connectionId.Equals(ownerCustomVRPlayer.connectionId))
-		{
-			return;
-		}
-
-		receivedTextureBytes = textureBytes;
-		receivedRectangle = receivableRectangle;
 	}
 
 	// Use this for initialization
@@ -55,11 +36,20 @@ public class WhiteBoard : MonoBehaviour
 	{
 		// Set whiteboard texture
 		texture = new Texture2D(textureSize, textureSize);
-		networkTexture = new Texture2D(textureSize, textureSize);
+
+		Color fillColor = Color.clear;
+		Color[] fillPixels = texture.GetPixels();
+
+		for (int i = 0; i < fillPixels.Length; i++)
+		{
+			fillPixels[i] = fillColor;
+		}
+
+		texture.SetPixels(fillPixels);
+		texture.Apply();
 
 		Renderer renderer = GetComponent<Renderer>();
-		renderer.materials[0].mainTexture = (Texture)texture;
-		renderer.materials[1].mainTexture = (Texture)networkTexture;
+		renderer.material.mainTexture = (Texture)texture;
 	}
 
 	// Update is called once per frame
@@ -81,39 +71,16 @@ public class WhiteBoard : MonoBehaviour
 			texture.Apply();
 		}
 
-		if (receivedTextureBytes != null)
-		{
-			ApplyNetworkTexture();
-
-			receivedTextureBytes = null;
-		}
-
 		this.lastX = (float)x;
 		this.lastY = (float)y;
 
 		this.touchingLast = this.touching;
 	}
 
-	private void ApplyNetworkTexture()
-	{
-		int x = (int) receivedRectangle.x;
-		int y = (int) receivedRectangle.y;
-		int width = (int) receivedRectangle.width;
-		int height = (int) receivedRectangle.height;
-
-		Texture2D receivedTexture = new Texture2D(width, height);
-		receivedTexture.LoadImage(receivedTextureBytes);
-
-		Color[] pix = receivedTexture.GetPixels();
-
-		networkTexture.SetPixels(x, y, width, height, pix);
-		networkTexture.Apply();
-	}
-
 	public void SetOwnerCustomVRPlayer(CustomVRPlayer customVRPlayer)
 	{
 		ownerCustomVRPlayer = customVRPlayer;
-		
+
 		StartCoroutine(SyncTexture());
 	}
 
@@ -135,10 +102,10 @@ public class WhiteBoard : MonoBehaviour
 
 	private void DetectUsedRectangle(int x, int y)
 	{
-		int xMin = (int) Mathf.Min(x, sendableRectangle.xMin == 0 ? x : sendableRectangle.xMin);
-		int yMin = (int) Mathf.Min(y, sendableRectangle.yMin == 0 ? x : sendableRectangle.yMin);
-		int xMax = (int) Mathf.Max(x, sendableRectangle.xMax);
-		int yMax = (int) Mathf.Max(y, sendableRectangle.yMax);
+		int xMin = (int)Mathf.Min(x, sendableRectangle.xMin == 0 ? x : sendableRectangle.xMin);
+		int yMin = (int)Mathf.Min(y, sendableRectangle.yMin == 0 ? x : sendableRectangle.yMin);
+		int xMax = (int)Mathf.Max(x, sendableRectangle.xMax);
+		int yMax = (int)Mathf.Max(y, sendableRectangle.yMax);
 
 		sendableRectangle = Rect.MinMaxRect(xMin, yMin, xMax, yMax);
 	}
@@ -158,13 +125,13 @@ public class WhiteBoard : MonoBehaviour
 	{
 		this.color = Enumerable.Repeat<Color>(color, penSize * penSize).ToArray<Color>();
 	}
-	
+
 	private IEnumerator SyncTexture()
 	{
 		float timeCheck = Time.time;
 		while (shouldSyncWithNetwork)
 		{
-			if(Time.time - timeCheck > pollTimer && !sendableRectangle.Equals(Rect.zero))
+			if (Time.time - timeCheck > pollTimer && !sendableRectangle.Equals(Rect.zero))
 			{
 				Color[] pix = texture.GetPixels((int)sendableRectangle.x, (int)sendableRectangle.y, (int)sendableRectangle.width, (int)sendableRectangle.height);
 
