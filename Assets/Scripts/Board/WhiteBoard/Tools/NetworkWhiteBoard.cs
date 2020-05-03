@@ -40,7 +40,7 @@ public class NetworkWhiteBoard : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		networkTexture = new Texture2D(textureSize, textureSize);
+		networkTexture = new Texture2D(textureSize, textureSize, TextureFormat.RGBA32, false);
 
 		ResetTexture();
 

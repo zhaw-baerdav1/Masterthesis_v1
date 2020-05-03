@@ -39,7 +39,7 @@ public class WhiteBoard : MonoBehaviour
 	void Start()
 	{
 		// Set whiteboard texture
-		texture = new Texture2D(textureSize, textureSize);
+		texture = new Texture2D(textureSize, textureSize, TextureFormat.RGBA32, false);
 
 		ResetTexture();
 
