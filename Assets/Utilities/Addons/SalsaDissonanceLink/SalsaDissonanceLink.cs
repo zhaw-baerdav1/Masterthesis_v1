@@ -57,7 +57,7 @@ namespace CrazyMinnow.SALSA.DissonanceLink
         private const float PollTimer = .5f;        // how often the coro rechecks for playerState discovery
 
         // using OnEnable() since it's probably necessary to re-process if the player is disabled/enabled for any reason
-        private void OnStartLocalPlayer()
+        public override void OnStartLocalPlayer()
         {
             base.OnStartLocalPlayer();
 

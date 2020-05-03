@@ -37,9 +37,9 @@ public class EmoteManager : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        EmotionList.OnNewEmotion += EmotionList_OnNewEmotion;
-
         base.OnStartLocalPlayer();
+
+        EmotionList.OnNewEmotion += EmotionList_OnNewEmotion;
     }
 
     private void OnDestroy()
@@ -72,7 +72,7 @@ public class EmoteManager : NetworkBehaviour
     private void ExpressEmote(string expressionComponentName, double score)
     {
         float frac = (float)(1 - (1 - score));
-        emoter.ManualEmote(expressionComponentName, ExpressionComponent.ExpressionHandler.OneWay, 1.5f, true, frac);
+        emoter.ManualEmote(expressionComponentName, ExpressionComponent.ExpressionHandler.RoundTrip, 5f, true, frac);
     }
 
     [Command]
