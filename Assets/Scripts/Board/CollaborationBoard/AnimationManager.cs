@@ -5,17 +5,9 @@ using UnityEngine.Networking;
 
 public class AnimationManager : NetworkBehaviour
 {
-    enum AnimationType
-    {
-        Office,
-        Standup
-    }
-
-    private static Dictionary<AnimationType, string> animationDictionary = new Dictionary<AnimationType, string>()
-    {
-        { AnimationType.Office, "Office" },
-        { AnimationType.Standup, "Gesture F1" }
-    };
+    public string defaultAnimationName;
+    public string ideaAnimationName;
+    public string agreeAnimationName;
 
     Animator animator = null;
 
@@ -29,7 +21,7 @@ public class AnimationManager : NetworkBehaviour
         base.OnStartLocalPlayer();
     }
 
-    public void HasIdea()
+    public void SetIdeaAnimation()
     {
         if (!isLocalPlayer)
         {
@@ -41,10 +33,10 @@ public class AnimationManager : NetworkBehaviour
             return;
         }
 
-        CmdPlayAnimation(animationDictionary[AnimationType.Standup]);
+        CmdPlayAnimation(ideaAnimationName);
     }
 
-    public void HasNoIdea()
+    public void SetAgreeAnimation()
     {
         if (!isLocalPlayer)
         {
@@ -56,7 +48,22 @@ public class AnimationManager : NetworkBehaviour
             return;
         }
 
-        CmdPlayAnimation(animationDictionary[AnimationType.Office]);
+        CmdPlayAnimation(agreeAnimationName);
+    }
+
+    public void SetDefaultAnimation()
+    {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        if (animator == null)
+        {
+            return;
+        }
+
+        CmdPlayAnimation(defaultAnimationName);
     }
 
     [Command]

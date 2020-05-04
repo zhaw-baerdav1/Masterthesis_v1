@@ -4368,6 +4368,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32f5f492fcba9f45ac442e2ffaf50e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultAnimationName: Office
+  ideaAnimationName: LinusIdea
+  agreeAnimationName: LinusAgree
 --- !u!114 &8773898867755692300
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,30 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdeaSelector : MonoBehaviour
+public class AgreeSelector : MonoBehaviour
 {
     private bool isColliding = false;
-    private bool isIdeaOn = false;
+    private bool isAgreeOn = false;
 
     public Material onMaterial;
     public Material offMaterial;
 
     private void Awake()
     {
-        AnimationEventSystem.OnResetIdeaAnimations += AnimationEventSystem_OnResetIdeaAnimations;
+        AnimationEventSystem.OnResetAgreeAnimations += AnimationEventSystem_OnResetAgreeAnimations;
     }
 
     private void OnDestroy()
     {
-        AnimationEventSystem.OnResetIdeaAnimations -= AnimationEventSystem_OnResetIdeaAnimations;
+        AnimationEventSystem.OnResetAgreeAnimations -= AnimationEventSystem_OnResetAgreeAnimations;
     }
 
-    private void AnimationEventSystem_OnResetIdeaAnimations()
+    private void AnimationEventSystem_OnResetAgreeAnimations()
     {
-        isIdeaOn = false;
+        isAgreeOn = false;
 
-        SwitchMode(isIdeaOn);
+        SwitchMode(isAgreeOn);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,15 +39,15 @@ public class IdeaSelector : MonoBehaviour
         {
             return;
         }
+
+        AnimationEventSystem.ResetIdeaAnimations();
         
-        AnimationEventSystem.ResetAgreeAnimations();
+        isAgreeOn = !isAgreeOn;
+        SwitchMode(isAgreeOn);
 
-        isIdeaOn = !isIdeaOn;
-        SwitchMode(isIdeaOn);
-
-        if (isIdeaOn)
+        if (isAgreeOn)
         {
-            animationManager.SetIdeaAnimation();
+            animationManager.SetAgreeAnimation();
             return;
         }
 
