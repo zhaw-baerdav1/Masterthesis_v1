@@ -12,10 +12,10 @@ public class CharacterListItem : MonoBehaviour
         this.character = character;
 
         transform.SetParent(parentPlane.transform);
-        transform.localScale = new Vector3(1, 1, 0.2f);
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.1f);
         transform.localRotation = Quaternion.identity;
 
-        float orderPosition = (-3.74f) + (2.48f * workspaceListCount);
+        float orderPosition = (-1.87f) + (1.24f * workspaceListCount);
         transform.localPosition = new Vector3(0, 0, orderPosition);
 
         TextMesh textMesh = GetComponentInChildren<TextMesh>();
@@ -23,7 +23,7 @@ public class CharacterListItem : MonoBehaviour
         
         textMesh.gameObject.transform.localScale = new Vector3(0.2f, 1, 1);
         textMesh.gameObject.transform.localRotation = Quaternion.Euler(90, 180, 0);
-        textMesh.gameObject.transform.localPosition = new Vector3(3.445f, 0, 0);
+        textMesh.gameObject.transform.localPosition = new Vector3(0, 0, 0);
     }
 
     public void MarkAsSelected()
