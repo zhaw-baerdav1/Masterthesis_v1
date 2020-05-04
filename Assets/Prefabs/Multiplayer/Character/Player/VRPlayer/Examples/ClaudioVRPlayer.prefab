@@ -1469,7 +1469,7 @@ MonoBehaviour:
     type: 3}
   rightHandPrefab: {fileID: 5202729478213818952, guid: b54dd6b0429d17a4a91da8bdd736664b,
     type: 3}
-  headOriginTransform: {fileID: 6583423871955260773}
+  headOriginTransform: {fileID: 1079015229799981647}
   headColliderPrefab: {fileID: 9021668578028007268, guid: 9149a77a52379d941a3cff9b72c9f841,
     type: 3}
   headsetOnHead:
