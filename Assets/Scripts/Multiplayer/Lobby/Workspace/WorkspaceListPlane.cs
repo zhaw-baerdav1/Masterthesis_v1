@@ -80,7 +80,7 @@ public class WorkspaceListPlane : MonoBehaviour
         }
     }
 
-    private void WorkplaceList_OnWorkspaceListChanged(List<MatchInfoSnapshot> workspaceList)
+    private void WorkplaceList_OnWorkspaceListChanged(List<WorkspaceNetworkInfo> workspaceList)
     {
         CleanupWorkspacePlane();
         UpdateWorkspacePlane(workspaceList);
@@ -107,10 +107,10 @@ public class WorkspaceListPlane : MonoBehaviour
         }
     }
 
-    private void UpdateWorkspacePlane(List<MatchInfoSnapshot> workspaceList)
+    private void UpdateWorkspacePlane(List<WorkspaceNetworkInfo> workspaceList)
     {
         count = 0;
-        foreach (MatchInfoSnapshot workspace in workspaceList)
+        foreach (WorkspaceNetworkInfo workspace in workspaceList)
         {
             WorkplaceListItem workplaceListItem = Instantiate(workplaceListItemPrefab);
             workplaceListItem.Initialize(workspace, transform, count);
@@ -124,7 +124,7 @@ public class WorkspaceListPlane : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Update()
     {
         WorkplaceListItem[] workplaceListItems = GetComponentsInChildren<WorkplaceListItem>();
 
@@ -135,13 +135,12 @@ public class WorkspaceListPlane : MonoBehaviour
             if ( i == selectedNumber)
             {
                 workplaceListItem.MarkAsSelected();
-                WorkspaceList.HandleWorkspaceSelected(workplaceListItem.GetMatchInfoSnapshot());
-            }
-            else
-            {
-                workplaceListItem.RemoveMarkAsSelected();
+                WorkspaceList.HandleWorkspaceSelected(workplaceListItem.GetWorkspaceNetworkInfo());
+
+                continue;
             }
 
+            workplaceListItem.RemoveMarkAsSelected();
         }
     }
 }

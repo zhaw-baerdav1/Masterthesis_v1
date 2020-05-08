@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomHostSelector : MonoBehaviour
+public class CustomInternetHostSelector : MonoBehaviour
 {
     private bool isHosting = false;
 
@@ -13,7 +13,7 @@ public class CustomHostSelector : MonoBehaviour
             return;
         }
 
-        FindObjectOfType<CustomNetworkManager>().StartHosting();
+        FindObjectOfType<CustomNetworkManager>().StartInternetHosting();
         isHosting = true;
     }
 }

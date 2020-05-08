@@ -6,7 +6,7 @@ using UnityEngine.Networking.Match;
 
 public class CustomJoinSelector : MonoBehaviour
 {
-    private MatchInfoSnapshot workspaceToJoin;
+    private WorkspaceNetworkInfo workspaceNetworkInfo;
     private bool isJoining = false;
 
     private void Awake()
@@ -19,9 +19,9 @@ public class CustomJoinSelector : MonoBehaviour
         WorkspaceList.OnWorkspaceSelected -= WorkplaceList_OnWorkspaceSelected;
     }
 
-    private void WorkplaceList_OnWorkspaceSelected(MatchInfoSnapshot selectedWorkspace)
+    private void WorkplaceList_OnWorkspaceSelected(WorkspaceNetworkInfo workspaceNetworkInfo)
     {
-        workspaceToJoin = selectedWorkspace;
+        this.workspaceNetworkInfo = workspaceNetworkInfo;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,12 +31,12 @@ public class CustomJoinSelector : MonoBehaviour
             return;
         }
 
-        if (workspaceToJoin == null)
+        if (workspaceNetworkInfo == null)
         {
             return;
         }
 
-        FindObjectOfType<CustomNetworkManager>().JoinWorkspace(workspaceToJoin);
+        FindObjectOfType<CustomNetworkManager>().JoinWorkspace(workspaceNetworkInfo);
         isJoining = true;
         
     }

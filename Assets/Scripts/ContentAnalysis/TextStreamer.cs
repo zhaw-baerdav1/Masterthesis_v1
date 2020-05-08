@@ -99,11 +99,11 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
                 _service.DetectSilence = true;
                 _service.EnableWordConfidence = true;
                 _service.EnableTimestamps = true;
-                _service.SilenceThreshold = 0.01f;
+                _service.SilenceThreshold = 0.00f;
                 _service.MaxAlternatives = 1;
                 _service.EnableInterimResults = true;
                 _service.OnError = OnError;
-                _service.InactivityTimeout = -1;
+                _service.InactivityTimeout = 7200;
                 _service.ProfanityFilter = false;
                 _service.SmartFormatting = true;
                 _service.SpeakerLabels = false;
@@ -122,6 +122,16 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
         Active = false;
 
         Log.Debug("TextSreamer.OnError()", "Error! {0}", error);
+
+        if("Session timed out.".Equals(error))
+        {
+            if (_recordingRoutine != 0)
+            {
+                Runnable.Stop(_recordingRoutine);
+            }
+
+            _recordingRoutine = Runnable.Run(CreateService());
+        }
     }
 
     public IEnumerator RecordingHandler(string microphoneID, AudioClip recording, int recordingHZ)

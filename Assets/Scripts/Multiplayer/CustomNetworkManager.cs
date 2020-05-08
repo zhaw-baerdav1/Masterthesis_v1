@@ -23,12 +23,21 @@ public class CustomNetworkManager : NetworkManager
 
     private void Awake()
     {
+        singleton = this;
+
         CharacterList.OnCharacterSelected += CharacterList_OnCharacterSelected;
     }
 
     private void OnDestroy()
     {
         CharacterList.OnCharacterSelected -= CharacterList_OnCharacterSelected;
+    }
+
+    private void Start()
+    {
+        CustomNetworkDiscovery customNetworkDiscovery = GetComponent<CustomNetworkDiscovery>();
+        customNetworkDiscovery.Initialize();
+        customNetworkDiscovery.StartAsClient();
     }
 
     private void CharacterList_OnCharacterSelected(int selectedNumber)
@@ -70,13 +79,13 @@ public class CustomNetworkManager : NetworkManager
         playerCount--;
     }
 
-    public void StartHosting()
+    public void StartInternetHosting()
     { 
         StartMatchMaker();
-        matchMaker.CreateMatch("Test-Workspace", 6, true, "", "", "", 0, 0, OnWorkspaceCreate);
+        matchMaker.CreateMatch("Test-Workspace", 6, true, "", "", "", 0, 0, OnInternetWorkspaceCreate);
     }
 
-    private void OnWorkspaceCreate(bool success, string extendedInfo, MatchInfo responseData)
+    private void OnInternetWorkspaceCreate(bool success, string extendedInfo, MatchInfo responseData)
     {
         base.StartHost(responseData);
     }
@@ -108,19 +117,22 @@ public class CustomNetworkManager : NetworkManager
     }
 
     private void Update()
-    {
-
+    {        
+        if (!String.IsNullOrEmpty(networkSceneName))
+        {
+            return;
+        }
         if (Time.time >= nextRefreshTime)
         {
             nextRefreshTime = Time.time + refreshCycle;
 
-            RefreshWorkspaceList();
+            RefreshInternetWorkspaceList();
             RefreshCharacterList();
             RefreshRoomList();
         }
     }
 
-    private void RefreshWorkspaceList()
+    private void RefreshInternetWorkspaceList()
     {
         if (matchMaker == null)
         {
@@ -142,22 +154,41 @@ public class CustomNetworkManager : NetworkManager
 
     private void HandleListWorkspacesComplete(bool success, string extendedinfo, List<MatchInfoSnapshot> responseData)
     {
-        WorkspaceList.HandleWorspaceList(responseData);
+        WorkspaceList.HandleInternetWorspaceList(responseData);
     }
 
-    public void JoinWorkspace(MatchInfoSnapshot workspace)
+    public void JoinWorkspace(WorkspaceNetworkInfo workspaceNetworkInfo)
+    {
+        if (workspaceNetworkInfo.IsOnline())
+        {
+            JoinInternetWorkspace(workspaceNetworkInfo.internetMatch);
+            return;
+        }
+
+        JoinLocalWorkspace(workspaceNetworkInfo.localMatch);
+    }
+
+    public void JoinInternetWorkspace(MatchInfoSnapshot workspace)
     {
         if (matchMaker == null)
         {
             StartMatchMaker();
         }
 
-        matchMaker.JoinMatch(workspace.networkId, "", "", "", 0, 0, HandleJoinWorkspace);
+        matchMaker.JoinMatch(workspace.networkId, "", "", "", 0, 0, HandleJoinInternetWorkspace);
     }
 
-    private void HandleJoinWorkspace(bool success, string extendedInfo, MatchInfo responseData)
+    private void HandleJoinInternetWorkspace(bool success, string extendedInfo, MatchInfo responseData)
     {
         StartClient(responseData);
+    }
+
+    public void JoinLocalWorkspace(LanConnectionInfo lanConnectionInfo)
+    {
+        networkPort = lanConnectionInfo.port;
+        networkAddress = lanConnectionInfo.ipAddress;
+
+        StartClient();
     }
 
     public override void OnClientConnect(NetworkConnection conn)

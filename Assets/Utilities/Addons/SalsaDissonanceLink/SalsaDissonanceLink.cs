@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 namespace CrazyMinnow.SALSA.DissonanceLink
 {
     [AddComponentMenu( "Crazy Minnow Studio/SALSA LipSync/Add-ons/SalsaDissonanceLink" )]
-    public class SalsaDissonanceLink : NetworkBehaviour
+    public class SalsaDissonanceLink : MonoBehaviour
     {
         // RELEASE NOTES & TODO ITEMS:
         //    2.0.0-BETA : Initial release for SALSA LipSync v2.
@@ -113,7 +113,9 @@ namespace CrazyMinnow.SALSA.DissonanceLink
                     if ( isDebug )
                         Debug.Log(string.Format("[" + GetType().Name + "] - Looking for {0} player audiosource", dissonancePlayer.PlayerId));
 
-                    playerState = dissonanceComms.FindPlayer(dissonancePlayer.PlayerId);
+                    if( dissonancePlayer.PlayerId != null) { 
+                        playerState = dissonanceComms.FindPlayer(dissonancePlayer.PlayerId);
+                    }
                     timeCheck = Time.time;
                 }
 
