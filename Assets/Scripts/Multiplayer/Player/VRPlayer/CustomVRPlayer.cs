@@ -64,9 +64,6 @@ public class CustomVRPlayer : CustomPlayer
 		GameObject _vRCameraInstance = (GameObject)Instantiate(vRCameraPrefab);
 		_vRCameraInstance.transform.parent = transform;
 
-		//Vector3 offset = _vRCameraInstance.transform.position - headOriginTransform.position;
-		//headOriginTransform.position = headOriginTransform.position + offset;
-
 		vRCameraInstance = _vRCameraInstance;
 
 		GameObject steamVRInstance = (GameObject)Instantiate(steamVRPrefab);

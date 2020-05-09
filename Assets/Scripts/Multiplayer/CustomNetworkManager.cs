@@ -24,6 +24,7 @@ public class CustomNetworkManager : NetworkManager
     private void Awake()
     {
         singleton = this;
+        DontDestroyOnLoad(this.gameObject);
 
         CharacterList.OnCharacterSelected += CharacterList_OnCharacterSelected;
     }
@@ -38,6 +39,15 @@ public class CustomNetworkManager : NetworkManager
         CustomNetworkDiscovery customNetworkDiscovery = GetComponent<CustomNetworkDiscovery>();
         customNetworkDiscovery.Initialize();
         customNetworkDiscovery.StartAsClient();
+    }
+
+    public override void OnStartHost()
+    {
+        base.OnStartHost();
+
+        CustomNetworkDiscovery customNetworkDiscovery = GetComponent<CustomNetworkDiscovery>();
+        customNetworkDiscovery.Initialize();
+        customNetworkDiscovery.StartAsServer();
     }
 
     private void CharacterList_OnCharacterSelected(int selectedNumber)

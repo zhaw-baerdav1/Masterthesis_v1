@@ -17,13 +17,9 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 
     public void StartBroadcast()
     {
-
         if (running) { 
             StopBroadcast();
         }
-                
-        base.Initialize();
-        base.StartAsServer();
 
         FindObjectOfType<CustomNetworkManager>().StartHost();
     }
