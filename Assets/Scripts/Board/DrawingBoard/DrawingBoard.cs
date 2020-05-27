@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Valve.VR;
 
+//responsible for handling activities of the player on the drawing board
 public class DrawingBoard : MonoBehaviour
 {
 
@@ -22,6 +23,7 @@ public class DrawingBoard : MonoBehaviour
 
     private CubeDefinition movedCubeDefinition = null;
 
+    //bind all events to this component
     public void Awake()
     {
         CubeList.OnNewCubeDefinitionList += CubeList_OnNewCubeDefinitionList;
@@ -39,6 +41,7 @@ public class DrawingBoard : MonoBehaviour
         ArrowList.OnNewArrowDefinitionList += ArrowList_OnNewArrowDefinitionList;
     }
 
+    //remove all binding events from component
     private void OnDestroy()
     {
         CubeList.OnNewCubeDefinitionList -= CubeList_OnNewCubeDefinitionList;
@@ -56,10 +59,13 @@ public class DrawingBoard : MonoBehaviour
         ArrowList.OnNewArrowDefinitionList -= ArrowList_OnNewArrowDefinitionList;
     }
 
+    //triggered when new list of cubes is received
     private void CubeList_OnNewCubeDefinitionList(List<CubeDefinition> cubeDefinitionList)
     {
+        //ensure all cubes are resetted first
         RemoveCubes();
 
+        //loop though cubes and apply them to drawing board
         foreach (CubeDefinition cubeDefinition in cubeDefinitionList)
         {
             CubeRepresentation cube = Instantiate(cubePrefab);
@@ -68,11 +74,14 @@ public class DrawingBoard : MonoBehaviour
             cube.Initialize();
         }
 
+        //update arrows between them
         ArrowList.RefreshArrowDefinitionList();
     }
 
+    //responsible for resetting all existing cubes
     public void RemoveCubes()
     {
+        //destroys all cubes on the drawing board
         var cubes = GetComponentsInChildren<CubeRepresentation>();
         foreach (var cube in cubes)
         {
@@ -80,25 +89,30 @@ public class DrawingBoard : MonoBehaviour
         }
     }
 
+    //triggered when player looks at the cube
     private void CubeList_OnCubeLookAt(long cubeDefinitionId)
     {
         ApplyCubeHighlighting(cubeDefinitionId, lookAtMaterial);
     }
 
+    //triggered when player not anymore looks at the cube
     private void CubeList_OnCubeLookAway(long cubeDefinitionId)
     {
         ApplyCubeHighlighting(cubeDefinitionId, defaultMaterial);
     }
 
+    //triggered when the cube is selected by player
     private void CubeList_OnCubeSelected(long cubeDefinitionId)
     {
         ApplyCubeHighlighting(cubeDefinitionId, selectedMaterial);
     }
 
+    //triggered when cube is deselected by player
     private void CubeList_OnCubeDeselected(long cubeDefinitionId)
     {
         ApplyCubeHighlighting(cubeDefinitionId, defaultMaterial);
 
+        //apply change of potential movement to all participants
         if(movedCubeDefinition != null)
         {
             CubeList.TriggerCubeChange(movedCubeDefinition.id, movedCubeDefinition.position);
@@ -107,8 +121,10 @@ public class DrawingBoard : MonoBehaviour
         }
     }
 
+    //responsible for show respective highlight on cube
     public void ApplyCubeHighlighting(long cubeDefinitionId, Material material)
     {
+        //apply new material to cube if found in existing list
         CubeRepresentation[] cubes = GetComponentsInChildren<CubeRepresentation>();
         foreach (CubeRepresentation cube in cubes)
         {
@@ -120,8 +136,10 @@ public class DrawingBoard : MonoBehaviour
         }
     }
 
+    //triggered when the cube is moved up
     private void CubeList_OnCubeMoveUp(long cubeDefinitionId)
     {
+        //find respective cube on client side and move it
         CubeRepresentation[] cubes = GetComponentsInChildren<CubeRepresentation>();
         foreach (CubeRepresentation cube in cubes)
         {
@@ -135,8 +153,10 @@ public class DrawingBoard : MonoBehaviour
         }
     }
 
+    //triggered when the cube is moved up
     private void CubeList_OnCubeMoveDown(long cubeDefinitionId)
     {
+        //find respective cube on client side and move it
         CubeRepresentation[] cubes = GetComponentsInChildren<CubeRepresentation>();
         foreach (CubeRepresentation cube in cubes)
         {
@@ -150,8 +170,10 @@ public class DrawingBoard : MonoBehaviour
         }
     }
 
+    //triggered when the cube is moved left
     private void CubeList_OnCubeMoveLeft(long cubeDefinitionId)
     {
+        //find respective cube on client side and move it
         CubeRepresentation[] cubes = GetComponentsInChildren<CubeRepresentation>();
         foreach (CubeRepresentation cube in cubes)
         {
@@ -165,8 +187,10 @@ public class DrawingBoard : MonoBehaviour
         }
     }
 
+    //triggered when the cube is moved right
     private void CubeList_OnCubeMoveRight(long cubeDefinitionId)
     {
+        //find respective cube on client side and move it
         CubeRepresentation[] cubes = GetComponentsInChildren<CubeRepresentation>();
         foreach (CubeRepresentation cube in cubes)
         {
@@ -180,10 +204,13 @@ public class DrawingBoard : MonoBehaviour
         }
     }
 
+    //triggered when list of arrows is updated
     private void ArrowList_OnNewArrowDefinitionList(List<ArrowDefinition> arrowDefinitionList)
     {
+        //ensure all existing arrows are removed from drawing board
         RemoveArrows();
 
+        //apply complete list of arrows on the drawing board
         foreach (ArrowDefinition arrowDefinition in arrowDefinitionList)
         {
             ArrowRepresentation arrow = Instantiate(arrowPrefab);
@@ -193,8 +220,10 @@ public class DrawingBoard : MonoBehaviour
         }
     }
 
+    //responsible for resetting all existing arrows
     public void RemoveArrows()
     {
+        //destroys all arrows on the drawing board
         var arrows = GetComponentsInChildren<ArrowRepresentation>();
         foreach (var arrow in arrows)
         {

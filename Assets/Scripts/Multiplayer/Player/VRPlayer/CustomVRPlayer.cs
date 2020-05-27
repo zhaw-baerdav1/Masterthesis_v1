@@ -43,10 +43,14 @@ public class CustomVRPlayer : CustomPlayer
 	{
 		base.OnStartLocalPlayer();
 
+		//general setup of player
 		InstantiatePlayer();
+
+		//player shouldn't see himself
 		HideAllMeshRenderers(this.gameObject);
 	}
 
+	//responsible for hiding all the meshes
 	private void HideAllMeshRenderers(GameObject gameObject)
 	{
 		SkinnedMeshRenderer[] skinnedMeshRenderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -56,19 +60,24 @@ public class CustomVRPlayer : CustomPlayer
 		}
 	}
 
+	//sets up complete player
 	protected void InstantiatePlayer()
 	{
+		//ensures position of VR
 		Valve.VR.OpenVR.System.ResetSeatedZeroPose();
 		Valve.VR.OpenVR.Compositor.SetTrackingSpace(Valve.VR.ETrackingUniverseOrigin.TrackingUniverseSeated);
 
+		//instantiate vr camera
 		GameObject _vRCameraInstance = (GameObject)Instantiate(vRCameraPrefab);
 		_vRCameraInstance.transform.parent = transform;
 
 		vRCameraInstance = _vRCameraInstance;
 
+		//instantie steamvr instrnace
 		GameObject steamVRInstance = (GameObject)Instantiate(steamVRPrefab);
 		steamVRInstance.transform.parent = transform;
 		
+		//setup hands
 		hands = new CustomHand[2];
 
 		GameObject leftHandInstance = (GameObject)Instantiate(leftHandPrefab);
@@ -79,6 +88,7 @@ public class CustomVRPlayer : CustomPlayer
 		rightHandInstance.transform.parent = transform;
 		hands[1] = rightHandInstance.GetComponent<CustomHand>();
 
+		//setup head collider
 		GameObject headCollider = (GameObject)Instantiate(headColliderPrefab);
 		headCollider.transform.parent = headOriginTransform.transform;
 		headCollider.transform.localPosition = Vector3.zero;

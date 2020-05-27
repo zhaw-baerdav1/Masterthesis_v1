@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//responsible for representing arrow on UI
 public class ArrowRepresentation : MonoBehaviour
 {
     private ArrowDefinition arrowDefinition;
@@ -18,16 +19,19 @@ public class ArrowRepresentation : MonoBehaviour
         arrowDefinition = _arrowDefinition;
     }
 
+    //responsible to attach arrow to drawing board
     public void AttachToDrawingBoard(Transform panelTransform)
     {
         transform.SetParent(panelTransform);
     }
 
+    //initial call to setup prefab
     public void Initialize()
     {
         ApplyTransform();
     }
     
+    //responsible for preparing arrow for visualistion
     public void ApplyTransform()
     {
         ArrowDefinition arrowDefinition = GetArrowDefinition();
@@ -35,9 +39,11 @@ public class ArrowRepresentation : MonoBehaviour
         Vector3 startCubeWorldPosition = Vector3.zero;
         Vector3 endCubeWorldPosition = Vector3.zero;
 
+        //identify all starting and ending position of the cubes
         CubeRepresentation[] allCubeRepresentationList = transform.parent.GetComponentsInChildren<CubeRepresentation>();
         foreach(CubeRepresentation cubeRepresentation in allCubeRepresentationList)
         {
+            //identify the to-be-linked cubes
             CubeDefinition cubeDefinition = cubeRepresentation.GetCubeDefinition();
             if (cubeDefinition.id.Equals(arrowDefinition.startCubeDefinitionId))
             {
@@ -54,6 +60,7 @@ public class ArrowRepresentation : MonoBehaviour
             }
         }
 
+        //update line renderer with new coordinates
         lineRenderer = GetComponent<LineRenderer>();
 
         lineRenderer.material.SetTextureScale("_MainTex", new Vector2(5f, 1f));

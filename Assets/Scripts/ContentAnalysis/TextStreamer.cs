@@ -10,6 +10,7 @@ using System;
 using NAudio.Wave;
 using System.Collections.Generic;
 
+//responsible for the speech-to-text analysis
 public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
 {
     #region PLEASE SET THESE VARIABLES IN THE INSPECTOR
@@ -44,6 +45,7 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
 
     private SpeechToTextService _service;
 
+    //start service on start
     void Start()
     {
         LogSystem.InstallDefaultReactors();
@@ -53,6 +55,7 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
         UnityObjectUtil.StartDestroyQueue();
     }
 
+    //destroy service on destroy of bject
     private void OnDestroy()
     {
         if(_service != null) { 
@@ -117,6 +120,7 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
         }
     }
 
+    //if error is detected
     private void OnError(string error)
     {
         Active = false;
@@ -134,12 +138,14 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
         }
     }
 
+    //handling if microphone is directly used
     public IEnumerator RecordingHandler(string microphoneID, AudioClip recording, int recordingHZ)
     {
         UnityObjectUtil.StartDestroyQueue();
 
         Log.Debug("TextSreamer.RecordingHandler()", "devices: {0}", Microphone.devices);
 
+        //do not continue if service is empty
         if (_service == null)
         {
            yield break;
@@ -149,8 +155,10 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
         int midPoint = recording.samples / 2;
         float[] samples = null;
 
+        //as long as we are recording
         while (recording != null)
         {
+            //get current position of mic
             int writePos = Microphone.GetPosition(microphoneID);
             
             if (writePos > recording.samples || !Microphone.IsRecording(microphoneID))
@@ -167,11 +175,13 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
                 samples = new float[midPoint];
                 recording.GetData(samples, bFirstBlock ? 0 : midPoint);
 
+                //prepare input data for service
                 AudioData record = new AudioData();
                 record.MaxLevel = Mathf.Max(Mathf.Abs(Mathf.Min(samples)), Mathf.Max(samples));
                 record.Clip = AudioClip.Create("Recording", midPoint, recording.channels, recordingHZ, false);
                 record.Clip.SetData(samples, 0);
 
+                //call service with new data
                 _service.OnListen(record);
 
                 bFirstBlock = !bFirstBlock;
@@ -189,22 +199,30 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
         yield break;
     }
 
+    //if result has been recevied
     private void OnRecognize(SpeechRecognitionEvent result)
     {
+        //continue only if result is valid
         if (result != null && result.results.Length > 0)
         {
+            //loop through result
             foreach (var res in result.results)
             {
+                //loop through texts received
                 foreach (var alt in res.alternatives)
                 {
+                    //create text to be shown on UI
                     string text = string.Format("{0} ({1}, {2:0.00})\n", alt.transcript, res.final ? "Final" : "Interim", alt.confidence);
                     Log.Debug("TextSreamer.OnRecognize()", text);
                     ResultsField.text = text;
+
+                    //trigger text and tone analyzer when result is final
                     if (res.final)
                     {
                         Runnable.Run(textAnalyzer.Analyze(alt.transcript));
                         Runnable.Run(toneAnalyzer.Analyze(alt.transcript));
 
+                        //apply naming on cube if required
                         NamingList.UsableNamingDetected(alt.transcript);
                     }
                 }
@@ -230,6 +248,7 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
         }
     }
 
+    //if speaker has been recognized
     private void OnRecognizeSpeaker(SpeakerRecognitionEvent result)
     {
         if (result != null)
@@ -246,35 +265,43 @@ public class TextStreamer : MonoBehaviour, IMicrophoneSubscriber
     float[] samples = null;
     List<float> recordingArray = new List<float>();
 
+    //called from dissonance
     public void ReceiveMicrophoneData(ArraySegment<float> buffer, WaveFormat format, string microphoneID, AudioClip recording, int writePos)
     {
+        //do not continue if service not ready
         if(_service == null)
         {
             Debug.LogWarning("IBM Service not ready.");
             return;
         }
 
+        //identify smapling size
        int samplingSize = recording.samples / 10;
 
+        //add to bufferrecording
        recordingArray.AddRange(buffer.Array);
 
+        //if ready for IBM cloud
         if ( recordingArray.Count < samplingSize)
         {
             return;
         }
 
+        //create IBM ready smaples
         samples = recordingArray.ToArray();
 
+        //prepare input data
         AudioData record = new AudioData();
         record.MaxLevel = Mathf.Max(Mathf.Abs(Mathf.Min(samples)), Mathf.Max(samples));
         record.Clip = AudioClip.Create("Recording", recordingArray.Count, format.Channels, format.SampleRate, false);
         record.Clip.SetData(samples, 0);
 
+        //call service
         _service.OnListen(record);
         recordingArray = new List<float>();
     }
 
-        public void Reset()
+    public void Reset()
     {
         //nothing to do here
     }

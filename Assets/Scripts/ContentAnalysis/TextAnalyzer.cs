@@ -1,20 +1,4 @@
-﻿/**
-* Copyright 2019 IBM Corp. All Rights Reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
-
+﻿
 using IBM.Watson.NaturalLanguageUnderstanding.V1;
 using IBM.Watson.NaturalLanguageUnderstanding.V1.Model;
 using IBM.Cloud.SDK.Utilities;
@@ -25,8 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using IBM.Cloud.SDK;
 
-
-
+//responsible for analyzing text (emotion, sentiment, etc.)
 public class TextAnalyzer : MonoBehaviour
 {
     #region PLEASE SET THESE VARIABLES IN THE INSPECTOR
@@ -46,6 +29,7 @@ public class TextAnalyzer : MonoBehaviour
 
     private NaturalLanguageUnderstandingService service;
     
+    //create service on start
     private void Start()
     {
         LogSystem.InstallDefaultReactors();
@@ -72,6 +56,7 @@ public class TextAnalyzer : MonoBehaviour
 
     public IEnumerator Analyze(string textToAnalyse)
     {
+        //prepare features to be analyzed
         Features features = new Features()
         {
             Emotion = new EmotionOptions()
@@ -84,6 +69,7 @@ public class TextAnalyzer : MonoBehaviour
             }
         };
 
+        //prepare input and call service
         service.Analyze(
             callback: OnAnalyzeResponse,
             features: features,
@@ -94,14 +80,18 @@ public class TextAnalyzer : MonoBehaviour
         yield return null;
     }
 
+    //if response has been recevied
     private void OnAnalyzeResponse(DetailedResponse<AnalysisResults> response, IBMError error)
     {
+        //if analysis result is empty
         AnalysisResults analysisResults = response.Result;
         if (analysisResults == null)
         {
             ResultsField.text = "No Results found.";
             return;
         }
+
+        //if emotionresult is empty
         EmotionResult emotionResult = analysisResults.Emotion;
         if ( emotionResult == null)
         {
@@ -109,12 +99,14 @@ public class TextAnalyzer : MonoBehaviour
             return;
         }
 
+        //update visualisation on UI
         ResultsField.text = "Joy: " + emotionResult.Document.Emotion.Joy.Value;
         ResultsField.text += ", Sadness: " + emotionResult.Document.Emotion.Sadness.Value;
         ResultsField.text += ", Disgust: " + emotionResult.Document.Emotion.Disgust.Value;
         ResultsField.text += ", Anger: " + emotionResult.Document.Emotion.Anger.Value;
         ResultsField.text += ", Fear: " + emotionResult.Document.Emotion.Fear.Value;
 
+        //if sentiment result is empty
         SentimentResult sentimentResult = analysisResults.Sentiment;
         if (sentimentResult == null)
         {
@@ -122,12 +114,15 @@ public class TextAnalyzer : MonoBehaviour
             return;
         }
 
+        //update visualisation on UI
         DocumentSentimentResults documentSentimentResults = sentimentResult.Document;
         ResultsField.text += " - Sentiment: " + documentSentimentResults.Label + " - " + documentSentimentResults.Score;
 
+        //prepare data transfer object
         Emotion emotion = new Emotion();
         emotion.setEmotionScores(emotionResult.Document.Emotion);
 
+        //trigger emotion on character
         EmotionList.HandleNewEmotion(emotion);
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+//responsible for binding modules for voice to player
 public class VoiceManager : NetworkBehaviour
 {
     private DissonanceComms dissonanceComms;
@@ -15,18 +16,22 @@ public class VoiceManager : NetworkBehaviour
     private IEnumerator coroAudioCaptureLinkage;
     private const float PollTimer = .5f;
 
+    //initiate local module
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
 
+        //do not continue if no text is streamed
         textStreamer = FindObjectOfType<TextStreamer>();
         if(textStreamer == null)
         {
             return;
         }
 
+        //find dissonance module
         dissonanceComms = FindObjectOfType<DissonanceComms>();
 
+        //start coroutine to link dissonance to the text streamer
         if (coroAudioCaptureLinkage != null)
         {
             StopCoroutine(coroAudioCaptureLinkage);
@@ -36,6 +41,7 @@ public class VoiceManager : NetworkBehaviour
 
     }
 
+    //unsubscribe to dissonance if destroyed
     private void OnDestroy()
     {
         if (basicMicrophoneCapture != null && textStreamer != null)
@@ -61,6 +67,7 @@ public class VoiceManager : NetworkBehaviour
             yield return null;
         }
 
+        //subscribe to dissonance to receive voice
         basicMicrophoneCapture.Subscribe(textStreamer);
     }
 }

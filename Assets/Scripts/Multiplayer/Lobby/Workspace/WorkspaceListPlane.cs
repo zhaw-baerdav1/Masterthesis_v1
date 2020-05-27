@@ -6,6 +6,7 @@ using UnityEngine.Networking.Match;
 using Valve.VR;
 using static System.Net.Mime.MediaTypeNames;
 
+//responsible for handling steamvr events on workspacelist
 public class WorkspaceListPlane : MonoBehaviour
 {
     public WorkplaceListItem workplaceListItemPrefab;
@@ -17,12 +18,14 @@ public class WorkspaceListPlane : MonoBehaviour
     private int count = 0;
     private int selectedNumber = 0;
 
+    //bind events on awake
     private void Awake()
     {
         WorkspaceList.OnWorkspaceListChanged += WorkplaceList_OnWorkspaceListChanged;
         WorkspaceList.OnWorkspaceActivated += WorkplaceList_OnWorkspaceActivated;
     }
 
+    //bind events on destroy
     private void OnDestroy()
     {
         WorkspaceList.OnWorkspaceListChanged -= WorkplaceList_OnWorkspaceListChanged;
@@ -31,6 +34,7 @@ public class WorkspaceListPlane : MonoBehaviour
         DeactivateInput();
     }
 
+    //activate listeners if workspaces are selected
     private void ActivateInput()
     {
         lobbySnapTurnRight.AddOnChangeListener(OnWorkspaceSwitch, SteamVR_Input_Sources.Any);
@@ -38,6 +42,7 @@ public class WorkspaceListPlane : MonoBehaviour
         lobbySnapTurnDown.AddOnChangeListener(OnWorkspaceListDown, SteamVR_Input_Sources.Any);
     }
 
+    //activate listeners if characters are selected
     private void DeactivateInput()
     {
         lobbySnapTurnRight.RemoveOnChangeListener(OnWorkspaceSwitch, SteamVR_Input_Sources.Any);
@@ -45,10 +50,12 @@ public class WorkspaceListPlane : MonoBehaviour
         lobbySnapTurnDown.RemoveOnChangeListener(OnWorkspaceListDown, SteamVR_Input_Sources.Any);
     }
 
+    //capture steamvr action to go down on workspace list
     private void OnWorkspaceListDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
     {
         if (newState)
         {
+            //if end of list is reached
             if ( selectedNumber >= (count-1))
             {
                 return;
@@ -58,10 +65,12 @@ public class WorkspaceListPlane : MonoBehaviour
         }
     }
 
+    //capture steamvr action to go up on workspace list
     private void OnWorkspaceListUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
     {
         if (newState)
         {
+            //if start of list is reached
             if (selectedNumber == 0)
             {
                 return;
@@ -71,6 +80,7 @@ public class WorkspaceListPlane : MonoBehaviour
         }
     }
 
+    //captures switch between workspace and characters
     private void OnWorkspaceSwitch(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
     {
         if (newState)
@@ -80,12 +90,17 @@ public class WorkspaceListPlane : MonoBehaviour
         }
     }
 
+    //triggered if list of workspace has changed
     private void WorkplaceList_OnWorkspaceListChanged(List<WorkspaceNetworkInfo> workspaceList)
     {
+        //reset existing workspace
         CleanupWorkspacePlane();
+
+        //update new list
         UpdateWorkspacePlane(workspaceList);
     }
 
+    //triggered if switch has been used
     private void WorkplaceList_OnWorkspaceActivated(bool activated)
     {
         if (activated)
@@ -98,6 +113,7 @@ public class WorkspaceListPlane : MonoBehaviour
         }
     }
 
+    //destroys all existing workspace objects
     private void CleanupWorkspacePlane()
     {
         var workplaceListItems = GetComponentsInChildren<WorkplaceListItem>(true);
@@ -107,6 +123,7 @@ public class WorkspaceListPlane : MonoBehaviour
         }
     }
 
+    //add all items in the workspace list to the UI
     private void UpdateWorkspacePlane(List<WorkspaceNetworkInfo> workspaceList)
     {
         count = 0;
@@ -118,6 +135,7 @@ public class WorkspaceListPlane : MonoBehaviour
             count++;
         }
 
+        //if selected item is not anymore on the list
         if ( selectedNumber > (count-1) )
         {
             selectedNumber = 0;
@@ -128,6 +146,7 @@ public class WorkspaceListPlane : MonoBehaviour
     {
         WorkplaceListItem[] workplaceListItems = GetComponentsInChildren<WorkplaceListItem>();
 
+        //mark item on the list with respective color
         for(int i = 0; i<workplaceListItems.Length; i++)
         {
             WorkplaceListItem workplaceListItem = workplaceListItems[i];

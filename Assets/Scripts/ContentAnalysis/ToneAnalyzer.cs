@@ -1,21 +1,4 @@
-﻿/**
-* Copyright 2019 IBM Corp. All Rights Reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
-
-using IBM.Watson.ToneAnalyzer.V3;
+﻿using IBM.Watson.ToneAnalyzer.V3;
 using IBM.Watson.ToneAnalyzer.V3.Model;
 using IBM.Cloud.SDK.Utilities;
 using System.Collections;
@@ -26,6 +9,7 @@ using IBM.Cloud.SDK.Authentication;
 using IBM.Cloud.SDK.Authentication.Iam;
 using System;
 
+//responsible for tone analysis of IBM
 public class ToneAnalyzer : MonoBehaviour
 {
     #region PLEASE SET THESE VARIABLES IN THE INSPECTOR
@@ -76,26 +60,33 @@ public class ToneAnalyzer : MonoBehaviour
             Text = textToAnalyze
         };
 
+        //prepare input on elements to be analyzed
         List<string> tones = new List<string>()
         {
             "emotion",
             "language",
             "social"
         };
+
+        //call service
         service.Tone(callback: OnToneResponse, toneInput: toneInput, sentences: true, tones: tones, contentLanguage: "en", acceptLanguage: "en", contentType: "application/json");
 
         
         yield return null;
     }
 
+    //if response has been recevied
     private void OnToneResponse(DetailedResponse<ToneAnalysis> response, IBMError error)
     {
+        //if tone analysis is empty
         ToneAnalysis toneAnalysis = response.Result;
         if (toneAnalysis == null)
         {
             ResultsField.text = "No Tone found.";
             return;
         }
+
+        //if document analysis is empty
         DocumentAnalysis documentAnalysis = toneAnalysis.DocumentTone;
         if (documentAnalysis == null || documentAnalysis.Tones.Count == 0)
         {
@@ -103,6 +94,7 @@ public class ToneAnalyzer : MonoBehaviour
             return;
         }
 
+        //update visualisation on found tones
         string resultText = "";
         foreach(ToneScore toneScore in documentAnalysis.Tones)
         {

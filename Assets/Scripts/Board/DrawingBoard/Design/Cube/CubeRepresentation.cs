@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+//represents the cubes visualisation on UI
 public class CubeRepresentation : MonoBehaviour
 {
     private CubeDefinition cubeDefinition;
@@ -17,20 +18,25 @@ public class CubeRepresentation : MonoBehaviour
         cubeDefinition = _cubeDefinition;
     }
 
+    //attach cube to drawing board
     public void AttachToDrawingBoard(Transform panelTransform)
     {
         transform.SetParent(panelTransform);
     }
 
+    //initiate the cube prefab
     public void Initialize()
     {
+        //ensure starting position of cube
         transform.localRotation = Quaternion.identity;
         transform.localScale = new Vector3(.08f, .08f, .08f);
 
+        //apply position and text
         ApplyPosition();
         ApplyText();
     }
 
+    //updates all labels on the cube
     private void ApplyText()
     {
         CubeDefinition _cubeDefinition = GetCubeDefinition();
@@ -42,12 +48,14 @@ public class CubeRepresentation : MonoBehaviour
         }
     }
 
+    //update material of cube
     public void SetMaterial(Material material)
     {
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material = material;
     }
 
+    //moves the cube up
     public void MoveUp()
     {
         CubeDefinition _cubeDefinition = GetCubeDefinition();
@@ -57,9 +65,11 @@ public class CubeRepresentation : MonoBehaviour
 
         cubeDefinition.position = position;
 
+        //update based on arrow definition
         ApplyPosition();
     }
 
+    //moves the cube up
     public void MoveDown()
     {
         CubeDefinition _cubeDefinition = GetCubeDefinition();
@@ -69,9 +79,11 @@ public class CubeRepresentation : MonoBehaviour
 
         cubeDefinition.position = position;
 
+        //update based on arrow definition
         ApplyPosition();
     }
 
+    //moves the cube left
     public void MoveLeft()
     {
         CubeDefinition _cubeDefinition = GetCubeDefinition();
@@ -81,9 +93,11 @@ public class CubeRepresentation : MonoBehaviour
 
         cubeDefinition.position = position;
 
+        //update based on arrow definition
         ApplyPosition();
     }
 
+    //moves the cube right
     public void MoveRight()
     {
         CubeDefinition _cubeDefinition = GetCubeDefinition();
@@ -93,9 +107,11 @@ public class CubeRepresentation : MonoBehaviour
 
         cubeDefinition.position = position;
 
+        //update based on arrow definition
         ApplyPosition();
     }
 
+    //apply position on UI based on cube definition
     private void ApplyPosition()
     {
         CubeDefinition _cubeDefinition = GetCubeDefinition();

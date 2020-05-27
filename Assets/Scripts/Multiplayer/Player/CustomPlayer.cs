@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+//responsible for handling communication over dissonance
 public class CustomPlayer : NetworkBehaviour, IDissonancePlayer
 {
 	private static readonly Log Log = Logs.Create(LogCategory.Network, "HLAPI Player Component");
@@ -29,6 +30,7 @@ public class CustomPlayer : NetworkBehaviour, IDissonancePlayer
 		get { return transform.rotation; }
 	}
 
+    //defines type of player
     public NetworkPlayerType Type
     {
         get
@@ -39,17 +41,20 @@ public class CustomPlayer : NetworkBehaviour, IDissonancePlayer
         }
     }
 
+    //removes dissonance module on destroy
     public void OnDestroy()
     {
         if (_comms != null)
             _comms.LocalPlayerNameChanged -= SetPlayerName;
     }
 
+    //initiate dissonance modul on enable
     public void OnEnable()
     {
         _comms = FindObjectOfType<DissonanceComms>();
     }
 
+    //stop tracking of disabled
     public void OnDisable()
     {
         if (IsTracking)

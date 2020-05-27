@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+//data transfer object of cube
 public class CubeDefinition
 {
     public long id;

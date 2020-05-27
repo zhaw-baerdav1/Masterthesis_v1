@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+//data transfer object of arrow
 public class ArrowDefinition
 {
     public long id;

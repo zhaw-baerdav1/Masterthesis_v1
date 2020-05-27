@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//data transfer object for emotions
 public class Emotion
 {
     private EmotionScores emotionScores;

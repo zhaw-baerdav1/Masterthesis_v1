@@ -6,6 +6,7 @@ using UnityEngine.Networking.Match;
 using Valve.VR;
 using static System.Net.Mime.MediaTypeNames;
 
+//responsible for handling steamvr events on workspacelist
 public class CharacterListPlane : MonoBehaviour
 {
 
@@ -18,12 +19,14 @@ public class CharacterListPlane : MonoBehaviour
     private int count = 0;
     private int selectedNumber = 0;
 
+    //bind events
     private void Awake()
     {
         CharacterList.OnCharacterListChanged += CharacterList_OnCharacterListChanged;
         CharacterList.OnCharacterActivated += CharacterList_OnCharacterActivated;
     }
 
+    //unbind events
     private void OnDestroy()
     {
         CharacterList.OnCharacterListChanged -= CharacterList_OnCharacterListChanged;
@@ -32,6 +35,7 @@ public class CharacterListPlane : MonoBehaviour
         DeactivateInput();
     }
 
+    //activate input if characterlist is chosen
     private void ActivateInput()
     {
         lobbySnapTurnLeft.AddOnChangeListener(OnWorkspaceSwitch, SteamVR_Input_Sources.Any);
@@ -39,6 +43,7 @@ public class CharacterListPlane : MonoBehaviour
         lobbySnapTurnDown.AddOnChangeListener(OnWorkspaceListDown, SteamVR_Input_Sources.Any);
     }
 
+    //deactivate input if workspacelist is chosen
     private void DeactivateInput()
     {
         lobbySnapTurnLeft.RemoveOnChangeListener(OnWorkspaceSwitch, SteamVR_Input_Sources.Any);
@@ -46,6 +51,7 @@ public class CharacterListPlane : MonoBehaviour
         lobbySnapTurnDown.RemoveOnChangeListener(OnWorkspaceListDown, SteamVR_Input_Sources.Any);
     }
 
+    //capture steamvr action to go down on character list
     private void OnWorkspaceListDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
     {
         if (newState)
@@ -59,6 +65,7 @@ public class CharacterListPlane : MonoBehaviour
         }
     }
 
+    //capture steamvr action to go up on character list
     private void OnWorkspaceListUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
     {
         if (newState)
@@ -73,7 +80,7 @@ public class CharacterListPlane : MonoBehaviour
     }
 
 
-
+    //captures switch between workspace and characters
     private void OnWorkspaceSwitch(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
     {
         if (newState)
@@ -83,6 +90,7 @@ public class CharacterListPlane : MonoBehaviour
         }
     }
 
+    //triggered if switch has been used
     private void CharacterList_OnCharacterActivated(bool activated)
     {
         if (activated)
@@ -95,12 +103,17 @@ public class CharacterListPlane : MonoBehaviour
         }
     }
 
+    //triggered if list of character has changed
     private void CharacterList_OnCharacterListChanged(List<GameObject> characterList)
     {
+        //reset existing characters
         CleanupCharacterPlane();
+
+        //update new list
         UpdateCharacterPlane(characterList);
     }
 
+    //destroys all existing character objects
     private void CleanupCharacterPlane()
     {
         var characterListItems = GetComponentsInChildren<CharacterListItem>(true);
@@ -110,6 +123,7 @@ public class CharacterListPlane : MonoBehaviour
         }
     }
 
+    //add all items in the workspace list to the UI
     private void UpdateCharacterPlane(List<GameObject> characterList)
     {
         count = 0;
@@ -121,6 +135,7 @@ public class CharacterListPlane : MonoBehaviour
             count++;
         }
 
+        //if selected item is not anymore on the list
         if ( selectedNumber > (count-1) )
         {
             selectedNumber = 0;
@@ -131,7 +146,8 @@ public class CharacterListPlane : MonoBehaviour
     {
         CharacterListItem[] characterListItems = GetComponentsInChildren<CharacterListItem>();
 
-        for(int i = 0; i< characterListItems.Length; i++)
+        //mark item on the list with respective color
+        for (int i = 0; i< characterListItems.Length; i++)
         {
             CharacterListItem characterListItem = characterListItems[i];
 
